@@ -1,0 +1,7 @@
+com\proj\proxy\handler\dictionary\DictionaryProxy.class
+com\proj\proxy\dbhandler\dto\DbBfpsQueryPartialDTO.class
+com\proj\proxy\handler\value\ValueProxy.class
+com\proj\proxy\ProxyConfig.class
+com\proj\proxy\handler\BaseTransfer.class
+com\proj\proxy\dbhandler\DbHandler.class
+com\proj\proxy\Test.class

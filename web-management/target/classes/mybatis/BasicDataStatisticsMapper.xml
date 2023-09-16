@@ -1,0 +1,1058 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.proj.web.mapper.BasicDataStatisticsMapper">
+
+
+    <!--    采购计划-物资类批次计划 n 代表数量 p代表金额——0510 -->
+    <select id="selectPurchase001" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '批次计划'
+        and ZJHLX ='物资'
+        AND JZRQ BETWEEN #{request.startTime} AND #{request.endTime}
+
+        UNION
+
+        SELECT 2 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '批次计划'
+        and ZJHLX ='物资'
+        AND JZRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+
+        UNION
+
+        SELECT 3 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '批次计划'
+        and ZJHLX ='物资'
+        AND JZRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+
+    </select>
+
+
+    <!--    采购计划-物资类协议库存计划 n 代表数量 p代表金额——0510 -->
+    <select id="selectPurchase002" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '协议库存计划'
+        and ZJHLX ='物资'
+        AND JZRQ BETWEEN #{request.startTime} AND #{request.endTime}
+
+        UNION
+
+        SELECT 2 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '协议库存计划'
+        and ZJHLX ='物资'
+        AND JZRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+
+        UNION
+
+        SELECT 3 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '协议库存计划'
+        and ZJHLX ='物资'
+        AND JZRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+    </select>
+
+    <!--    采购计划-物资类框架计划 n 代表数量 p代表金额——0510 -->
+    <select id="selectPurchase003" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '框架计划'
+        and ZJHLX ='物资'
+        AND JZRQ BETWEEN #{request.startTime} AND #{request.endTime}
+
+        UNION
+
+        SELECT 2 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '框架计划'
+        and ZJHLX ='物资'
+        AND JZRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+
+        UNION
+
+        SELECT 3 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '框架计划'
+        and ZJHLX ='物资'
+        AND JZRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+    </select>
+
+    <!--    采购计划-协议库存匹配计划 n 代表数量 p代表金额-->
+    <select id="selectPurchase004" resultType="java.util.LinkedHashMap">
+        SELECT '1' as 'type',count(WLXL) as n ,IFNULL(sum( beiyong1 ),0) as p FROM zesc_zncg_xykcztzxqk_mx
+        <where>
+            WLXL is NOT NULL AND not ISNULL(WLXL)
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND ZPPRQ BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as 'type',count(WLXL) as n ,IFNULL(sum( beiyong1 ),0) as p FROM zesc_zncg_xykcztzxqk_mx
+        <where>
+            WLXL is NOT NULL AND not ISNULL(WLXL)
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND ZPPRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as 'type',count(WLXL) as n ,IFNULL(sum( beiyong1 ),0) as p FROM zesc_zncg_xykcztzxqk_mx
+        <where>
+            WLXL is NOT NULL AND not ISNULL(WLXL)
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND ZPPRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+    <!--    采购计划-服务类批次计划 n 代表数量 p代表金额——0510 -->
+    <select id="selectPurchase005" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '批次计划'
+        and ZJHLX ='非物资'
+        AND CZsj  BETWEEN #{request.startTime} AND #{request.endTime}
+
+        UNION
+
+        SELECT 2 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '批次计划'
+        and ZJHLX ='非物资'
+        AND CZsj  BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+
+        UNION
+
+        SELECT 3 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '批次计划'
+        and ZJHLX ='非物资'
+        AND CZsj  BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+    </select>
+
+
+    <!--    采购计划-服务类框架计划 n 代表数量 p代表金额——0510 -->
+    <select id="selectPurchase006" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '框架计划'
+        and ZJHLX ='非物资'
+        AND CZsj  BETWEEN #{request.startTime} AND #{request.endTime}
+
+        UNION
+
+        SELECT 2 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '框架计划'
+        and ZJHLX ='非物资'
+        AND CZsj  BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+
+        UNION
+
+        SELECT 3 as type,
+        count(1) as n  , ifnull(sum(RLWRT),0) as p
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHSBLX = '框架计划'
+        and ZJHLX ='非物资'
+        AND CZsj  BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+    </select>
+
+
+    <!--    招标采购-国网公司实施采购 n 代表数量 p代表金额-->
+    <select id="selectTender001" resultType="java.util.LinkedHashMap">
+        SELECT '1' as 'type', count(DISTINCT PCBM) n,IFNULL(sum((HSZJ)),0) p FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE 'SG%' AND PCND = year(#{request.startTime})
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND ZBSJ BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as 'type', count(DISTINCT PCBM) n ,IFNULL(sum((HSZJ)),0) p FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE 'SG%' AND PCND = year(#{request.startTime})
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as 'type', count(DISTINCT PCBM) n ,IFNULL(sum((HSZJ)),0) p FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE 'SG%' AND PCND = year(DATE_SUB(#{request.startTime},INTERVAL 1 year))
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+    <!--    招标采购-物资类 n 代表数量 p代表金额-->
+    <select id="selectTender002" resultType="java.util.LinkedHashMap">
+        SELECT '1' as 'type', count(DISTINCT PCBM) n,IFNULL(sum((HSZJ)),0) p FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%' AND CGLB='物资' AND PCND = year(#{request.startTime})
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND ZBSJ BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as 'type', count(DISTINCT PCBM) n,IFNULL(sum((HSZJ)),0) p FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%' AND CGLB='物资' AND PCND = year(#{request.startTime})
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as 'type', count(DISTINCT PCBM) n,IFNULL(sum((HSZJ)),0) p FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%' AND CGLB='物资' AND PCND = year(DATE_SUB(#{request.startTime},INTERVAL 1 year))
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+    <!--    招标采购-服务类 n 代表数量 p代表金额-->
+    <select id="selectTender003" resultType="java.util.LinkedHashMap">
+        SELECT '1' as 'type', count(PCBM) n,IFNULL(sum((HSZJ)),0) p FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%' AND CGLB='服务' AND PCND = year(#{request.startTime})
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND ZBSJ BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as 'type', count(PCBM) n,IFNULL(sum((HSZJ)),0) p FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%' AND CGLB='服务' AND PCND = year(#{request.startTime})
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as 'type', count(PCBM) n,IFNULL(sum((HSZJ)),0) p FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%' AND CGLB='服务' AND PCND = year(DATE_SUB(#{request.startTime},INTERVAL 1 year))
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+
+    <!--    合同签订-物资合同 n 代表数量 p代表金额-->
+    <select id="selectSigned001" resultType="java.util.LinkedHashMap">
+        SELECT '1' as 'type', count(distinct zpzh) n,IFNULL(sum(ZJE),0) p from ESC_RDS_BRS_BD_WZHT_001_HTQDJE4
+        <where>
+            AND ZPZLX = '标准合同'
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND ZHTSXRQ BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as 'type', count(distinct zpzh) n,IFNULL(sum(ZJE),0) p from ESC_RDS_BRS_BD_WZHT_001_HTQDJE4
+        <where>
+            AND ZPZLX = '标准合同'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND ZHTSXRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as 'type', count(distinct zpzh) n,IFNULL(sum(ZJE),0) p from ESC_RDS_BRS_BD_WZHT_001_HTQDJE4
+        <where>
+            AND ZPZLX = '标准合同'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND ZHTSXRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+
+    <!--    合同签订-采购供货单 n 代表数量 p代表金额-->
+    <select id="selectSigned002" resultType="java.util.LinkedHashMap">
+        select 1 as type, count(DISTINCT zpzh) n , ifnull(sum(ZJE),0) p from ESC_RDS_BRS_BD_WZHT_001_HTQDJE4
+        <where>
+            zpzlx='采购供货单'
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND ZHTSXRQ BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        select 2 as type, count(DISTINCT zpzh) n , ifnull(sum(ZJE),0) p from ESC_RDS_BRS_BD_WZHT_001_HTQDJE4
+        <where>
+            zpzlx='采购供货单'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND ZHTSXRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        select 3 as type, count(DISTINCT zpzh) n , ifnull(sum(ZJE),0) p from ESC_RDS_BRS_BD_WZHT_001_HTQDJE4
+        <where>
+            zpzlx='采购供货单'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND ZHTSXRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+    <!--    合同签订-合同变更 n 代表数量 p代表金额-->
+    <select id="selectSigned003" resultType="java.util.LinkedHashMap">
+        SELECT 1 type ,sum(A) n ,sum(B) p FROM (
+        select count(distinct ZCGDDH) as A ,ifnull(sum(abs(ZBGJE)),0) as B from ESC_RDS_BRS_BD_WZHT_002_HTBGQDJE
+        <where>
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                ((ZGGRQ BETWEEN #{request.startTime} AND #{request.endTime} OR ZBCHTSXRQ BETWEEN #{request.startTime}
+                AND #{request.endTime}))
+            </if>
+        </where>
+        UNION ALL
+        select count(distinct ZXYKCBH) as A ,ifnull(sum(abs(ZBGJE)),0) as B from ESC_RDS_BRS_BD_WZHT_002_HTBGQDJE2
+        <where>
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                (ZGGRQ BETWEEN #{request.startTime} AND #{request.endTime} OR ZBCCGHTSXRQ BETWEEN #{request.startTime}
+                AND #{request.endTime})
+            </if>
+        </where>
+        UNION ALL
+        select count(distinct ZCGGHDH) as A ,ifnull(sum(abs(ZBGJE)),0) as B from ESC_RDS_BRS_BD_WZHT_002_HTBGQDJE3
+        <where>
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                (ZGGRQ BETWEEN #{request.startTime} AND #{request.endTime} OR ZBCCGHTSXRQ BETWEEN #{request.startTime}
+                AND #{request.endTime})
+            </if>
+        </where>
+        ) ESC_RDS_BRS_BD_WZHT_002
+        UNION
+        SELECT 2 type ,sum(A) n ,sum(B) p FROM (
+        select count(distinct ZCGDDH) as A ,ifnull(sum(abs(ZBGJE)),0) as B from ESC_RDS_BRS_BD_WZHT_002_HTBGQDJE
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                ZGGRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime} OR ZBCHTSXRQ BETWEEN
+                #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION ALL
+        select count(distinct ZXYKCBH) as A ,ifnull(sum(abs(ZBGJE)),0) as B from ESC_RDS_BRS_BD_WZHT_002_HTBGQDJE2
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                ZGGRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime} OR ZBCCGHTSXRQ BETWEEN
+                #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION ALL
+        select count(distinct ZCGGHDH) as A ,ifnull(sum(abs(ZBGJE)),0) as B from ESC_RDS_BRS_BD_WZHT_002_HTBGQDJE3
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                ZGGRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime} OR ZBCCGHTSXRQ BETWEEN
+                #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        ) ESC_RDS_BRS_BD_WZHT_002
+        UNION
+        SELECT 3 type ,sum(A) n ,sum(B) p FROM (
+        select count(distinct ZCGDDH) as A ,ifnull(sum(abs(ZBGJE)),0) as B from ESC_RDS_BRS_BD_WZHT_002_HTBGQDJE
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                ZGGRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime} OR ZBCHTSXRQ BETWEEN
+                #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+        UNION ALL
+        select count(distinct ZXYKCBH) as A ,ifnull(sum(abs(ZBGJE)),0) as B from ESC_RDS_BRS_BD_WZHT_002_HTBGQDJE2
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                ZGGRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime} OR ZBCCGHTSXRQ BETWEEN
+                #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+        UNION ALL
+        select count(distinct ZCGGHDH) as A ,ifnull(sum(abs(ZBGJE)),0) as B from ESC_RDS_BRS_BD_WZHT_002_HTBGQDJE3
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                ZGGRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime} OR ZBCCGHTSXRQ BETWEEN
+                #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+        ) ESC_RDS_BRS_BD_WZHT_002
+    </select>
+
+    <!--    合同结算-集中支付 n 代表数量 p代表金额-->
+    <select id="selectClearing001" resultType="java.util.LinkedHashMap">
+        select 1 type ,count(ZJHBH) n , ifnull(sum(ZSQJE),0) p from ZESC_RDS_YB_HTJS
+        <where>
+            ZZFZT is not null AND not ISNULL(ZZFZT) and ZCLZT is not null AND not ISNULL(ZCLZT)
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND concat(SUBSTRING(ZJHPC,1,4),'-',SUBSTRING(ZJHPC,5,2),'-01') BETWEEN #{request.startTime} AND
+                #{request.endTime}
+            </if>
+        </where>
+        UNION
+        select 2 type ,count(ZJHBH) n , ifnull(sum(ZSQJE),0) p from ZESC_RDS_YB_HTJS
+        <where>
+            ZZFZT is not null AND not ISNULL(ZZFZT) and ZCLZT is not null AND not ISNULL(ZCLZT)
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND concat(SUBSTRING(ZJHPC,1,4),'-',SUBSTRING(ZJHPC,5,2),'-01') BETWEEN #{request.accStartTime} AND
+                #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        select 3 type ,count(ZJHBH) n , ifnull(sum(ZSQJE),0) p from ZESC_RDS_YB_HTJS
+        <where>
+            ZZFZT is not null AND not ISNULL(ZZFZT) and ZCLZT is not null AND not ISNULL(ZCLZT)
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND concat(SUBSTRING(ZJHPC,1,4),'-',SUBSTRING(ZJHPC,5,2),'-01') BETWEEN #{request.accLastStartTime} AND
+                #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+    <!--    合同结算-非电商采购支付逾期 n 代表数量 p代表金额-->
+    <select id="selectClearing002" resultType="java.util.LinkedHashMap">
+        SELECT DISTINCT 1 type ,count(CGPZH) n , ifnull(sum(zwfje)*10000,0) p FROM zesc_zncg_sjykjkyj
+        <where>
+            ZYQLX='逾期未申请' AND cgzzbm = 'BP28' AND chzz = '统一采购采购组织' AND cgpzh != '' and cgpzh IS NOT NULL AND zfzt =
+            '未冻结' AND ( wzfyy = '' OR wzfyy = NULL OR wzfyy = '单据不齐全' ) AND htlx NOT IN ( '超市化采购', '采购专区' ) AND dwbm !=
+            'BP35'
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND YQRQ BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT DISTINCT 2 type ,count(CGPZH) n , ifnull(sum(zwfje)*10000,0) p FROM zesc_zncg_sjykjkyj
+        <where>
+            ZYQLX='逾期未申请' AND cgzzbm = 'BP28' AND chzz = '统一采购采购组织' AND cgpzh != '' and cgpzh IS NOT NULL AND zfzt =
+            '未冻结' AND ( wzfyy = '' OR wzfyy = NULL OR wzfyy = '单据不齐全' ) AND htlx NOT IN ( '超市化采购', '采购专区' ) AND dwbm !=
+            'BP35'
+            <if test="request.accStartTime != null and request.startTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND YQRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT DISTINCT 3 type ,count(CGPZH) n , ifnull(sum(zwfje)*10000,0) p FROM zesc_zncg_sjykjkyj
+        <where>
+            ZYQLX='逾期未申请' AND cgzzbm = 'BP28' AND chzz = '统一采购采购组织' AND cgpzh != '' and cgpzh IS NOT NULL AND zfzt =
+            '未冻结' AND ( wzfyy = '' OR wzfyy = NULL OR wzfyy = '单据不齐全' ) AND htlx NOT IN ( '超市化采购', '采购专区' ) AND dwbm !=
+            'BP35'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND YQRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+
+    <!--    仓储管理-北京公司库存情况库存 n 代表数量 p代表金额-->
+    <select id="selectStorage001" resultType="java.util.LinkedHashMap">
+        SELECT '1' as 'type', count(werks) n FROM esc_rds_brs_bd_cc_019_ndztkcjetj
+        <where>
+            werks LIKE 'BP%' AND ((LGORT LIKE'99%' OR LGORT LIKE'A%'))
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND concat(LFGJA, '-', LFMON, '-01') BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as 'type', count(werks) n FROM esc_rds_brs_bd_cc_019_ndztkcjetj
+        <where>
+            werks LIKE 'BP%' AND (LGORT LIKE'99%' OR LGORT LIKE'A%')
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND concat(LFGJA, '-', LFMON, '-01') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as 'type', count(werks) n FROM esc_rds_brs_bd_cc_019_ndztkcjetj
+        <where>
+            werks LIKE 'BP%' AND (LGORT LIKE'99%' OR LGORT LIKE'A%')
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND concat(LFGJA, '-', LFMON, '-01') BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+    <!--    仓储管理-北京公司库存情况库存 n 代表数量 p代表金额-->
+    <select id="selectStorage001p1" resultType="java.math.BigDecimal">
+        SELECT ifnull(sum(DMBTR),0) p FROM esc_rds_brs_bd_cc_019_ndztkcjetj
+        <where>
+            werks LIKE 'BP%' AND (LGORT LIKE'99%' OR LGORT LIKE'A%')
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND concat(LFGJA, '-', LFMON, '-01') BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+    </select>
+
+    <!--    仓储管理-北京公司库存情况库存 n 代表数量 p代表金额-->
+    <select id="selectStorage001p2" resultType="java.util.LinkedHashMap">
+        SELECT '1' as 'type',sum(a1+a2)/2 AS p FROM (
+        SELECT ifnull(sum(DMBTR),0) as a1,0 as a2 FROM esc_rds_brs_bd_cc_019_ndztkcjetj
+        <where>
+            werks LIKE 'BP%' AND (LGORT LIKE'99%' OR LGORT LIKE'A%')
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND concat(LFGJA, '-', LFMON, '-01') BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION ALL
+        SELECT 0 as a1,ifnull(sum(DMBTR),0) as a2 FROM esc_rds_brs_bd_cc_019_ndztkcjetj
+        <where>
+            werks LIKE 'BP%' AND (LGORT LIKE'99%' OR LGORT LIKE'A%')
+            <if test="request.year != null and request.year !=''">
+                AND concat(LFGJA, '-', LFMON, '-01') BETWEEN concat(#{request.year}, '-12-01') AND
+                concat(#{request.year}, '-12-31')
+            </if>
+        </where>
+        ) esc_rds_brs_bd_cc_019_ndztkcjetj
+        UNION
+        SELECT '2' as 'type',sum(a1+a2)/2 AS p FROM (
+        SELECT ifnull(sum(DMBTR),0) as a1,0 as a2 FROM esc_rds_brs_bd_cc_019_ndztkcjetj
+        <where>
+            werks LIKE 'BP%' AND (LGORT LIKE'99%' OR LGORT LIKE'A%')
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND concat(LFGJA, '-', LFMON, '-01') BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+        UNION ALL
+        SELECT 0 as a1,ifnull(sum(DMBTR),0) as a2 FROM esc_rds_brs_bd_cc_019_ndztkcjetj
+        <where>
+            werks LIKE 'BP%' AND (LGORT LIKE'99%' OR LGORT LIKE'A%')
+            <if test="request.lastYear != null and request.lastYear !=''">
+                AND concat(LFGJA, '-', LFMON, '-01') BETWEEN concat(#{request.lastYear}, '-12-01') AND
+                concat(#{request.lastYear}, '-12-31')
+            </if>
+        </where>
+        ) esc_rds_brs_bd_cc_019_ndztkcjetj
+    </select>
+
+    <!--    仓储管理-北京公司库存情况入库 n 代表数量 p代表金额-->
+    <select id="selectStorage002" resultType="java.util.LinkedHashMap">
+        SELECT '1' as 'type', count(zcrklx) as n , IFNULL(sum(zkcje),0) as p FROM esc_rds_brs_bd_cc_016_crkfx
+        <where>
+            zcrklx ='入库' AND zdwbh LIKE '%BP%'
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND zrksj BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as 'type', count(zdwbh) as n , IFNULL(sum(zkcje),0) as p FROM esc_rds_brs_bd_cc_016_crkfx
+        <where>
+            zcrklx ='入库' AND zdwbh LIKE '%BP%'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND zrksj BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as 'type', count(zdwbh) as n , IFNULL(sum(zkcje),0) as p FROM esc_rds_brs_bd_cc_016_crkfx
+        <where>
+            zcrklx ='入库' AND zdwbh LIKE '%BP%'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND zrksj BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+    <!--    仓储管理-北京公司库存情况出库 n 代表数量 p代表金额-->
+    <select id="selectStorage003" resultType="java.util.LinkedHashMap">
+        SELECT '1' as 'type', count(zdwbh) as n , IFNULL(sum(zkcje),0) as p FROM esc_rds_brs_bd_cc_016_crkfx
+        <where>
+            zcrklx ='出库' AND zdwbh LIKE '%BP%'
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND zrksj BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as 'type', count(zdwbh) as n , IFNULL(sum(zkcje),0) as p FROM esc_rds_brs_bd_cc_016_crkfx
+        <where>
+            zcrklx ='出库' AND zdwbh LIKE '%BP%'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND zrksj BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as 'type', count(zdwbh) as n , IFNULL(sum(zkcje),0) as p FROM esc_rds_brs_bd_cc_016_crkfx
+        <where>
+            zcrklx ='出库' AND zdwbh LIKE '%BP%'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND zrksj BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+    <!--    仓储管理-北京公司库存情况代保管物资入库 n 代表数量 p代表金额-->
+    <select id="selectStorage004" resultType="java.util.LinkedHashMap">
+        SELECT '1' as 'type', count(zdwbh) as n FROM esc_rds_brs_bd_cc_016_crkfx
+        <where>
+            zcrklx ='入库' AND zdwbh LIKE 'BX%'
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND zrksj BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as 'type', count(zdwbh) as n FROM esc_rds_brs_bd_cc_016_crkfx
+        <where>
+            zcrklx ='入库' AND zdwbh LIKE 'BX%'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND zrksj BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as 'type', count(zdwbh) as n FROM esc_rds_brs_bd_cc_016_crkfx
+        <where>
+            zcrklx ='入库' AND zdwbh LIKE 'BX%'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND zrksj BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+    <!--    仓储管理-北京公司库存情况代保管物资出库 n 代表数量 p代表金额-->
+    <select id="selectStorage005" resultType="java.util.LinkedHashMap">
+        SELECT '1' as 'type', count(zdwbh) as n FROM esc_rds_brs_bd_cc_016_crkfx
+        <where>
+            zcrklx ='出库' AND zdwbh LIKE 'BX%'
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND zrksj BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as 'type', count(zdwbh) as n FROM esc_rds_brs_bd_cc_016_crkfx
+        <where>
+            zcrklx ='出库' AND zdwbh LIKE 'BX%'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND zrksj BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as 'type', count(zdwbh) as n FROM esc_rds_brs_bd_cc_016_crkfx
+        <where>
+            zcrklx ='出库' AND zdwbh LIKE 'BX%'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND zrksj BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+    <!--    仓储管理-专业仓情况库存-->
+    <select id="selectStorage006n1" resultType="java.lang.Integer">
+        SELECT count(lgort) FROM esc_rds_brs_bd_zyc_001_zycxxcx
+    </select>
+
+    <!--    仓储管理-专业仓情况库存-->
+    <select id="selectStorage006p1" resultType="java.math.BigDecimal">
+        SELECT ifnull(sum(dmbtr),0) FROM esc_rds_brs_bd_zyc_002_zyckccx
+    </select>
+
+    <!--    仓储管理-专业仓情况入仓 n 代表数量 p代表金额-->
+    <select id="selectStorage007" resultType="java.util.LinkedHashMap">
+        SELECT '1' as 'type',count(dmbtr) as n,IFNULL(sum(dmbtr),0) as p FROM esc_rds_brs_bd_zyc_003_zyccrkcx
+        <where>
+            type ='入库' AND dmbtr &lt;&gt; 0 AND trim(dmbtr) &lt;&gt; '' AND dmbtr is not null AND not ISNULL(dmbtr)
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND cjrq BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as 'type',count(dmbtr) as n,IFNULL(sum(dmbtr),0) as p FROM esc_rds_brs_bd_zyc_003_zyccrkcx
+        <where>
+            type ='入库' AND dmbtr &lt;&gt; 0 AND trim(dmbtr) &lt;&gt; '' AND dmbtr is not null AND not ISNULL(dmbtr)
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND cjrq BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as 'type',count(dmbtr) as n,IFNULL(sum(dmbtr),0) as p FROM esc_rds_brs_bd_zyc_003_zyccrkcx
+        <where>
+            type ='入库' AND dmbtr &lt;&gt; 0 AND trim(dmbtr) &lt;&gt; '' AND dmbtr is not null AND not ISNULL(dmbtr)
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND cjrq BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+    <!--    仓储管理-专业仓情况出仓 n 代表数量 p代表金额-->
+    <select id="selectStorage008" resultType="java.util.LinkedHashMap">
+        SELECT '1' as 'type',count(dmbtr) as n,IFNULL(sum(dmbtr),0) as p FROM esc_rds_brs_bd_zyc_003_zyccrkcx
+        <where>
+            type ='出库' AND dmbtr &lt;&gt; 0 AND trim(dmbtr) &lt;&gt; '' AND dmbtr is not null AND not ISNULL(dmbtr)
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND cjrq BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as 'type',count(dmbtr) as n,IFNULL(sum(dmbtr),0) as p FROM esc_rds_brs_bd_zyc_003_zyccrkcx
+        <where>
+            type ='出库' AND dmbtr &lt;&gt; 0 AND trim(dmbtr) &lt;&gt; '' AND dmbtr is not null AND not ISNULL(dmbtr)
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND cjrq BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as 'type',count(dmbtr) as n,IFNULL(sum(dmbtr),0) as p FROM esc_rds_brs_bd_zyc_003_zyccrkcx
+        <where>
+            type ='出库' AND dmbtr &lt;&gt; 0 AND trim(dmbtr) &lt;&gt; '' AND dmbtr is not null AND not ISNULL(dmbtr)
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND cjrq BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+    <!--    平衡利库-跨单位利库条目及金额 n 代表数量 p代表金额-->
+    <select id="selectBalance001" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,(a+b) as n ,(c+d) as p FROM (SELECT (
+        select count(1) from ads_mat_esc_jh_phlkqktj WHERE MBLNR!='' AND ZDBWCRQ!=''AND ZLKLX='跨单位利库' AND
+        date_add(ZSQDCJRQ,INTERVAL 1 month) BETWEEN #{request.startTime} AND #{request.endTime} AND ZDBWCRQ BETWEEN
+        date_add(#{request.startTime},INTERVAL -1 month) AND #{request.endTime}
+        )a,(
+        select count(1) from ads_mat_esc_jh_wzdbqktj WHERE Cargo_status='ES000032'AND deploy_type='跨单位调配' AND
+        date_add(DATTE1,INTERVAL 1 month) BETWEEN #{request.startTime} AND #{request.endTime} AND DATTE2 BETWEEN
+        date_add(#{request.startTime},INTERVAL -1 month) AND #{request.endTime}
+        )b,(
+        select ifnull(sum(PCKCDJ*ZLKSL),0) from ads_mat_esc_jh_phlkqktj WHERE MBLNR!='' AND ZDBWCRQ!=''AND ZLKLX='跨单位利库'
+        AND
+        date_add(ZSQDCJRQ,INTERVAL 1 month) BETWEEN #{request.startTime} AND #{request.endTime} AND ZDBWCRQ BETWEEN date_add(#{request.startTime},INTERVAL -1 month) AND #{request.endTime}
+        )c,(
+        select ifnull(sum(price),0) from ads_mat_esc_jh_wzdbqktj WHERE Cargo_status='ES000032'AND deploy_type='跨单位调配'
+        AND
+        date_add(DATTE1,INTERVAL 1 month) BETWEEN #{request.startTime} AND #{request.endTime} AND DATTE2 BETWEEN date_add(#{request.startTime},INTERVAL -1 month) AND #{request.endTime}
+        )d) ads_mat_esc_jh
+
+        union
+
+        SELECT 2 as type,(a+b) as n ,(c+d) as p FROM (SELECT (
+        select count(1) from ads_mat_esc_jh_phlkqktj WHERE MBLNR!='' AND ZDBWCRQ!=''AND ZLKLX='跨单位利库' AND
+        ZSQDCJRQ BETWEEN #{request.accStartTime} AND date_add(#{request.endTime}, INTERVAL -1 month) AND ZDBWCRQ BETWEEN
+        #{request.accStartTime} AND #{request.accEndTime}
+        )a,(
+        select count(1) from ads_mat_esc_jh_wzdbqktj WHERE Cargo_status='ES000032'AND deploy_type='跨单位调配' AND
+        DATTE1 BETWEEN #{request.accStartTime} AND date_add(#{request.endTime}, INTERVAL -1 month) AND DATTE2 BETWEEN
+        #{request.accStartTime} AND #{request.accEndTime}
+        )b,(
+        select ifnull(sum(PCKCDJ*ZLKSL),0) from ads_mat_esc_jh_phlkqktj WHERE MBLNR!='' AND ZDBWCRQ!=''AND ZLKLX='跨单位利库'
+        AND
+        ZSQDCJRQ BETWEEN #{request.accStartTime} AND date_add(#{request.endTime}, INTERVAL -1 month) AND ZDBWCRQ BETWEEN
+        #{request.accStartTime} AND #{request.accEndTime}
+        )c,(
+        select ifnull(sum(price),0) from ads_mat_esc_jh_wzdbqktj WHERE Cargo_status='ES000032'AND deploy_type='跨单位调配'
+        AND
+        DATTE1 BETWEEN #{request.accStartTime} AND date_add(#{request.endTime}, INTERVAL -1 month) AND DATTE2 BETWEEN
+        #{request.accStartTime} AND #{request.accEndTime}
+        )d) ads_mat_esc_jh
+
+        union
+
+        SELECT 3 as type,(a+b) as n ,(c+d) as p FROM (SELECT (
+        select count(1) from ads_mat_esc_jh_phlkqktj WHERE MBLNR!='' AND ZDBWCRQ!=''AND ZLKLX='跨单位利库' AND
+        ZSQDCJRQ BETWEEN #{request.accLastStartTime} AND date_add(#{request.accLastEndTime},INTERVAL -1 month) AND
+        ZDBWCRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+        )a,(
+        select count(1) from ads_mat_esc_jh_wzdbqktj WHERE Cargo_status='ES000032'AND deploy_type='跨单位调配' AND
+        DATTE1 BETWEEN #{request.accLastStartTime} AND date_add(#{request.accLastEndTime},INTERVAL -1 month) AND DATTE2
+        BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+        )b,(
+        select ifnull(sum(PCKCDJ*ZLKSL),0) from ads_mat_esc_jh_phlkqktj WHERE MBLNR!='' AND ZDBWCRQ!=''AND ZLKLX='跨单位利库'
+        AND
+        ZSQDCJRQ BETWEEN #{request.accLastStartTime} AND date_add(#{request.accLastEndTime},INTERVAL -1 month) AND
+        ZDBWCRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+        )c,(
+        select ifnull(sum(price),0) from ads_mat_esc_jh_wzdbqktj WHERE Cargo_status='ES000032'AND deploy_type='跨单位调配'
+        AND
+        DATTE1 BETWEEN #{request.accLastStartTime} AND date_add(#{request.accLastEndTime},INTERVAL -1 month) AND DATTE2
+        BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+        )d) ads_mat_esc_jh
+    </select>
+
+    <!--    废旧物资-报废处置 n 代表数量 p代表金额-->
+    <select id="selectWaste001" resultType="java.util.LinkedHashMap">
+        SELECT '1' as 'type',n ,p FROM( SELECT(
+        SELECT count( wm_mat_item_id ) FROM esc_rds_brs_bd_fj_001_fjwzczqktj_001
+        <where>
+            bid_status ='已中标'
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND reply_date BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        )n,(
+        SELECT IFNULL(sum( hammer_price ) ,0) FROM esc_rds_brs_bd_fj_001_fjwzczqktj_002
+        <where>
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND reply_date BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        ) p) c
+        UNION
+        SELECT '2' as 'type',n ,p FROM( SELECT(
+        SELECT count( wm_mat_item_id ) FROM esc_rds_brs_bd_fj_001_fjwzczqktj_001
+        <where>
+            bid_status ='已中标'
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND reply_date BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        )n,(
+        SELECT IFNULL(sum( hammer_price ) ,0) FROM esc_rds_brs_bd_fj_001_fjwzczqktj_002
+        <where>
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                reply_date BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        ) p) c
+        UNION
+        SELECT '3' as 'type',n ,p FROM( SELECT(
+        SELECT count( wm_mat_item_id ) FROM esc_rds_brs_bd_fj_001_fjwzczqktj_001
+        <where>
+            bid_status ='已中标'
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND reply_date BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+        )n,(
+        SELECT IFNULL(sum( hammer_price ) ,0) FROM esc_rds_brs_bd_fj_001_fjwzczqktj_002
+        <where>
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                reply_date BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+        ) p) c
+
+    </select>
+
+    <!--    质量监督-设备监造 n 代表数量 p代表金额-->
+    <select id="selectSupervision001" resultType="java.util.LinkedHashMap">
+        SELECT '1' as type, count(1) as n FROM `esc_rds_bd_jz_001_jzqktj_jldwjzzxqktjgnb` WHERE ZRWZT='在施任务'
+        UNION
+        SELECT '2' as type, a+b as n FROM ( SELECT (
+        SELECT count(1) as n FROM `esc_rds_bd_jz_001_jzqktj_jldwjzzxqktjgnb` WHERE ZRWZT='在施任务'
+        )a, ( SELECT count(1) as n FROM `esc_rds_bd_jz_001_jzqktj_jldwjzzxqktjgnb` WHERE year(TASK_WGSJ)=
+        #{request.year})b
+        )esc_rds_bd_jz_001
+        UNION
+        SELECT '3' as type, count(1) as n FROM `esc_rds_bd_jz_001_jzqktj_jldwjzzxqktjgnb` WHERE
+        year(DATE_ADD(TASK_WGSJ,INTERVAL 1 year)) = #{request.year}
+    </select>
+
+    <!--    质量监督-设备抽检 n 代表数量 p代表金额-->
+    <select id="selectSupervision002" resultType="java.util.LinkedHashMap">
+        SELECT '1' as type, ifnull(sum(zyjsl),0) as n FROM esc_rds_brs_bd_zljd_cj_020_cjhglfx
+        <where>
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                zsjwcsj BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as type, ifnull(sum(zyjsl),0) as n FROM esc_rds_brs_bd_zljd_cj_020_cjhglfx
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                zsjwcsj BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as type, ifnull(sum(zyjsl),0) as n FROM esc_rds_brs_bd_zljd_cj_020_cjhglfx
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                zsjwcsj BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+<!--    合同履约-物资到货-->
+    <select id="selectExercise001" resultType="java.util.LinkedHashMap">
+        SELECT '1' as type,count(ZSJJHSL) as n,ifnull(sum(ZSJJHJE), 0) as p
+        FROM esc_rds_brs_bd_gy_002_gyjhwclfx
+        <where>
+            ZSJJHSL > 0
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND ZSHSJ BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as type,count(ZSJJHSL) as n,ifnull(sum(ZSJJHJE), 0) as p
+        FROM esc_rds_brs_bd_gy_002_gyjhwclfx
+        <where>
+            ZSJJHSL > 0
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND ZSHSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as type,count(ZSJJHSL) as n,ifnull(sum(ZSJJHJE), 0) as p
+        FROM esc_rds_brs_bd_gy_002_gyjhwclfx
+        <where>
+            ZSJJHSL > 0
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND ZSHSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+<!--    供应商管理-->
+    <select id="selectSupplier001" resultType="java.util.LinkedHashMap">
+        SELECT '1' as type,count(1) as n
+        FROM ads_mat_esc_blxw
+        <where>
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                concat(cljd, '-01') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as type,count(1) as n
+        FROM ads_mat_esc_blxw
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                concat(cljd, '-01') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as type,count(1) as n
+        FROM ads_mat_esc_blxw
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                concat(cljd, '-01') BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+    <!--    招标采购-零星物资电商化请购金额-->
+    <select id="selectTender004" resultType="java.util.LinkedHashMap">
+        SELECT '1' as type,ifnull(sum(MENGE),0) n ,ifnull(sum(MENGE*preis),0) p FROM ads_mat_esc_zmm00t_cgzq_001
+        <where>
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                DATE_FORMAT(BADAT,'%Y-%m-%d') BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as type,ifnull(sum(MENGE),0) n,ifnull(sum(preis),0) p FROM ads_mat_esc_zmm00t_cgzq_001
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                DATE_FORMAT(BADAT,'%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as type,ifnull(sum(MENGE),0) n,ifnull(sum(preis),0) p FROM ads_mat_esc_zmm00t_cgzq_001
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                DATE_FORMAT(BADAT,'%Y-%m-%d') BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+    <!--    服务类框架协议执行-->
+    <select id="selectTender005" resultType="java.util.LinkedHashMap">
+        SELECT distinct '1' as type, ifnull(count( 1 ),0) n,ifnull(sum( ZZBKJJE ),0) p FROM
+        ads_mat_esc_zb_0001_zfwkjzxqk
+        <where>
+            ZSXHTJE>0
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND DATE_FORMAT(ZZBRQ,'%Y-%m-%d') BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT distinct '2' as type, ifnull(count( 1 ),0) n,ifnull(sum( ZZBKJJE ),0) p FROM
+        ads_mat_esc_zb_0001_zfwkjzxqk
+        <where>
+            ZSXHTJE>0
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND DATE_FORMAT(ZZBRQ,'%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT distinct '3' as type, ifnull(count( 1 ),0) n,ifnull(sum( ZZBKJJE ),0) p FROM
+        ads_mat_esc_zb_0001_zfwkjzxqk
+        <where>
+            ZSXHTJE>0
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND DATE_FORMAT(ZZBRQ,'%Y-%m-%d') BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+<!--仓储管理-主动配送-->
+    <select id="selectStorage009" resultType="java.util.LinkedHashMap">
+        SELECT '1' as type, ifnull(count( 1 ),0) n,ifnull(sum( JE ),0) p FROM ADS_MAT_ESC_PSYWXQ
+        <where>
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                CZSJ BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as type, ifnull(count( 1 ),0) n,ifnull(sum( JE ),0) p FROM ADS_MAT_ESC_PSYWXQ
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                CZSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as type, ifnull(count( 1 ),0) n,ifnull(sum( JE ),0) p FROM ADS_MAT_ESC_PSYWXQ
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                CZSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+    <!--    合同履约-ELP监控-->
+    <select id="selectExercise002" resultType="java.util.LinkedHashMap">
+        SELECT '1' as type, ifnull(count( 1 ),0) n,ifnull(sum( SJYSLC ),0) p FROM ADS_MAT_ESC_BD_ELPYSJK_NEW
+        <where>
+            ( YSZT = '已收货'OR'已到货')
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND SJDHSJ BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION
+        SELECT '2' as type, ifnull(count( 1 ),0) n,ifnull(sum( SJYSLC ),0) p FROM ADS_MAT_ESC_BD_ELPYSJK_NEW
+        <where>
+            ( YSZT = '已收货'OR'已到货')
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND SJDHSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        SELECT '3' as type, ifnull(count( 1 ),0) n,ifnull(sum( SJYSLC ),0) p FROM ADS_MAT_ESC_BD_ELPYSJK_NEW
+        <where>
+            ( YSZT = '已收货'OR'已到货')
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND SJDHSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+</mapper>

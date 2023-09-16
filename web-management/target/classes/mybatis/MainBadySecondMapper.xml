@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.proj.web.mapper.MainBadySecondMapper">
+
+
+<!--    获取月报001表-->
+    <select id="selectyb001ByTable" resultType="com.proj.web.entity.MainBadySecondPO">
+        SELECT ZZBBH,ZZBSZ FROM ads_mat_esc_xin_yb_002 WHERE ZLYYY='corp' AND ZSJ= #{request.time} LIMIT #{num} ,1
+    </select>
+<!--    盘活利库完成率-暂无使用情况  -->
+    <select id="selectphlkwcv" resultType="java.math.BigDecimal">
+        SELECT
+        ifnull((a+b )/(c+d) ,0)
+        FROM
+        (
+        SELECT
+        (
+        SELECT
+        ifnull( sum( PCKCDJ * ZLKSL ), 0 )
+        FROM
+        ads_mat_esc_jh_phlkqktj
+        WHERE
+        MBLNR != ''
+        AND ZDBWCRQ != ''
+        AND YBTJYF =left(#{request.startTime},7)
+
+        ) a,
+        (
+        SELECT
+        ifnull( sum( price * xqsl ), 0 )
+        FROM
+        ads_mat_esc_jh_wzdbqktj
+        WHERE
+        Cargo_status = 'ES000032'
+        AND YBTJYF =left(#{request.startTime},7)
+
+        ) b ,(
+        SELECT
+        ifnull( sum( PCKCDJ * ZLKSL ), 0 )
+        FROM
+        ads_mat_esc_jh_phlkqktj
+        WHERE
+        AND YBTJYF =left(#{request.startTime},7)
+        )c,(
+        SELECT
+        ifnull( sum( price * xqsl ), 0 )
+        FROM
+        ads_mat_esc_jh_wzdbqktj
+        WHERE
+        AND YBTJYF =left(#{request.startTime},7)
+        )d
+        ) ads_mat_esc_jh
+    </select>
+</mapper>

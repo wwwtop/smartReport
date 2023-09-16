@@ -1,0 +1,15 @@
+server:
+  port: 23080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://25.32.43.204:13306/gylyyzx?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: esc
+    password: 1q2w3e4r!
+mybatis:
+  mapper-locations: classpath:mybatis/*.xml
+logging:
+  level:
+    com.proj.web.mapper: debug
+    org.apache.ibatis: debug
+    org.mybatis.spring: debug

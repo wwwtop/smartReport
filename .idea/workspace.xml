@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f644d538-3ffb-4228-a82c-d5a7fb40a56a" name="Default Changelist" comment="第一次提交全部代码">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/smartReport3.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/com/proj/core/utils/DateTimeUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/com/proj/core/utils/JsonUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/com/proj/core/utils/ObjectTransfer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/com/proj/core/utils/PagerUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/com/proj/core/utils/QueryUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/com/proj/core/utils/SortUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/com/proj/core/utils/SqlUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/com/proj/core/utils/exception/ProjException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/target/classes/com/proj/core/utils/DateTimeUtil$DateTimeCalcTool.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/target/classes/com/proj/core/utils/DateTimeUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/target/classes/com/proj/core/utils/JsonUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/target/classes/com/proj/core/utils/ObjectTransfer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/target/classes/com/proj/core/utils/PagerUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/target/classes/com/proj/core/utils/QueryUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/target/classes/com/proj/core/utils/SortUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/target/classes/com/proj/core/utils/SqlUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/target/classes/com/proj/core/utils/exception/ProjException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/target/core-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo4.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo5.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/ApiResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/annotation/DefaultValueAnno.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/bo/SmallKVBO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/bo/SmallKVObjectBO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/bo/TestBO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/bo/dictionary/AdsMatEscBdYwsjgdcspzbBO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/bo/enums/DictionaryValueTypeEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/bo/request/ReportRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/bo/request/TestRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/bo/request/UnicityRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/bo/request/dictionary/BaseDictionary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/bo/request/dictionary/DictionaryDeleteRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/bo/request/dictionary/DictionarySyncNewRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/bo/request/dictionary/DictionaryUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/bo/request/value/ValueQueryRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/bo/search/BaseSearchCriteria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/BasicDataStatisticsVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/DetailVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/ExportVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/MainBadyVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/MaterialsVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/MonitorIndexDataVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/SecondaryWarnVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/SmartReportIndexVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/TestVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/ThreeLevelVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/UndulationIndexDataVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/UndulationMainBadyVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/UndulationVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/UrlVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/second/SecondCircularVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/second/SecondMainBadyVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/com/proj/model/vo/second/SmartReportSecondIndexVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/ApiResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/Constants.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/annotation/DefaultValueAnno.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/bo/SmallKVBO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/bo/SmallKVObjectBO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/bo/TestBO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/bo/dictionary/AdsMatEscBdYwsjgdcspzbBO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/bo/enums/DictionaryValueTypeEnum.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/bo/request/ReportRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/bo/request/TestRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/bo/request/UnicityRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/bo/request/dictionary/BaseDictionary.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/bo/request/dictionary/DictionaryDeleteRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/bo/request/dictionary/DictionarySyncNewRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/bo/request/dictionary/DictionaryUpdateRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/bo/request/value/ValueQueryRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/bo/search/BaseSearchCriteria.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/BasicDataStatisticsVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/DetailVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/ExportVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/MainBadyVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/MaterialsVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/MonitorIndexDataVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/SecondaryWarnVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/SmartReportIndexVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/TestVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/ThreeLevelVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/UndulationIndexDataVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/UndulationMainBadyVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/UndulationVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/UrlVo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/second/SecondCircularVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/second/SecondMainBadyVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/classes/com/proj/model/vo/second/SmartReportSecondIndexVO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/target/model-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nginx.conf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proj_dev.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/src/main/java/com/proj/proxy/ProxyConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/src/main/java/com/proj/proxy/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/src/main/java/com/proj/proxy/dbhandler/DbHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/src/main/java/com/proj/proxy/dbhandler/dto/DbBfpsQueryPartialDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/src/main/java/com/proj/proxy/handler/BaseTransfer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/src/main/java/com/proj/proxy/handler/dictionary/DictionaryProxy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/src/main/java/com/proj/proxy/handler/value/ValueProxy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/src/main/resources/dbHandlerMapperJoin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/target/classes/com/proj/proxy/ProxyConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/target/classes/com/proj/proxy/Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/target/classes/com/proj/proxy/dbhandler/DbHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/target/classes/com/proj/proxy/dbhandler/dto/DbBfpsQueryPartialDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/target/classes/com/proj/proxy/handler/BaseTransfer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/target/classes/com/proj/proxy/handler/dictionary/DictionaryProxy.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/target/classes/com/proj/proxy/handler/value/ValueProxy.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/target/classes/dbHandlerMapperJoin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy/target/proxy-1.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/WebApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/config/SwaggerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/controller/ConfigsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/controller/DiyController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/controller/GylyyReportScheduleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/controller/SmartReportController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/controller/SmartReportExportController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/controller/SmartReportSecondController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/entity/Export.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/entity/MainBadySecond2PO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/entity/MainBadySecondPO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/entity/SmartReportAddPO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/entity/SmartReportPO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/entity/SmartReportSecondPO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/entity/UnicityPO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/mapper/BasicDataStatisticsMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/mapper/DIYMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/mapper/ExportMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/mapper/GdwMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/mapper/MainBadyMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/mapper/MainBadySecondMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/mapper/MonitorIndexDataMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/mapper/ReportMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/mapper/SecondCircularMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/mapper/WzgsMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/AccessorySecondService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/AccessoryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/DIYService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/ExportService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/MainBadySecondService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/MainBadyService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/ReportByZbbhToUrlService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/ReportSecondService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/ReportService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/UnicityService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/impl/AccessorySecondServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/impl/AccessoryServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/impl/AccessoryServiceImpl2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/impl/DIYServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/impl/ExportServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/impl/MainBadySecondServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/impl/MainBadyServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/impl/ReportByZbbhToUrlServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/impl/ReportSecondServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/impl/ReportServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/service/impl/UnicityServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/util/AccessoryUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/util/BigDecimalUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/util/ExcelUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/util/FillMap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/util/JDBCUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/util/QuartUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/util/ReflectionExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/util/TemplateUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/java/com/proj/web/util/TimeUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/resources/application-dev.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/resources/application-prod.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/resources/mybatis/BasicDataStatisticsMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/resources/mybatis/DiyMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/resources/mybatis/ExportMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/resources/mybatis/GdwMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/resources/mybatis/MainBadyMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/resources/mybatis/MainBadySecondMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/resources/mybatis/MonitorIndexDataMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/resources/mybatis/ReportMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/resources/mybatis/SecondCircularMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/resources/mybatis/WzgsMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/main/resources/proxyconfig.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/src/test/java/Test1Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/application-dev.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/application-prod.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/WebApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/config/SwaggerConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/controller/ConfigsController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/controller/DiyController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/controller/GylyyReportScheduleController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/controller/SmartReportController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/controller/SmartReportExportController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/controller/SmartReportSecondController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/entity/Export.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/entity/MainBadySecond2PO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/entity/MainBadySecondPO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/entity/SmartReportAddPO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/entity/SmartReportPO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/entity/SmartReportSecondPO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/entity/UnicityPO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/mapper/BasicDataStatisticsMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/mapper/DIYMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/mapper/ExportMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/mapper/GdwMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/mapper/MainBadyMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/mapper/MainBadySecondMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/mapper/MonitorIndexDataMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/mapper/ReportMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/mapper/SecondCircularMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/mapper/WzgsMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/AccessorySecondService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/AccessoryService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/DIYService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/ExportService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/MainBadySecondService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/MainBadyService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/ReportByZbbhToUrlService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/ReportSecondService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/ReportService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/UnicityService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/impl/AccessorySecondServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/impl/AccessoryServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/impl/AccessoryServiceImpl2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/impl/DIYServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/impl/ExportServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/impl/MainBadySecondServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/impl/MainBadyServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/impl/ReportByZbbhToUrlServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/impl/ReportSecondServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/impl/ReportServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/service/impl/UnicityServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/util/AccessoryUtils.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/util/BigDecimalUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/util/ExcelUtil$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/util/ExcelUtil$ExcelRowsHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/util/ExcelUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/util/FillMap.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/util/JDBCUtils.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/util/QuartUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/util/ReflectionExample.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/util/TemplateUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/com/proj/web/util/TimeUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/mybatis/BasicDataStatisticsMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/mybatis/DiyMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/mybatis/ExportMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/mybatis/GdwMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/mybatis/MainBadyMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/mybatis/MainBadySecondMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/mybatis/MonitorIndexDataMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/mybatis/ReportMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/mybatis/SecondCircularMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/mybatis/WzgsMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/classes/proxyconfig.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/smartReport3-lyf-20230517-v1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/test-classes/Test1Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-management/target/web-management-1.0-SNAPSHOT.jar.original" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="270" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="AnnotationType" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="SYNC" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="alwaysUpdateSnapshots" value="true" />
+        <option name="localRepository" value="J:\.m2\repository_esc" />
+        <option name="userSettingsFile" value="J:\apache-maven-3.6.3\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="jdkForImporter" value="1.8" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="skipTests" value="true" />
+  </component>
+  <component name="ProjectId" id="2KLglqg4HKhAhI3kRrhr7t9nzSo" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TODO_SCOPE" value="All Places" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.DirectoryMappings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.proj.web.util" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\liuzong\smartReport3\web-management\src\main\resources\mybatis" />
+      <recent name="D:\ideaProject\smartReport3\web-management\src\main\resources\mybatis" />
+      <recent name="D:\ideaProject\smartReport3\model\src\main\java\com\proj\model\bo\request\value" />
+      <recent name="D:\ideaProject\smartReport3\model\src\main\java\com\proj\model\bo\request\dictionary" />
+      <recent name="D:\ideaProject\smartReport3\model\src\main\java\com\proj\model\bo\dictionary" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.proj.web.controller" />
+      <recent name="com.proj.web.entity" />
+      <recent name="com.proj.web.service" />
+      <recent name="com.proj.web.mapper" />
+      <recent name="com.proj.model.annotation" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\liuzong\smartReport3\web-management\src\main\resources\mybatis" />
+      <recent name="D:\ideaProject\smartReport3\web-management\src\main\resources\mybatis" />
+      <recent name="D:\ideaProject\smartReport3\model\src\main\java\com\proj\model\bo" />
+      <recent name="D:\ideaProject\smartReport3\web-management\src\main\resources" />
+      <recent name="D:\ideaProject\数据\reportByNew\222\smartReport3-v2\web-management\src\main\resources\mybatis" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.WebApplication">
+    <configuration name="BigDecimalUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.proj.web.util.BigDecimalUtil" />
+      <module name="web-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.proj.web.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FillMap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.proj.web.util.FillMap" />
+      <module name="web-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.proj.web.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QuartUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.proj.web.util.QuartUtil" />
+      <module name="web-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.proj.web.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TimeUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.proj.web.util.TimeUtil" />
+      <module name="web-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.proj.web.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WebApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="web-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.proj.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.proj.web.WebApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.WebApplication" />
+        <item itemvalue="Application.BigDecimalUtil" />
+        <item itemvalue="Application.TimeUtil" />
+        <item itemvalue="Application.QuartUtil" />
+        <item itemvalue="Application.FillMap" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\LYF\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f644d538-3ffb-4228-a82c-d5a7fb40a56a" name="Default Changelist" comment="" />
+      <created>1673759430059</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1673759430059</updated>
+      <workItem from="1673759432215" duration="184000" />
+      <workItem from="1673759624312" duration="2569000" />
+      <workItem from="1673765783119" duration="665000" />
+      <workItem from="1673766656240" duration="227000" />
+      <workItem from="1673767488719" duration="2480000" />
+      <workItem from="1673773018511" duration="605000" />
+      <workItem from="1673773770544" duration="3645000" />
+      <workItem from="1673778837135" duration="129000" />
+      <workItem from="1673779369310" duration="124000" />
+      <workItem from="1673781640407" duration="6000" />
+      <workItem from="1673835997490" duration="358000" />
+      <workItem from="1673836378762" duration="48000" />
+      <workItem from="1673860618432" duration="118000" />
+      <workItem from="1673917872326" duration="15688000" />
+      <workItem from="1673937053231" duration="23000" />
+      <workItem from="1673937803082" duration="4078000" />
+      <workItem from="1673954530258" duration="966000" />
+      <workItem from="1673957337129" duration="115000" />
+      <workItem from="1674006095114" duration="99000" />
+      <workItem from="1674006199630" duration="5000" />
+      <workItem from="1674025642287" duration="876000" />
+      <workItem from="1674026539691" duration="45000" />
+      <workItem from="1674027129814" duration="6220000" />
+      <workItem from="1674036555349" duration="1758000" />
+      <workItem from="1674038363824" duration="146000" />
+      <workItem from="1674038663257" duration="2000" />
+      <workItem from="1674093325620" duration="554000" />
+      <workItem from="1674093975045" duration="45000" />
+      <workItem from="1674104318887" duration="92000" />
+      <workItem from="1674104480438" duration="13000" />
+      <workItem from="1674105608895" duration="89000" />
+      <workItem from="1674106065390" duration="67000" />
+      <workItem from="1674106851881" duration="67000" />
+      <workItem from="1674114352789" duration="123000" />
+      <workItem from="1674119669167" duration="31000" />
+      <workItem from="1674177240616" duration="10000" />
+      <workItem from="1674177702804" duration="20000" />
+      <workItem from="1674178011542" duration="39000" />
+      <workItem from="1674178184297" duration="79000" />
+      <workItem from="1674181721574" duration="812000" />
+      <workItem from="1674182565877" duration="2000" />
+      <workItem from="1674182676469" duration="20000" />
+      <workItem from="1674182765443" duration="22000" />
+      <workItem from="1674182853824" duration="43000" />
+      <workItem from="1674183419821" duration="18000" />
+      <workItem from="1674184426795" duration="5989000" />
+      <workItem from="1674888068888" duration="60000" />
+      <workItem from="1674888217381" duration="86000" />
+      <workItem from="1675045400932" duration="5000" />
+      <workItem from="1675045457749" duration="1108000" />
+      <workItem from="1675072984954" duration="59000" />
+      <workItem from="1675073853582" duration="209000" />
+      <workItem from="1675076448876" duration="604000" />
+      <workItem from="1675134267434" duration="454000" />
+      <workItem from="1675136329399" duration="18000" />
+      <workItem from="1675243465116" duration="10000" />
+      <workItem from="1675250676140" duration="8000" />
+      <workItem from="1675823501675" duration="1075000" />
+      <workItem from="1677656528709" duration="10000" />
+      <workItem from="1677893336875" duration="13131000" />
+      <workItem from="1678694834575" duration="4902000" />
+      <workItem from="1678699961930" duration="1776000" />
+      <workItem from="1678850987525" duration="14388000" />
+      <workItem from="1678941305074" duration="3967000" />
+      <workItem from="1679016172668" duration="19851000" />
+      <workItem from="1679191863863" duration="29368000" />
+      <workItem from="1679276930891" duration="3452000" />
+      <workItem from="1679280414644" duration="17817000" />
+      <workItem from="1679361458369" duration="3082000" />
+      <workItem from="1679367504991" duration="428000" />
+      <workItem from="1679368343037" duration="16357000" />
+      <workItem from="1679447682956" duration="21560000" />
+      <workItem from="1679482602046" duration="795000" />
+      <workItem from="1679484662665" duration="12444000" />
+      <workItem from="1679539535002" duration="16771000" />
+      <workItem from="1679566482092" duration="7200000" />
+      <workItem from="1679627185149" duration="21342000" />
+      <workItem from="1679710824211" duration="11829000" />
+      <workItem from="1679726723079" duration="12402000" />
+      <workItem from="1679798530643" duration="10963000" />
+      <workItem from="1679823814039" duration="735000" />
+      <workItem from="1679885919877" duration="18819000" />
+      <workItem from="1679965580724" duration="26974000" />
+      <workItem from="1680052176182" duration="31588000" />
+      <workItem from="1680109766006" duration="13000" />
+      <workItem from="1680142404527" duration="20509000" />
+      <workItem from="1680225017646" duration="33784000" />
+      <workItem from="1680316040638" duration="3683000" />
+      <workItem from="1680320851152" duration="439000" />
+      <workItem from="1680321567722" duration="3136000" />
+      <workItem from="1680324761699" duration="145000" />
+      <workItem from="1680325339244" duration="19574000" />
+      <workItem from="1680357607917" duration="118000" />
+      <workItem from="1680486022443" duration="1503000" />
+      <workItem from="1680487882150" duration="10403000" />
+      <workItem from="1680509876542" duration="6797000" />
+      <workItem from="1680592632907" duration="618000" />
+      <workItem from="1680594625305" duration="779000" />
+      <workItem from="1680595560155" duration="940000" />
+      <workItem from="1680598829753" duration="46000" />
+      <workItem from="1680599511306" duration="780000" />
+      <workItem from="1680602184832" duration="4682000" />
+      <workItem from="1680764896700" duration="12000" />
+      <workItem from="1680770602324" duration="1264000" />
+      <workItem from="1680772950009" duration="22000" />
+      <workItem from="1680779738912" duration="1004000" />
+      <workItem from="1680781065679" duration="1200000" />
+      <workItem from="1680782489439" duration="14000" />
+      <workItem from="1680834829293" duration="48000" />
+      <workItem from="1680834947005" duration="240000" />
+      <workItem from="1680851927884" duration="1772000" />
+      <workItem from="1680920341935" duration="1186000" />
+      <workItem from="1680940150495" duration="2150000" />
+      <workItem from="1681111730927" duration="220000" />
+      <workItem from="1681176170514" duration="12327000" />
+      <workItem from="1681202899645" duration="45000" />
+      <workItem from="1681204228218" duration="464000" />
+      <workItem from="1681207167529" duration="2009000" />
+      <workItem from="1681262276262" duration="32652000" />
+      <workItem from="1681348108986" duration="17611000" />
+      <workItem from="1681434547899" duration="18767000" />
+      <workItem from="1681539582967" duration="8186000" />
+      <workItem from="1681694465938" duration="14265000" />
+      <workItem from="1681779719971" duration="2506000" />
+      <workItem from="1681800201913" duration="2720000" />
+      <workItem from="1681872193685" duration="1597000" />
+      <workItem from="1681885743972" duration="12553000" />
+      <workItem from="1681958458308" duration="16843000" />
+      <workItem from="1682040592720" duration="17312000" />
+      <workItem from="1682085293742" duration="1231000" />
+      <workItem from="1682212100075" duration="19944000" />
+      <workItem from="1682306093878" duration="12415000" />
+      <workItem from="1682384672666" duration="16900000" />
+      <workItem from="1682410609451" duration="12100000" />
+      <workItem from="1682470860133" duration="16475000" />
+      <workItem from="1682563978933" duration="18764000" />
+      <workItem from="1682597917466" duration="2571000" />
+      <workItem from="1682643725757" duration="20476000" />
+      <workItem from="1682681229522" duration="1761000" />
+      <workItem from="1683335852667" duration="17878000" />
+      <workItem from="1683508484158" duration="22527000" />
+      <workItem from="1683594547432" duration="14951000" />
+      <workItem from="1683681167504" duration="21539000" />
+      <workItem from="1683767344719" duration="2849000" />
+      <workItem from="1683770345228" duration="23826000" />
+      <workItem from="1683853593592" duration="18160000" />
+      <workItem from="1684130351629" duration="6737000" />
+      <workItem from="1684148965239" duration="299000" />
+      <workItem from="1684200619964" duration="12729000" />
+      <workItem from="1684286426905" duration="18030000" />
+      <workItem from="1684371455215" duration="12301000" />
+      <workItem from="1684460874845" duration="19620000" />
+      <workItem from="1684648722451" duration="4091000" />
+      <workItem from="1684718304580" duration="15839000" />
+      <workItem from="1684896865924" duration="9835000" />
+      <workItem from="1684934063684" duration="1899000" />
+      <workItem from="1684984990377" duration="1945000" />
+      <workItem from="1685622326827" duration="253000" />
+      <workItem from="1687018882940" duration="970000" />
+      <workItem from="1691584661733" duration="137000" />
+      <workItem from="1691584821795" duration="1998000" />
+      <workItem from="1691630310613" duration="1188000" />
+      <workItem from="1694885349804" duration="805000" />
+      <workItem from="1694886175049" duration="880000" />
+      <workItem from="1694887075875" duration="98000" />
+      <workItem from="1694887190209" duration="210000" />
+      <workItem from="1694887425480" duration="744000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/../.." />
+      <path value="$PROJECT_DIR$" />
+      <path value="$PROJECT_DIR$/../../git Repository" />
+    </ignored-roots>
+    <MESSAGE value="第一次提交全部代码" />
+    <option name="LAST_COMMIT_MESSAGE" value="第一次提交全部代码" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/web-management/src/main/java/com/proj/web/mapper/ExportMapper.java</url>
+          <line>70</line>
+          <properties class="com.proj.web.mapper.ExportMapper" method="selectExportHt003ByMonth">
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="maps4" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/smartReport3_v2$TimeUtil.ic" NAME="TimeUtil Coverage Results" MODIFIED="1680322474137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.proj.web.util.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/smartReport3$TimeUtil.ic" NAME="TimeUtil Coverage Results" MODIFIED="1679640159193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.proj.web.util.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/smartReport3$BigDecimalUtil.ic" NAME="BigDecimalUtil Coverage Results" MODIFIED="1684897963142" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.proj.web.util.*</FILTER>
+    </SUITE>
+  </component>
+</project>

@@ -1,0 +1,1224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.proj.web.mapper.ExportMapper">
+
+
+    <!--    招标采购 国网公司物资采购数量及金额-->
+    <select id="selectExportZb001ByMonth" resultType="java.util.Map">
+        SELECT PCBM amount1,
+        PCMC amount2,
+        PCND amount3,
+        CGLB amount4,
+        ZBCGSQH amount5,
+        ZBCGSQHH amount6,
+        WSCGSQH amount7,
+        WSCGSQHH amount8,
+        DWBM amount9,
+        DWMC amount10,
+        WLBM amount11,
+        SL amount12,
+        GSZJ amount13,
+        HSZJ amount14,
+        ZBSJ amount15,
+        ZSFZB amount17,
+        ZSFZB_NEW amount18
+        FROM ads_mat_esc_zncg_cgqktj
+        where PCBM LIKE 'SG%'
+        AND PCND = year (#{request.startTime})
+        AND ZBSJ BETWEEN #{request.startTime} AND
+        #{request.endTime}
+    </select>
+
+    <!--    北京公司物资类实施采购金额-->
+    <select id="selectExportZb002ByMonth" resultType="java.util.Map">
+        SELECT PCBM amount1,
+        PCMC amount2,
+        PCND amount3,
+        CGLB amount4,
+        ZBCGSQH amount5,
+        ZBCGSQHH amount6,
+        WSCGSQH amount7,
+        WSCGSQHH amount8,
+        DWBM amount9,
+        DWMC amount10,
+        WLBM amount11,
+        SL amount12,
+        GSZJ amount13,
+        HSZJ amount14,
+        ZBSJ amount15,
+        ZBGGLX amount16,
+        ZSFZB amount17,
+        ZSFZB_NEW amount18
+        FROM ads_mat_esc_zncg_cgqktj
+        where PCBM LIKE '02%'
+        AND CGLB = '物资'
+        AND PCND = year (#{request.startTime})
+        AND ZBSJ BETWEEN #{request.startTime} AND
+        #{request.endTime}
+    </select>
+
+    <!--    北京公司服务类实施采购金额-->
+    <select id="selectExportZb003ByMonth" resultType="java.util.Map">
+        SELECT PCBM amount1,
+        PCMC amount2,
+        PCND amount3,
+        CGLB amount4,
+        ZBCGSQH amount5,
+        ZBCGSQHH amount6,
+        WSCGSQH amount7,
+        WSCGSQHH amount8,
+        DWBM amount9,
+        DWMC amount10,
+        WLBM amount11,
+        SL amount12,
+        GSZJ amount13,
+        HSZJ amount14,
+        ZBSJ amount15,
+        ZBGGLX amount16,
+        ZSFZB amount17,
+        ZSFZB_NEW amount18
+        FROM ads_mat_esc_zncg_cgqktj
+        where PCBM LIKE '02%'
+        AND CGLB = '服务'
+        AND PCND = year (#{request.startTime})
+        AND ZBSJ BETWEEN #{request.startTime} AND
+        #{request.endTime}
+    </select>
+    <!--    零星物资电商化请购条目及金额-->
+    <select id="selectExportZb004ByMonth" resultType="java.util.Map">
+        SELECT ZPR_ID amount1,
+        ZQGDHXM amount2,
+        BANFN amount3,
+        BNFPO amount4,
+        MATNR amount5,
+        WERKS amount6,
+        MENGE amount7,
+        PREIS amount8,
+        TXZ01 amount9,
+        BADAT amount10,
+        CZLX amount11,
+        ZQDW amount12
+        FROM ads_mat_esc_zmm00t_cgzq_001
+        where DATE_FORMAT(BADAT, '%Y-%m-%d') BETWEEN #{request.startTime} AND #{request.endTime}
+    </select>
+
+    <!--    服务类框架协议执行条目及金额-->
+    <select id="selectExportZb005ByMonth" resultType="java.util.Map">
+        SELECT ZKJXYH amount1
+        , ZJFHTH amount2
+        , ZZBJHPC amount3
+        , ZZBPC amount4
+        , ZZBJHND amount5
+        , ZZBRQ amount6
+        , ZGYSBH amount7
+        , ZCGPZH amount8
+        , ZLJJHZ amount9
+        , ZGYSMC amount10
+        , ZZBKJJE amount11
+        , ZSL amount12
+        , ZHTJEHS amount13
+        , ZCGBS amount14
+        , ZXYLX amount15
+        , ZFPJEHS amount16
+        , ZCGPZZDSCBS amount17
+        , ZSXHTJE amount18
+        , ZHTJE amount19
+        , ZYFJE amount20
+        , ZWLBH amount21
+        , ZWLMS amount22
+        , ZCGZZ amount23
+        , ZHTQDDW amount24
+        , ZYXQKSSJ amount25
+        , ZYXQJZSJ amount26
+        , ZCGPZLB amount27
+        , ZKJXYHXMH amount28
+        , ZCGSQBH amount29
+        , ZCGSQDHXMBH amount30
+        , ZDW amount31
+        , ZFPRQ amount32
+        , ZCGDDH amount33
+        , ZCGHXMH amount34
+        , ZYSJE amount35
+        , ZCGSQZDJG amount36
+        , ZJGDW amount37
+        , ZCGSQSL amount38
+        , ZFPJE amount39
+        , ZCGDDJE amount40
+        , ZLX amount41
+        , ZXMMS amount42
+        , ZGZFJJGYS amount43
+        , ZXMDY amount44
+        , ZRJBBH amount45
+        , ZFWID amount46
+        , ZFWMS amount47
+        , ZDLJG amount48
+        , ZYLZD1 amount49
+        , ZYLZD2 amount50
+        , ZYLZD3 amount51
+        , ZYLZD4 amount52
+        , ZYLZD5 amount53
+        , ZYLZD6 amount54
+        , ZYLZD7 amount55
+        , ZFBIBH amount56
+        , ZFBIMC amount57
+        , ZFBABH amount58
+        , ZFBAMC amount59
+        , ZCGSQH amount60
+        , ZCGSQHHXM amount61
+        , ZKJXYYXQKSSJ amount62
+        , ZKJCGJGJZSJ amount63
+        FROM ads_mat_esc_zb_0001_zfwkjzxqk
+        where ZSXHTJE > 0
+        AND DATE_FORMAT(ZZBRQ, '%Y-%m-%d') BETWEEN #{request.startTime} AND #{request.endTime}
+    </select>
+    <!--    物资类采购流标率-->
+    <select id="selectExportZb006ByMonth" resultType="java.util.Map">
+        SELECT PCBM amount1
+        , PCMC amount2
+        , PCND amount3
+        , CGLB amount4
+        , FBBH amount5
+        , FBMC amount6
+        , FBMC1 amount7
+        , ZBJGID amount8
+        , ZBLB amount9
+        , BMGYSSL amount10
+        , TBGYSSL amount11
+        , FJGYSSL amount12
+        , LBYY amount13
+        , ZYLZD8 amount14
+        FROM ads_mat_esc_zncg_cgqktj
+        where PCBM LIKE '02%'
+        AND CGLB = '物资'
+        AND PCND = left (#{request.accStartTime}
+        , 4)
+        AND ZYLZD8 BETWEEN #{request.accStartTime}
+        AND #{request.accEndTime}
+
+    </select>
+
+    <!--    服务类采购流标率-->
+    <select id="selectExportZb007ByMonth" resultType="java.util.Map">
+        SELECT PCBM amount1
+        , PCMC amount2
+        , PCND amount3
+        , CGLB amount4
+        , FBBH amount5
+        , FBMC amount6
+        , FBMC1 amount7
+        , ZBJGID amount8
+        , ZBLB amount9
+        , BMGYSSL amount10
+        , TBGYSSL amount11
+        , FJGYSSL amount12
+        , LBYY amount13
+        , ZYLZD8 amount14
+        FROM ads_mat_esc_zncg_cgqktj
+        where PCBM LIKE '02%'
+        AND CGLB = '服务'
+        AND PCND = left (#{request.accStartTime}
+        , 4)
+        AND ZYLZD8 BETWEEN #{request.accStartTime}
+        AND #{request.accEndTime}
+    </select>
+    <!--一次采购成功率 -暂无逻辑-->
+    <select id="selectExportZb008ByMonth" resultType="java.util.Map">
+        SELECT PCBM amount1,
+        PCMC amount2,
+        PCND amount3,
+        CGLB amount4,
+        ZBCGSQH amount5,
+        ZBCGSQHH amount6,
+        WSCGSQH amount7,
+        WSCGSQHH amount8,
+        DWBM amount9,
+        DWMC amount10,
+        WLBM amount11,
+        SL amount12,
+        GSZJ amount13,
+        HSZJ amount14,
+        ZBSJ amount15,
+        ZBGGLX amount16,
+        ZSFZB amount17,
+        ZSFZB_NEW amount18
+        FROM ads_mat_esc_zncg_cgqktj
+    </select>
+    <!--    招标采购——监控 物资类采购资金节约率-->
+    <select id="selectExportZb009ByMonth" resultType="java.util.Map">
+        SELECT PCBM amount1,
+        PCMC amount2,
+        PCND amount3,
+        CGLB amount4,
+        ZBCGSQH amount5,
+        ZBCGSQHH amount6,
+        WSCGSQH amount7,
+        WSCGSQHH amount8,
+        DWBM amount9,
+        DWMC amount10,
+        WLBM amount11,
+        SL amount12,
+        GSZJ amount13,
+        HSZJ amount14,
+        ZBSJ amount15,
+        ZBGGLX amount16,
+        ZSFZB amount17,
+        ZSFZB_NEW amount18
+        FROM ads_mat_esc_zncg_cgqktj
+        where PCBM LIKE '02%'
+        AND CGLB = '物资'
+        AND PCND = left (#{request.accStartTime}
+        , 4)
+        AND ZBSJ BETWEEN #{request.accStartTime}
+        AND #{request.accEndTime}
+    </select>
+    <!--    招标采购——监控 服务类采购资金节约率-->
+    <select id="selectExportZb010ByMonth" resultType="java.util.Map">
+        SELECT PCBM amount1,
+        PCMC amount2,
+        PCND amount3,
+        CGLB amount4,
+        ZBCGSQH amount5,
+        ZBCGSQHH amount6,
+        WSCGSQH amount7,
+        WSCGSQHH amount8,
+        DWBM amount9,
+        DWMC amount10,
+        WLBM amount11,
+        SL amount12,
+        GSZJ amount13,
+        HSZJ amount14,
+        ZBSJ amount15,
+        ZBGGLX amount16,
+        ZSFZB amount17,
+        ZSFZB_NEW amount18
+        FROM ads_mat_esc_zncg_cgqktj
+        where PCBM LIKE '02%'
+        AND CGLB = '服务'
+        AND PCND = left (#{request.accStartTime}
+        , 4)
+        AND ZBSJ BETWEEN #{request.accStartTime}
+        AND #{request.accEndTime}
+    </select>
+    <!--    招标采购——监控 物资类公开采购率-->
+    <select id="selectExportZb011ByMonth" resultType="java.util.Map">
+        SELECT PCBM amount1,
+        PCMC amount2,
+        PCND amount3,
+        CGLB amount4,
+        ZBCGSQH amount5,
+        ZBCGSQHH amount6,
+        WSCGSQH amount7,
+        WSCGSQHH amount8,
+        DWBM amount9,
+        DWMC amount10,
+        WLBM amount11,
+        SL amount12,
+        GSZJ amount13,
+        HSZJ amount14,
+        ZBSJ amount15,
+        ZBGGLX amount16,
+        ZSFZB amount17,
+        ZSFZB_NEW amount18
+        FROM ads_mat_esc_zncg_cgqktj
+        where pcbm LIKE '02%'
+        AND cglb = '物资'
+        AND PCND = left (#{request.accStartTime}
+        , 4)
+        AND ZBSJ BETWEEN #{request.accStartTime}
+        AND #{request.accEndTime}
+    </select>
+    <!--    招标采购——监控 服务类公开采购率-->
+    <select id="selectExportZb012ByMonth" resultType="java.util.Map">
+        SELECT PCBM amount1,
+        PCMC amount2,
+        PCND amount3,
+        CGLB amount4,
+        ZBCGSQH amount5,
+        ZBCGSQHH amount6,
+        WSCGSQH amount7,
+        WSCGSQHH amount8,
+        DWBM amount9,
+        DWMC amount10,
+        WLBM amount11,
+        SL amount12,
+        GSZJ amount13,
+        HSZJ amount14,
+        ZBSJ amount15,
+        ZBGGLX amount16,
+        ZSFZB amount17,
+        ZSFZB_NEW amount18
+        FROM ads_mat_esc_zncg_cgqktj
+        where pcbm LIKE '02%'
+        AND cglb = '服务'
+        AND PCND = left (#{request.accStartTime}
+        , 4)
+        AND ZBSJ BETWEEN #{request.accStartTime}
+        AND #{request.accEndTime}
+    </select>
+    <!--  服务类框架协议执行完成率——暂无 -->
+    <select id="selectExportZb013ByMonth" resultType="java.util.Map">
+        SELECT
+
+        FROM
+        ads_mat_esc_zb_0001_zfwkjzxqk
+        <where>
+            ZSXHTJE>0
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND DATE_FORMAT(ZZBRQ,'%Y-%m-%d') BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+    </select>
+    <!--    原材料价格波动情况-->
+    <select id="selectExportZb014ByMonth" resultType="java.util.Map">
+        SELECT
+        RAWMATERIALID amount1
+        , RAWMATERIALDATE amount2
+        , RAWMATERIALNAME amount3
+        , RAWMATERIALUNIT amount4
+        , RAWMATERIALPRICE amount5
+        , UPDATEDATE amount6
+        , CZ amount7
+        , GG amount8
+
+        from ads_mat_esc_zmm02t_ycljg2erp
+        where RAWMATERIALNAME in('SMM 1#电解铜','SMM A00铝','角钢')
+        AND RAWMATERIALDATE BETWEEN #{request.startTime} AND #{request.endTime}
+    </select>
+
+    <!--    物资合同条目及金额-->
+    <select id="selectExportHt001ByMonth" resultType="java.util.Map">
+        SELECT id amount1
+        , ZPCMC amount2
+        , ZPZH amount3
+        , ZFBMC amount4
+        , ZBMC amount5
+        , ZGYSMC amount6
+        , ZJE amount7
+        , ZPZCJRQ amount8
+        , ZHTSXRQ amount9
+        , ZZBRQ amount10
+        , ZPZLX amount11
+        , ZPZHXM amount12
+        , ZDWMC amount13
+        , ZBPCBH amount14
+        from ESC_RDS_BRS_BD_WZHT_001_HTQDJE4
+        where ZPZLX = '标准合同'
+        AND ZHTSXRQ BETWEEN #{request.startTime} AND #{request.endTime}
+
+    </select>
+    <!--    采购供货单条目及金额-->
+    <select id="selectExportHt002ByMonth" resultType="java.util.Map">\
+        SELECT id amount1,
+        ZDWBM amount2,
+        ZDWMC amount3,
+        ZGCBM amount4,
+        ZGCMC amount5,
+        ZWLBM amount6,
+        ZXYKCHWMC amount7,
+        ZXYKCMC amount8,
+        ZZBPCBH amount9,
+        ERPXYKCBH amount10,
+        ERPXYKCHXM amount11,
+        ZCGGHDJE amount12,
+        ZGHDH amount13,
+        ZGHDHXM amount14,
+        ZCGGHDSXSJ amount15,
+        ZPCMC amount16,
+        ZGHDCJRQ amount17,
+        ZZBRQ amount18
+        from ESC_RDS_BRS_BD_WZHT_001_HTQDJE3
+        where zpzlx = '采购供货单'
+        AND ZHTSXRQ BETWEEN #{request.startTime} AND #{request.endTime}
+
+    </select>
+    <!--    合同变更条目及金额-->
+    <select id="selectExportHt003ByMonth" resultType="java.util.Map">
+        SELECT ID amount1,
+        DWBM amount2,
+        ZDWMS amount3,
+        ZGYJHBM amount4,
+        ZHTBM amount5,
+        ZXMBM amount6,
+        ZXMMC amount7,
+        ZCGDDH amount8,
+        ZCGDDHXM amount9,
+        ZWLBM amount10,
+        ZWLMS amount11,
+        ZHTJE amount12,
+        ZDJ amount13,
+        ZDDJE amount14,
+        ZDDSL amount15,
+        ZQDJHRQ amount16,
+        ZHTJHQ amount17,
+        ZHTBGSXRQ amount18,
+        ZJLDW amount19,
+        ZBGNR amount20
+        from esc_rds_brs_bd_gy_010_htbgtjfx
+        where ((ZGGRQ BETWEEN #{request.startTime} AND #{request.endTime} OR ZBCHTSXRQ BETWEEN #{request.startTime} AND
+        #{request.endTime}))
+    </select>
+    <!--    合同签订及时率-->
+    <select id="selectExportHt004ByMonth" resultType="java.util.Map">
+
+        SELECT PCBM amount1,
+        PCMC amount2,
+        SSFS amount3,
+        FBMC amount4,
+        FBAOMC amount5,
+        GCMC amount6,
+        GYSMC amount7,
+        CGSQ amount8,
+        CGSQH amount9,
+        CGDD amount10,
+        CGDDH amount11,
+        HT amount12,
+        HTH amount13,
+        WLBM amount14,
+        WLMC amount15,
+        CGSL amount16,
+        JLDW amount17,
+        ZBJE amount18,
+        HTQDJE amount19,
+        ZBSJ amount20,
+        HTSXSJ amount21,
+        SFCQ amount22
+        from esc_rds_bd_036_htqdjsl
+        where ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+    </select>
+    <!--    集中支付条目及金额-->
+    <select id="selectExportHt005ByMonth" resultType="java.util.Map">
+
+        SLELECT
+        ZJHPC amount1,
+        ZJHBH amount2,
+        ZKXXZ amount3,
+        ZCGDDH amount4,
+        ZFPHXPZH amount5,
+        ZYSFKDDH amount6,
+        ZFKSQH amount7,
+        ZJHJE amount8,
+        ZSQJE amount9,
+        ZCGZZ amount10,
+        ZJSDW amount11,
+        ZXMBM amount12,
+        ZXMMC amount13,
+        ZZFZT amount14,
+        ZCLZT amount15,
+        ZFKRQ amount16,
+        ZHJND amount17,
+        WZFYY amount18
+
+        FROM zesc_rds_yb_htjs
+        where
+        ZZFZT is not null AND not ISNULL(ZZFZT) and ZCLZT is not null AND not ISNULL(ZCLZT)
+        AND concat(SUBSTRING(ZJHPC,1,4),'-',SUBSTRING(ZJHPC,5,2),'-01') BETWEEN
+        #{request.startTime}
+        AND
+        #{request.endTime}
+    </select>
+    <!--    非电商采购支付逾期条目及金额-->
+    <select id="selectExportHt006ByMonth" resultType="java.util.Map">
+        SELECT YJJB amount1
+        , YJMS amount2
+        , KXXZ amount3
+        , CGPZH amount4
+        , DWBM amount5
+        , DWMS amount6
+        , XMBM amount7
+        , CHZZ amount8
+        , XMMS amount9
+        , FKBL amount10
+        , HTLX amount11
+        , GYSBM amount12
+        , GYSMC amount13
+        , HTJE amount14
+        , JBTJRQ amount15
+        , TXRQ amount16
+        , YFJE amount17
+        , TJ amount18
+        , YQRQ amount19
+        , WZFYY amount20
+        , ZFZT amount21
+        , KEY_ID1 amount22
+        , KEY_CODE amount23
+        , ALERT_OBJID amount24
+        , ALERT_OBJ amount25
+        , YWHJID amount26
+        , YWHJNAME amount27
+        , warning_TYPE amount28
+        , ALERT_LEV amount29
+        , ALERT_LEV_NAME amount30
+        , YQZGFINISHTIME amount31
+        , YCQK amount32
+        , YWRQ amount33
+        , FKBL1 amount34
+        , cgzzbm amount35
+        , BEIYONG2 amount36
+        , beiyong amount37
+        , ZYQLX amount38
+        , ZLRJHRQ amount39
+        , zwfje amount40
+        , ZYJDJS amount41
+        , ZHTSXRQ amount42
+        , ZDWXZ amount43
+        FROM zesc_zncg_sjykjkyj
+        where ZYQLX = '逾期未申请'
+        AND cgzzbm = 'BP28'
+        AND chzz = '统一采购采购组织'
+        AND cgpzh != '' and cgpzh IS NOT NULL AND zfzt =
+        '未冻结' AND ( wzfyy = '' OR wzfyy = NULL OR wzfyy = '单据不齐全' ) AND htlx NOT IN ( '超市化采购', '采购专区' ) AND dwbm !=
+        'BP35'
+        AND YQRQ BETWEEN #{request.startTime}
+        AND #{request.endTime}
+    </select>
+    <!--    质监 设备抽检-->
+    <select id="selectExportZj001ByMonth" resultType="java.util.Map">
+        SELECT znf amount1
+        , zjcwcrq amount2
+        , zjhbh amount3
+        , zrwbh amount4
+        , zwzlb amount5
+        , zcgdd amount6
+        , zcgddhxm amount7
+        , zwlms amount8
+        , zjbjldw amount9
+        , zhtsl amount10
+        , zcjsl amount11
+        , zyjsl amount12
+        , zcjgg amount13
+        , zjcjg amount14
+        , zbhgdj amount15
+        , zbhgsl amount16
+        , zjczt amount17
+        , zfjzt amount18
+        , zgcmc amount19
+        , zgysbm amount20
+        , zgysmc amount21
+        , ZALSL amount22
+        , ZBLSL amount23
+        , ZCLSL amount24
+        , zcgddsl amount25
+        , zsjwcsj amount26
+        , ZJSDW amount27
+        , ZSFZDGC amount28
+        FROM esc_rds_brs_bd_zljd_cj_020_cjhglfx
+        where zsjwcsj BETWEEN #{request.startTime} AND #{request.endTime}
+    </select>
+    <!--    质监 抽检合格率-->
+    <select id="selectExportZj002ByMonth" resultType="java.util.Map">
+        SELECT znf amount1
+        , zjcwcrq amount2
+        , zjhbh amount3
+        , zrwbh amount4
+        , zwzlb amount5
+        , zcgdd amount6
+        , zcgddhxm amount7
+        , zwlms amount8
+        , zjbjldw amount9
+        , zhtsl amount10
+        , zcjsl amount11
+        , zyjsl amount12
+        , zcjgg amount13
+        , zjcjg amount14
+        , zbhgdj amount15
+        , zbhgsl amount16
+        , zjczt amount17
+        , zfjzt amount18
+        , zgcmc amount19
+        , zgysbm amount20
+        , zgysmc amount21
+        , ZALSL amount22
+        , ZBLSL amount23
+        , ZCLSL amount24
+        , zcgddsl amount25
+        , zsjwcsj amount26
+        , ZJSDW amount27
+        , ZSFZDGC amount28
+        FROM esc_rds_brs_bd_zljd_cj_020_cjhglfx
+        where date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+    </select>
+    <!--    质监 平均抽检总时长-->
+    <select id="selectExportZj003ByMonth" resultType="java.util.Map">
+        SELECT ZWZLB amount1
+        , ZRWXDSJ amount2
+        , ZQYRQ amount3
+        , ZSYRQ amount4
+        , ZJCWCSJ amount5
+        , ZSJWCSJ amount6
+        , ZRWBH amount7
+        , ZJHBH amount8
+        , ZCGDD amount9
+        , ZHXM amount10
+        , ZWLMS amount11
+        , ZJBJLDW amount12
+        , ZHTSL amount13
+        , ZCJSL amount14
+        , ZYJSL amount15
+        , ZBHGSL amount16
+        , ZCLCJSL amount17
+        , ZBLCJSL amount18
+        , ZALCJSL amount19
+        , ZJCZT amount20
+        , ZCJGG amount21
+        , ZJCJG amount22
+        , ZGCMC amount23
+        , ZGYSMC amount24
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        where date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+    </select>
+    <!--    质监 平均取样时长-->
+    <select id="selectExportZj004ByMonth" resultType="java.util.Map">
+        SELECT ZWZLB amount1
+        , ZRWXDSJ amount2
+        , ZQYRQ amount3
+        , ZSYRQ amount4
+        , ZJCWCSJ amount5
+        , ZSJWCSJ amount6
+        , ZRWBH amount7
+        , ZJHBH amount8
+        , ZCGDD amount9
+        , ZHXM amount10
+        , ZWLMS amount11
+        , ZJBJLDW amount12
+        , ZHTSL amount13
+        , ZCJSL amount14
+        , ZYJSL amount15
+        , ZBHGSL amount16
+        , ZCLCJSL amount17
+        , ZBLCJSL amount18
+        , ZALCJSL amount19
+        , ZJCZT amount20
+        , ZCJGG amount21
+        , ZJCJG amount22
+        , ZGCMC amount23
+        , ZGYSMC amount24
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        where date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+    </select>
+    <!--    平均检测时长-->
+    <select id="selectExportZj005ByMonth" resultType="java.util.Map">
+        SELECT ZWZLB amount1
+        , ZRWXDSJ amount2
+        , ZQYRQ amount3
+        , ZSYRQ amount4
+        , ZJCWCSJ amount5
+        , ZSJWCSJ amount6
+        , ZRWBH amount7
+        , ZJHBH amount8
+        , ZCGDD amount9
+        , ZHXM amount10
+        , ZWLMS amount11
+        , ZJBJLDW amount12
+        , ZHTSL amount13
+        , ZCJSL amount14
+        , ZYJSL amount15
+        , ZBHGSL amount16
+        , ZCLCJSL amount17
+        , ZBLCJSL amount18
+        , ZALCJSL amount19
+        , ZJCZT amount20
+        , ZCJGG amount21
+        , ZJCJG amount22
+        , ZGCMC amount23
+        , ZGYSMC amount24
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        where date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+    </select>
+    <!--    质监 A类任务平均抽检总时长-->
+    <select id="selectExportZj006ByMonth" resultType="java.util.Map">
+        SELECT ZWZLB amount1
+        , ZRWXDSJ amount2
+        , ZQYRQ amount3
+        , ZSYRQ amount4
+        , ZJCWCSJ amount5
+        , ZSJWCSJ amount6
+        , ZRWBH amount7
+        , ZJHBH amount8
+        , ZCGDD amount9
+        , ZHXM amount10
+        , ZWLMS amount11
+        , ZJBJLDW amount12
+        , ZHTSL amount13
+        , ZCJSL amount14
+        , ZYJSL amount15
+        , ZBHGSL amount16
+        , ZCLCJSL amount17
+        , ZBLCJSL amount18
+        , ZALCJSL amount19
+        , ZJCZT amount20
+        , ZCJGG amount21
+        , ZJCJG amount22
+        , ZGCMC amount23
+        , ZGYSMC amount24
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        where zcjgg = 'A类'
+        AND date_format(date_format(zsjwcsj, '%Y-%m-%d'), '%Y-%m-%d') BETWEEN #{request.accStartTime} AND
+        #{request.accEndTime}
+    </select>
+    <!--    质监 B类任务平均抽检总时长-->
+    <select id="selectExportZj007ByMonth" resultType="java.util.Map">
+        SELECT ZWZLB amount1
+        , ZRWXDSJ amount2
+        , ZQYRQ amount3
+        , ZSYRQ amount4
+        , ZJCWCSJ amount5
+        , ZSJWCSJ amount6
+        , ZRWBH amount7
+        , ZJHBH amount8
+        , ZCGDD amount9
+        , ZHXM amount10
+        , ZWLMS amount11
+        , ZJBJLDW amount12
+        , ZHTSL amount13
+        , ZCJSL amount14
+        , ZYJSL amount15
+        , ZBHGSL amount16
+        , ZCLCJSL amount17
+        , ZBLCJSL amount18
+        , ZALCJSL amount19
+        , ZJCZT amount20
+        , ZCJGG amount21
+        , ZJCJG amount22
+        , ZGCMC amount23
+        , ZGYSMC amount24
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        where zcjgg = 'B类'
+        AND date_format(date_format(zsjwcsj, '%Y-%m-%d'), '%Y-%m-%d') BETWEEN #{request.accStartTime} AND
+        #{request.accEndTime}
+    </select>
+    <!--    质监 C类任务平均抽检总时长-->
+    <select id="selectExportZj008ByMonth" resultType="java.util.Map">
+        SELECT ZWZLB amount1
+        , ZRWXDSJ amount2
+        , ZQYRQ amount3
+        , ZSYRQ amount4
+        , ZJCWCSJ amount5
+        , ZSJWCSJ amount6
+        , ZRWBH amount7
+        , ZJHBH amount8
+        , ZCGDD amount9
+        , ZHXM amount10
+        , ZWLMS amount11
+        , ZJBJLDW amount12
+        , ZHTSL amount13
+        , ZCJSL amount14
+        , ZYJSL amount15
+        , ZBHGSL amount16
+        , ZCLCJSL amount17
+        , ZBLCJSL amount18
+        , ZALCJSL amount19
+        , ZJCZT amount20
+        , ZCJGG amount21
+        , ZJCJG amount22
+        , ZGCMC amount23
+        , ZGYSMC amount24
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        where zcjgg = 'C类'
+        AND date_format(date_format(zsjwcsj, '%Y-%m-%d'), '%Y-%m-%d') BETWEEN #{request.accStartTime} AND
+        #{request.accEndTime}
+    </select>
+
+    <!--    质监 设备监造 ——暂无-->
+    <select id="selectExportZj009ByMonth" resultType="java.util.Map">
+
+    </select>
+    <!--    质监 非电网零星物资人工评价率-->
+    <select id="selectExportZj011ByMonth" resultType="java.util.Map">
+        select GCMC amount1
+        , DDSL amount2
+        , YPJDDSL amount3
+        , RGPJDDSL amount4
+        , XTMR amount5
+        , DPJ amount6
+        , RGPJL amount7
+        , drsj amount8
+        , GCBM amount9
+        , GCJC amount10
+        from ads_mat_esc_rgpjl
+        where date_format(drsj, '%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+    </select>
+    <!--    不良行为-->
+    <select id="selectExportZj010ByMonth" resultType="java.util.Map">
+        SELECT GYSMC amount1
+        , BLXWMS amount2
+        , CLCS amount3
+        , CLFW amount4
+        , GYSBM amount5
+        , DRSJ amount6
+        , CLJD amount7
+        FROM ads_mat_esc_blxw
+        where concat(cljd, '-01') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+    </select>
+
+    <!--物资类批次计划条目及金额-->
+    <select id="selectExportJh001ByMonth" resultType="java.util.Map"
+            parameterType="com.proj.web.entity.SmartReportSecondPO">
+
+        SELECT PCBH amount1
+        , BANFN amount2
+        , BNFPO amount3
+        , JZRQ amount4
+        , CZSJ amount5
+        , CZRQ amount6
+        , RLWRT amount7
+        , ZJHLX amount8
+        , ZJHSBLX amount9
+        , WERKS amount10
+        , WERKSNAME amount11
+        FROM ads_mat_esc_jh_010_xqjhtbmx
+        WHERE ZJHSBLX = '批次计划'
+        and ZJHLX = '物资'
+        AND JZRQ BETWEEN #{request.startTime} AND #{request.endTime}
+    </select>
+
+    <!--    计划 物资类协议库存计划条目及金额-->
+    <select id="selectExportJh002ByMonth" resultType="java.util.Map"
+            parameterType="com.proj.web.entity.SmartReportSecondPO">
+        SELECT PCBH amount1
+        , BANFN amount2
+        , BNFPO amount3
+        , JZRQ amount4
+        , CZSJ amount5
+        , CZRQ amount6
+        , RLWRT amount7
+        , ZJHLX amount8
+        , ZJHSBLX amount9
+        , WERKS amount10
+        , WERKSNAME amount11
+        FROM ads_mat_esc_jh_010_xqjhtbmx
+        WHERE ZJHSBLX = '协议库存计划'
+        and ZJHLX = '物资'
+        AND JZRQ BETWEEN #{request.startTime} AND #{request.endTime}
+    </select>
+
+    <!--    计划 物资类框架计划条目及金额-->
+    <select id="selectExportJh003ByMonth" resultType="java.util.Map"
+            parameterType="com.proj.web.entity.SmartReportSecondPO">
+        SELECT PCBH amount1
+        , BANFN amount2
+        , BNFPO amount3
+        , JZRQ amount4
+        , CZSJ amount5
+        , CZRQ amount6
+        , RLWRT amount7
+        , ZJHLX amount8
+        , ZJHSBLX amount9
+        , WERKS amount10
+        , WERKSNAME amount11
+        FROM ads_mat_esc_jh_010_xqjhtbmx
+        WHERE ZJHSBLX = '框架计划'
+        and ZJHLX = '物资'
+        AND JZRQ BETWEEN #{request.startTime} AND #{request.endTime}
+
+    </select>
+
+    <!--    计划 服务类批次计划条目及金额-->
+    <select id="selectExportJh004ByMonth" resultType="java.util.Map"
+            parameterType="com.proj.web.entity.SmartReportSecondPO">
+        SELECT PCBH amount1
+        , BANFN amount2
+        , BNFPO amount3
+        , JZRQ amount4
+        , CZSJ amount5
+        , CZRQ amount6
+        , RLWRT amount7
+        , ZJHLX amount8
+        , ZJHSBLX amount9
+        , WERKS amount10
+        , WERKSNAME amount11
+        FROM ads_mat_esc_jh_010_xqjhtbmx
+        WHERE ZJHSBLX = '批次计划'
+        and ZJHLX = '非物资'
+        AND CZsj BETWEEN #{request.startTime} AND #{request.endTime}
+
+    </select>
+
+    <!--    计划 服务类框架计划条目及金额-->
+    <select id="selectExportJh005ByMonth" resultType="java.util.Map"
+            parameterType="com.proj.web.entity.SmartReportSecondPO">
+        SELECT PCBH amount1
+        , BANFN amount2
+        , BNFPO amount3
+        , JZRQ amount4
+        , CZSJ amount5
+        , CZRQ amount6
+        , RLWRT amount7
+        , ZJHLX amount8
+        , ZJHSBLX amount9
+        , WERKS amount10
+        , WERKSNAME amount11
+        FROM ads_mat_esc_jh_010_xqjhtbmx
+        WHERE ZJHSBLX = '框架计划'
+        and ZJHLX = '非物资'
+        AND CZsj BETWEEN #{request.startTime} AND #{request.endTime}
+
+
+    </select>
+
+    <!--    计划 协议库存匹配计划条目及金额-->
+    <select id="selectExportJh006ByMonth" resultType="java.util.Map"
+            parameterType="com.proj.web.entity.SmartReportSecondPO">
+        SELECT ZBPC amount1
+        , XYKCBH amount2
+        , XYKCHXM amount3
+        , WLXL amount4
+        , MACLTE amount5
+        , MATNR amount6
+        , MAKTX amount7
+        , BANFN amount8
+        , BNFPO amount9
+        , ZCGSQSL amount10
+        , ZJLDW amount11
+        , LIFNR amount12
+        , LIFNR_NAME amount13
+        , ZJSGFID amount14
+        , zpprq amount15
+        , beiyong1 amount16
+        , EBELN amount17
+        , EBELP amount18
+        , ZCGDDSL amount19
+        , ZCGDDJJ amount20
+        , ZCGDDHSJ amount21
+        , ZCGDDSHJE amount22
+        , ZCGDDSHRQ amount23
+        FROM zesc_zncg_xykcztzxqk_mx
+        where WLXL is NOT NULL
+        AND not ISNULL(WLXL)
+        AND ZPPRQ BETWEEN #{request.startTime} AND #{request.endTime}
+    </select>
+
+    <!--    计划 跨单位利库条目及金额——暂时没写-->
+    <select id="selectExportJh007ByMonth" resultType="java.util.Map"
+            parameterType="com.proj.web.entity.SmartReportSecondPO">
+        SELECT 1 as type, (a + b) as n, (c + d) as p
+        FROM (SELECT (
+        select count(1)
+        from ads_mat_esc_jh_phlkqktj
+        WHERE MBLNR
+        !='' AND ZDBWCRQ!=''AND ZLKLX='跨单位利库' AND date_add(ZSQDCJRQ
+        , INTERVAL 1 month) BETWEEN #{request.startTime} AND #{request.endTime} AND ZDBWCRQ BETWEEN
+        date_add(#{request.startTime}
+        , INTERVAL -1 month) AND #{request.endTime}
+        ) a,
+        (
+        select count(1)
+        from ads_mat_esc_jh_wzdbqktj
+        WHERE Cargo_status = 'ES000032'
+        AND deploy_type = '跨单位调配'
+        AND date_add(DATTE1, INTERVAL 1 month) BETWEEN #{request.startTime} AND #{request.endTime}
+        AND DATTE2 BETWEEN
+        date_add(#{request.startTime}, INTERVAL -1 month) AND #{request.endTime}
+        ) b,
+        (
+        select ifnull(sum(PCKCDJ * ZLKSL), 0)
+        from ads_mat_esc_jh_phlkqktj
+        WHERE MBLNR!='' AND ZDBWCRQ!=''AND ZLKLX='跨单位利库'
+        AND
+        date_add(ZSQDCJRQ,INTERVAL 1 month) BETWEEN #{request.startTime}
+        AND #{request.endTime}
+        AND ZDBWCRQ BETWEEN date_add(#{request.startTime}
+        , INTERVAL -1 month)
+        AND #{request.endTime}
+        ) c,
+        (
+        select ifnull(sum(price), 0)
+        from ads_mat_esc_jh_wzdbqktj
+        WHERE Cargo_status = 'ES000032'
+        AND deploy_type = '跨单位调配'
+        AND date_add(DATTE1, INTERVAL 1 month) BETWEEN #{request.startTime} AND #{request.endTime}
+        AND DATTE2 BETWEEN date_add(#{request.startTime}, INTERVAL -1 month) AND #{request.endTime}
+        ) d) ads_mat_esc_jh
+
+    </select>
+
+    <!--    计划 协议库存合同执行完成率——暂时没写-->
+    <select id="selectExportJh008ByMonth" resultType="java.util.Map"
+            parameterType="com.proj.web.entity.SmartReportSecondPO">
+        SELECT 1 as type,(c.a/c.b) as rate FROM ( SELECT (select count(1) from zesc_zncg_xykcztzxqk
+        <where>
+            PPWCL>=0.8
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND YXJZRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        ) a,
+        (select count(1) from zesc_zncg_xykcztzxqk
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND YXJZRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        ) b
+        ) c
+    </select>
+
+    <!--    计划 物资采购计划报送准确率——暂时没写-->
+    <select id="selectExportJh009ByMonth" resultType="java.util.Map"
+            parameterType="com.proj.web.entity.SmartReportSecondPO">
+        SELECT 1 as type, ifnull(fenzi / fenmu, -2) rate
+        from (SELECT count(1) fenzi
+        FROM ads_mat_esc_jh_010_xqjhtbmx
+        WHERE ZJHLX = "物资"
+        AND JZRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}) a,
+        (SELECT count(distinct BANFN, BNFPO, PCBH) fenmu
+        FROM zesc_ybsj_zhb1
+        WHERE ZJHLX = "物资"
+        AND JZRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}) b
+    </select>
+
+    <!--    计划 物资采购及时率——暂时没写-->
+    <select id="selectExportJh010ByMonth" resultType="java.util.Map"
+            parameterType="com.proj.web.entity.SmartReportSecondPO">
+        SELECT 1 as type, ifnull(fenzi/ FENMU,0) rate
+        FROM (SELECT
+        sum( case when DATEDIFF( ifnull(cgqktj.zbhxrjggj,cgqktj.zbsj), mx.jzrq ) &lt;= 40 then 1
+        when DATEDIFF( ifnull(cgqktj.zbhxrjggj,cgqktj.zbsj), mx.jzrq ) &lt;= 50 then 0.9
+        when DATEDIFF( ifnull(cgqktj.zbhxrjggj,cgqktj.zbsj), mx.jzrq ) &lt;= 59 then 0.8
+        when DATEDIFF( ifnull(cgqktj.zbhxrjggj,cgqktj.zbsj), mx.jzrq ) &gt; 59 then 0
+        end ) fenzi
+        FROM ads_mat_esc_zncg_cgqktj cgqktj
+        LEFT JOIN ads_mat_esc_jh_010_xqjhtbmx mx ON cgqktj.PCBM = mx.PCBh
+        AND cgqktj.WSCGSQH = mx.BANFN
+        AND cgqktj.WSCGSQHH = mx.BNFPO
+        WHERE
+        cgqktj.PCBM like '02%'
+        and
+        cgqktj.cglb = '物资'
+        and cgqktj.ZSFZB_NEW = '中标'
+        AND cgqktj.zbsj BETWEEN #{request.accStartTime} AND #{request.accEndTime}) A
+        ,(SELECT
+        count(1) + (SELECT COUNT(1) FROM ads_mat_esc_jh_010_xqjhtbmx WHERE THYY ='上报成功流标退回') FENMU
+        FROM ads_mat_esc_zncg_cgqktj cgqktj
+        LEFT JOIN ads_mat_esc_jh_010_xqjhtbmx mx ON cgqktj.PCBM = mx.PCBh
+        AND cgqktj.WSCGSQH = mx.BANFN
+        AND cgqktj.WSCGSQHH = mx.BNFPO
+        WHERE
+        cgqktj.PCBM like '02%'
+        and
+        cgqktj.cglb = '物资'
+        and cgqktj.ZSFZB_NEW = '中标'
+        AND cgqktj.zbsj BETWEEN #{request.accStartTime} AND #{request.accEndTime}) B
+    </select>
+
+    <!--    计划 平衡利库执行完成率—暂时没写-->
+    <select id="selectExportJh011ByMonth" resultType="java.util.Map"
+            parameterType="com.proj.web.entity.SmartReportSecondPO">
+        SELECT ifnull(fenzi / fenmu, -2) rate,
+        1 type
+        FROM (SELECT fenzi1 + fenzi2 fenzi
+        FROM (SELECT ifnull(sum(PCKCDJ * ZLKSL), 0) fenzi1
+        FROM ads_mat_esc_jh_phlkqktj
+        WHERE MBLNR != '' AND ZDBWCRQ != '' AND ZLKLX = '跨单位利库' AND ZSQDCJRQ BETWEEN #{request.accStartTime}
+        AND DATE_ADD(#{request.startTime}
+        , INTERVAL -1 day)
+        AND ZDBWCRQ BETWEEN #{request.accStartTime}
+        AND #{request.accEndTime}
+        ) a,
+        (SELECT ifnull(sum(price), 0) fenzi2
+        FROM ads_mat_esc_jh_wzdbqktj
+        WHERE Cargo_status = 'ES000032'
+        AND deploy_type = '跨单位调配'
+        AND datte1 BETWEEN #{request.accStartTime} AND DATE_ADD(#{request.startTime}, INTERVAL -1 day)
+        AND datte2 BETWEEN #{request.accStartTime} AND #{request.accEndTime}) b
+        ) fenzi,
+        (SELECT fenmu1 + fenmu2 fenmu
+        FROM (SELECT ifnull(sum(PCKCDJ * ZLKSL), 0) fenmu1
+        FROM ads_mat_esc_jh_phlkqktj
+        WHERE ZLKLX = '跨单位利库'
+        AND ZSQDCJRQ BETWEEN #{request.accStartTime} AND DATE_ADD(#{request.startTime}, INTERVAL -1 day)) a,
+        (SELECT ifnull(sum(price), 0) fenmu2
+        FROM ads_mat_esc_jh_wzdbqktj
+        WHERE deploy_type = '跨单位调配'
+        AND datte1 BETWEEN #{request.accStartTime} AND DATE_ADD(#{request.startTime}, INTERVAL -1 day)) b
+        ) fenmu
+    </select>
+
+    <!--    计划 废旧物资报废处置条目及金额-->
+    <select id="selectExportJh012ByMonth" resultType="java.util.Map"
+            parameterType="com.proj.web.entity.SmartReportSecondPO">
+        SELECT werks_name amount1
+        , wm_mat_item_id amount2
+        , item_status amount3
+        , dispose_type amount4
+        , wm_type amount5
+        , mat_mat_code amount6
+        , mat_mat_des amount7
+        , mat_grp_code amount8
+        , mat_grp_des amount9
+        , eva_val amount10
+        , winbid_amt amount11
+        , con_unit_price amount12
+        , qty amount13
+        , meas_unit_type amount14
+        , bat_code amount15
+        , wm_bidprj_id amount16
+        , prj_name amount17
+        , reply_date amount18
+        , bid_status amount19
+        , bidpkg amount20
+        , bidpkg_name amount21
+        , recyc_id amount22
+        , recyc_name amount23
+        , b_wm_sale_con_id amount24
+        FROM esc_rds_brs_bd_fj_001_fjwzczqktj_001
+        where bid_status = '已中标'
+        AND reply_date BETWEEN #{request.startTime} AND #{request.endTime}
+    </select>
+
+    <!--    计划 报废处置流标率-->
+    <select id="selectExportJh013ByMonth" resultType="java.util.Map"
+            parameterType="com.proj.web.entity.SmartReportSecondPO">
+        SELECT werks_name amount1
+        , wm_mat_item_id amount2
+        , item_status amount3
+        , dispose_type amount4
+        , wm_type amount5
+        , mat_mat_code amount6
+        , mat_mat_des amount7
+        , mat_grp_code amount8
+        , mat_grp_des amount9
+        , eva_val amount10
+        , winbid_amt amount11
+        , con_unit_price amount12
+        , qty amount13
+        , meas_unit_type amount14
+        , bat_code amount15
+        , wm_bidprj_id amount16
+        , prj_name amount17
+        , reply_date amount18
+        , bid_status amount19
+        , bidpkg amount20
+        , bidpkg_name amount21
+        , recyc_id amount22
+        , recyc_name amount23
+        , b_wm_sale_con_id amount24
+        from esc_rds_brs_bd_fj_001_fjwzczqktj_001
+        where
+        and bid_status = '已流标'
+        AND reply_date BETWEEN #{request.accStartTime}
+        AND #{request.accEndTime}
+        AND reply_date &lt;= #{request.accEndTime}
+    </select>
+
+    <!--    计划 报废处置溢价率-->
+    <select id="selectExportJh014ByMonth" resultType="java.util.Map"
+            parameterType="com.proj.web.entity.SmartReportSecondPO">
+        select bat_code amount1
+        , event_name amount2
+        , prj_name amount3
+        , bidpkg_code amount4
+        , 包号 amount5
+        , base_price amount6
+        , hammer_price amount7
+        , excd_price_rate amount8
+        , recyc_id amount9
+        , recyc_name amount10
+        , reply_date amount11
+        from esc_rds_brs_bd_fj_001_fjwzczqktj_002
+        where reply_date BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+        AND reply_date &lt;= #{request.accEndTime}
+
+    </select>
+
+
+</mapper>

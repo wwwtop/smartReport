@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.proj.web.mapper.ReportMapper">
+
+    <insert id="basicDataStatisticsAdd">
+        INSERT INTO ads_mat_esc_xin_yb_002 (ZZBBH, ZZBSZ, ZSJ,ZLYYY)
+        VALUES (#{request.indexNumber}, #{request.valueIndex}, #{request.creationTime},#{request.source})
+    </insert>
+
+
+    <delete id="deleteByTime">
+        DELETE FROM ads_mat_esc_xin_yb_002 WHERE zsj = #{zsj} AND ZLYYY= #{label}
+    </delete>
+
+
+
+    <!--
+    需要【自行】在mapper中，新建一个xml或者xml的sql方法（并且支持此DbBfpsQueryPartialDTO类的转换和接入）
+    可随时嵌入到各个查询的select中（建议select）
+    嵌入SQL语句，模板示例
+    -->
+
+        <!--JOIN连接查询-->
+        <sql id="getQueryDtoWhereFixedProxy">
+            SELECT *** as main
+            LEFT JOIN ads_mat_esc_bd_ywsjgdcspzb as dict
+            ON (main.key = dict.cszbmc)
+            WHERE dict.ywlx = ''
+            <if test="(dto.rqsj != null and dto.rqsj != '')">
+                AND dict.rqsj = #{dto.rqsj}
+            </if>
+        </sql>
+
+        <!--主表SELECT子句-->
+        <sql id="getQueryDtoSelectFixedProxy">
+            (CASE
+            WHEN dict.cclx = 1 THEN
+            dict.gdz
+            ELSE
+            main.value
+            END) as ZBSZ
+        </sql>
+
+
+    <select id="selectAll" resultType="java.util.LinkedHashMap">
+        SELECT
+        main.ZZBBH AS ZZBBH,
+        main.ZZBSZ  AS ZZBSZ
+        FROM
+        ads_mat_esc_xin_yb_002 main
+        WHERE
+        <if test="request.time != null and request.time !='' and request.targetName != null and request.targetName !=''">
+             main.ZSJ = #{request.time} AND main.ZLYYY = #{request.targetName}
+        </if>
+        ORDER BY main.ZZBBH
+<!--        <if test="(dto.rqsj != null and dto.rqsj != '')">-->
+<!--            AND dict.rqsj = #{dto.rqsj}-->
+<!--        </if>-->
+
+<!--        ( SELECT ZZBBH,fixed,isFixed FROM ads_mat_esc_xin_yb_003-->
+<!--        <where>-->
+<!--            <if test="request.time != null and request.time !='' and request.ztype != null and request.ztype !=''">-->
+<!--                ZSJ = #{request.time} AND ZTYPE = #{request.ztype}-->
+<!--            </if>-->
+<!--        </where>) b-->
+<!--        ON a.ZZBBH = b.ZZBBH-->
+<!--        <where>-->
+<!--            <if test="request.time != null and request.time !='' and request.targetName != null and request.targetName !=''">-->
+<!--                AND a.ZSJ = #{request.time} AND a.ZLYYY = #{request.targetName}-->
+<!--            </if>-->
+<!--        </where>-->
+    </select>
+    <select id="selectByOnly" resultType="java.lang.String">
+        SELECT
+        ZZBSZ
+        FROM
+        ads_mat_esc_xin_yb_002  where ZZBBH=#{request.targetName} AND ZSJ= #{request.time}
+    </select>
+<!--    通过指标编号获取详情数据-->
+    <select id="selectDatsils" resultType="com.proj.model.vo.DetailVO">
+        SELECT ZZBBH, ZZBMC, ZZBYWSM, ZZBLJSM, ZLYYY
+        FROM ads_mat_esc_ybxq_001
+        WHERE ZZBBH = #{request.term}
+    </select>
+
+
+</mapper>

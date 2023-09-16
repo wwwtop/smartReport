@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+
+    <!--
+    需要【自行】在mapper中，新建一个xml或者xml的sql方法（并且支持此DbBfpsQueryPartialDTO类的转换和接入）
+    可随时嵌入到各个查询的select中（建议select）
+    嵌入SQL语句，模板示例
+    -->
+
+    <!--JOIN连接查询-->
+    <sql id="getQueryDtoWhereFixedProxy">
+        SELECT *** as main
+        LEFT JOIN ads_mat_esc_bd_ywsjgdcspzb as dict
+        ON (main.key = dict.cszbmc)
+        WHERE dict.ywlx = ''
+        <if test="(dto.rqsj != null and dto.rqsj != '')">
+            AND dict.rqsj = #{dto.rqsj}
+        </if>
+    </sql>
+
+    <!--主表SELECT子句-->
+    <sql id="getQueryDtoSelectFixedProxy">
+        (CASE
+        WHEN dict.cclx = 1 THEN
+        dict.gdz
+        ELSE
+        main.value
+        END) as ZBSZ
+    </sql>
+</config>

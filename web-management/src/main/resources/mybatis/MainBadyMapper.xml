@@ -1,0 +1,1200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.proj.web.mapper.MainBadyMapper">
+
+<!--正文铝价最大和最小-->
+    <select id="selectUndulation001" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,max(RAWMATERIALPRICE) as p  FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='SMM A00铝'
+            <if test="request.time != null and request.time !=''">
+                AND RAWMATERIALDATE BETWEEN concat(#{request.startTime}, '-01') AND #{request.endTime}
+            </if>
+        </where>
+        union
+        SELECT 2 as type,MIN(RAWMATERIALPRICE) as p FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='SMM A00铝'
+            <if test="request.time != null and request.time !=''">
+                AND RAWMATERIALDATE BETWEEN concat(#{request.startTime}, '-01') AND concat(#{request.endTime})
+            </if>
+        </where>
+    </select>
+<!--当前铝价最近的-->
+    <select id="selectUndulation001p1" resultType="java.math.BigDecimal">
+        SELECT RAWMATERIALPRICE as p FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='SMM A00铝'
+                AND RAWMATERIALDATE LIKE
+            concat(#{time}, '%' )
+            ORDER BY RAWMATERIALDATE DESC
+            LIMIT 1
+        </where>
+    </select>
+
+<!--    当前上月铝价最近的-->
+    <select id="selectUndulation001p2" resultType="java.math.BigDecimal">
+        SELECT RAWMATERIALPRICE as p FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='SMM A00铝'
+            AND DATE_ADD(RAWMATERIALDATE,INTERVAL 1 month) LIKE
+            concat(#{time}, '%' )
+            ORDER BY RAWMATERIALDATE DESC
+            LIMIT 1
+        </where>
+    </select>
+
+<!--    正文铜价最大和最小-->
+    <select id="selectUndulation002" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,max(RAWMATERIALPRICE) as p  FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='SMM 1#电解铜'
+            <if test="request.time != null and request.time !=''">
+                AND RAWMATERIALDATE BETWEEN concat(#{request.startTime}, '-01') AND #{request.endTime}
+            </if>
+        </where>
+        union
+        SELECT 2 as type,MIN(RAWMATERIALPRICE) as p FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='SMM 1#电解铜'
+            <if test="request.time != null and request.time !=''">
+                AND RAWMATERIALDATE BETWEEN concat(#{request.startTime}, '-01') AND concat(#{request.endTime})
+            </if>
+        </where>
+    </select>
+<!--当前铜价最近的-->
+    <select id="selectUndulation002p1" resultType="java.math.BigDecimal">
+        SELECT ifnull(RAWMATERIALPRICE,0) as p FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='SMM 1#电解铜'
+                AND RAWMATERIALDATE LIKE
+            concat(#{time}, '%' )
+            ORDER BY RAWMATERIALDATE DESC
+            LIMIT 1
+        </where>
+    </select>
+<!--当前上月铜价最近的-->
+    <select id="selectUndulation002p2" resultType="java.math.BigDecimal">
+        SELECT RAWMATERIALPRICE,0 as p FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='SMM 1#电解铜'
+            AND DATE_ADD(RAWMATERIALDATE,INTERVAL 1 month) LIKE
+            concat(#{time}, '%' )
+            ORDER BY RAWMATERIALDATE DESC
+            LIMIT 1
+        </where>
+    </select>
+
+<!--    角钢最大和最小-->
+    <select id="selectUndulation006" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,max(RAWMATERIALPRICE) as p  FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='角钢'
+            <if test="request.time != null and request.time !=''">
+                AND RAWMATERIALDATE BETWEEN concat(#{request.startTime}, '-01') AND #{request.endTime}
+            </if>
+        </where>
+        union
+        SELECT 2 as type,MIN(RAWMATERIALPRICE) as p FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='角钢'
+            <if test="request.time != null and request.time !=''">
+                AND RAWMATERIALDATE BETWEEN concat(#{request.startTime}, '-01') AND concat(#{request.endTime})
+            </if>
+        </where>
+    </select>
+
+    <select id="selectUndulation006p1" resultType="java.math.BigDecimal">
+        SELECT ifnull(RAWMATERIALPRICE,0) as p FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='角钢'
+            AND RAWMATERIALDATE LIKE
+            concat(#{time}, '%' )
+            ORDER BY RAWMATERIALDATE DESC
+            LIMIT 1
+        </where>
+    </select>
+
+    <select id="selectUndulation006p2" resultType="java.math.BigDecimal">
+        SELECT RAWMATERIALPRICE,0 as p FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='角钢'
+            AND DATE_ADD(RAWMATERIALDATE,INTERVAL 1 month) LIKE
+            concat(#{time}, '%' )
+            ORDER BY RAWMATERIALDATE DESC
+            LIMIT 1
+        </where>
+    </select>
+
+    <select id="selectUndulation003" resultType="com.proj.model.vo.UndulationVO">
+        SELECT RAWMATERIALDATE,RAWMATERIALPRICE FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='SMM A00铝'
+            AND LEFT(RAWMATERIALDATE,4) BETWEEN #{lastTime} and #{time}
+            ORDER BY RAWMATERIALDATE DESC
+        </where>
+    </select>
+
+
+
+
+    <select id="selectUndulation004" resultType="com.proj.model.vo.UndulationVO">
+        SELECT RAWMATERIALDATE,RAWMATERIALPRICE FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='SMM 1#电解铜'
+            AND LEFT(RAWMATERIALDATE,4) BETWEEN #{lastTime} and #{time}
+            ORDER BY RAWMATERIALDATE DESC
+        </where>
+    </select>
+
+    <select id="selectUndulation005" resultType="com.proj.model.vo.UndulationVO">
+        SELECT RAWMATERIALDATE,RAWMATERIALPRICE FROM ads_mat_esc_zmm02t_ycljg2erp
+        <where>
+            RAWMATERIALNAME='角钢'
+            AND LEFT(RAWMATERIALDATE,4) BETWEEN #{lastTime} and #{time}
+            ORDER BY RAWMATERIALDATE DESC
+        </where>
+    </select>
+
+
+
+    <select id="selectMainBady001" resultType="java.math.BigDecimal">
+        SELECT IFNULL(sum((HSZJ)),0) p FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%'
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND ZBSJ BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+    </select>
+
+
+
+    <select id="selectMainBady002" resultType="java.math.BigDecimal">
+        SELECT ifnull(sum(B),0) p FROM (
+        select  ifnull(cast(sum(ZJE)/10000 as DECIMAL(10,2)),0) B from ESC_RDS_BRS_BD_WZHT_001_HTQDJE4
+        <where>
+            zpzlx='采购供货单'
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND zhtsxrq BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+        UNION ALL
+        select  ifnull(cast(sum(ZJE)/10000 as DECIMAL(10,2)),0) B from ESC_RDS_BRS_BD_WZHT_001_HTQDJE4
+        <where>
+            ZPZLX = '标准合同'
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND zhtsxrq BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>) ESC_RDS_BRS_BD_WZHT_002
+    </select>
+<!--暂无-->
+    <select id="selectMainBady003" resultType="java.math.BigDecimal">
+        SELECT ifnull(sum(ZSJJHJE), 0) as p
+        FROM esc_rds_brs_bd_gy_002_gyjhwclfx
+        <where>
+            ZSJJHSL > 0
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND ZSHSJ BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectMainBady004" resultType="java.math.BigDecimal">
+        select ifnull(sum(ZSQJE),0) p from ZESC_RDS_YB_HTJS
+        <where>
+            ZZFZT is not null AND not ISNULL(ZZFZT) and ZCLZT is not null AND not ISNULL(ZCLZT)
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND concat(SUBSTRING(ZJHPC,1,4),'-',SUBSTRING(ZJHPC,5,2),'-01') BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+    </select>
+    <select id="selectMainBady005" resultType="java.lang.Integer">
+
+        SELECT count(1) as n FROM `esc_rds_bd_jz_001_jzqktj_jldwjzzxqktjgnb` WHERE ZRWZT='在施任务'
+
+    </select>
+    <select id="selectMainBady006" resultType="java.lang.Integer">
+        select ifnull(sum(zyjsl), 0)
+        from esc_rds_brs_bd_zljd_cj_020_cjhglfx
+        <where>
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                zsjwcsj BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectMainBady007" resultType="java.math.BigDecimal">
+        select (ifnull(sum(zyjsl), 0) - ifnull(sum(zbhgsl), 0)) / ifnull(sum(zyjsl), 0)
+        from esc_rds_brs_bd_zljd_cj_020_cjhglfx
+        <where>
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectMainBady008" resultType="java.math.BigDecimal">
+        SELECT ifnull(sum(DMBTR),0) p FROM esc_rds_brs_bd_cc_019_ndztkcjetj
+        <where>
+            werks LIKE 'BP%' AND (LGORT LIKE'99%' OR LGORT LIKE'A%')
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                AND concat(LFGJA, '-', LFMON, '-01') BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+
+    </select>
+    <select id="selectMainBady009" resultType="java.math.BigDecimal">
+        SELECT
+        IFNULL(SUM(JE),0) AS JE
+        FROM  ADS_MAT_ESC_PSYWXQ
+        WHERE CZSJ BETWEEN #{request.startTime} AND #{request.endTime}
+    </select>
+
+    <select id="selectMainBady010" resultType="java.math.BigDecimal">
+        SELECT IFNULL(sum(hammer_price),0) as p  FROM esc_rds_brs_bd_fj_001_fjwzczqktj_002
+        <where>
+            <if test="request.startTime != null and request.startTime !='' and request.endTime != null and request.endTime !=''">
+                reply_date BETWEEN #{request.startTime} AND #{request.endTime}
+            </if>
+        </where>
+    </select>
+
+<!--&lt;!&ndash;    本月，对北京公司11项指标进行监控&ndash;&gt;-->
+<!--    <select id="selectSecondaryBasic001" resultType="java.lang.Integer"></select>-->
+
+<!--    共分发6项（取数项：本月实际有已分发预警信息的监控指标个数统计）指标-->
+    <select id="selectSecondaryBasic002" resultType="java.lang.Integer">
+        SELECT count(1) FROM (
+        SELECT
+        指标名称
+
+        FROM
+        (
+        SELECT
+        a.指标名称,
+        b.单位,
+        CASE
+
+        WHEN b.部门名称 = '供应链运营中心' THEN
+        '供应部' ELSE b.部门名称
+        END 分发对象,
+        a.发送日期,
+        CASE
+
+        WHEN a.发送日期 IS NOT NULL
+        AND a.办结状态 = '系统办结' THEN
+        1
+        WHEN a.办结状态 = '人工办结' THEN
+        1 ELSE 0
+        END 已办结,
+        CASE
+
+        WHEN a.发送日期 IS NOT NULL THEN
+        1 ELSE 0
+        END 已分发
+        FROM
+        (
+        SELECT
+        ALERT_OBJ 指标名称,
+        REPLY_USER 原因反馈提交人姓名,
+        WERKS_NAME1 单位名称,
+        YWHJNAME 业务环节名称,
+        REPLY_MAIL 原因反馈提交人邮箱,
+        OCCURRENCE_DATE 问题发生日期,
+        CONVEY_DATE 发送日期,
+        CASE
+
+        WHEN STATUS = 06
+        AND OPERATION_STATUS = 06 THEN
+        '人工办结'
+        WHEN STATUS = 06
+        AND OPERATION_STATUS  &lt;&gt;  06 THEN
+        '系统办结' ELSE ''
+        END 办结状态
+        FROM
+        esc_alert_main
+        WHERE
+        REPLY_USER IS NOT NULL
+        AND REPLY_USER != ''
+        ) a
+        LEFT JOIN (
+        SELECT
+        MAIL,
+        USER_NAME,
+        CASE
+
+        WHEN WERKS = '通用' THEN
+        '物资公司'
+        WHEN WERKS = '建设咨询公司' THEN
+        '建资公司' ELSE WERKS
+        END 单位,
+        ORG_NAME 部门名称
+        FROM
+        `esc_alert_user_config`
+        GROUP BY
+        user_name,
+        WERKS,
+        ORG_NAME,
+        mail
+        ) b ON a.原因反馈提交人姓名 = b.USER_NAME
+        AND a.原因反馈提交人邮箱 = b.MAIL
+        WHERE
+        ( b.单位 = '物资公司' OR b.单位 = '通用' OR b.单位 IS NULL )
+        AND
+        CASE
+        WHEN a.发送日期 IS NOT NULL THEN
+        1 ELSE 0
+        END  &lt;&gt;  0
+        UNION ALL
+        SELECT
+        a.指标名称,
+        b.单位,
+        CASE
+
+        WHEN b.部门名称 = '供应链运营中心' THEN
+        '供应部' ELSE b.部门名称
+        END 分发对象,
+        a.发送日期,
+        CASE
+
+        WHEN a.发送日期 IS NOT NULL
+        AND a.办结状态 = '系统办结' THEN
+        1
+        WHEN a.办结状态 = '人工办结' THEN
+        1 ELSE 0
+        END 已办结,
+        CASE
+
+        WHEN a.发送日期 IS NOT NULL THEN
+        1 ELSE 0
+        END 已分发
+        FROM
+        (
+        SELECT
+        ALERT_OBJ 指标名称,
+        substring_index( OPERATION_USER, ',', 1 ) 当前操作人员,
+        YWHJNAME 业务环节名称,
+        OCCURRENCE_DATE 问题发生日期,
+        CONVEY_DATE 发送日期,
+        CASE
+
+        WHEN STATUS = 06
+        AND OPERATION_STATUS = 06 THEN
+        '人工办结'
+        WHEN STATUS = 06
+        AND OPERATION_STATUS  &lt;&gt;  06 THEN
+        '系统办结' ELSE ''
+        END 办结状态
+        FROM
+        esc_alert_main
+        WHERE
+        REPLY_USER IS NULL
+        OR REPLY_USER = ''
+        ) a
+        LEFT JOIN (
+        SELECT
+        MAIL,
+        USER_NAME,
+        USER_ID,
+        CASE
+
+        WHEN WERKS = '通用' THEN
+        '物资公司'
+        WHEN WERKS = '建设咨询公司' THEN
+        '建资公司' ELSE WERKS
+        END 单位,
+        ORG_NAME 部门名称
+        FROM
+        `esc_alert_user_config`
+        WHERE
+        user_id NOT IN ( 'yangxiaochuang', 'yuzihan', 'gaozemin' )
+        GROUP BY
+        user_name,
+        WERKS,
+        ORG_NAME,
+        mail
+        ) b ON a.当前操作人员 = b.user_id
+        WHERE
+        ( b.单位 = '物资公司' OR b.单位 = '通用' OR b.单位 IS NULL )
+        AND
+        CASE
+        WHEN a.发送日期 IS NOT NULL THEN
+        1 ELSE 0
+        END  &lt;&gt;  0
+        ) wzgs        WHERE
+        DATE_FORMAT( wzgs.发送日期, '%Y-%m-%d' ) BETWEEN #{request.startTime} AND #{request.endTime}
+        GROUP BY
+        指标名称
+        ) a
+    </select>
+
+<!--    963条（取数项：发送日期“不为空”）预警-->
+    <select id="selectSecondaryBasic003" resultType="java.lang.Integer">
+
+        SELECT count(1) FROM (
+        SELECT
+        '已发生' 名称,
+        A.原因反馈提交人姓名,
+        a.指标名称,
+        CASE WHEN A.业务环节名称='计划阶段' THEN '计划环节'
+        WHEN A.业务环节名称='招标' THEN '招标阶段'
+        WHEN A.业务环节名称='合同阶段' THEN '合同阶段'
+        WHEN A.业务环节名称='供应阶段' THEN '供应阶段'
+        WHEN A.业务环节名称='质监' THEN '质监阶段'
+        WHEN A.业务环节名称='仓储阶段' THEN '仓储阶段'
+        end 阶段分类
+        ,b.单位
+        ,case when b.部门名称='供应链运营中心' then '供应部'
+        else b.部门名称 end 部门名称
+        ,a.发送日期
+        ,case when a.问题发生日期 is not null then 1
+        else 0 end 已发生
+        ,a.分类新
+        from
+        (select
+        ALERT_OBJ 指标名称,
+        REPLY_USER 原因反馈提交人姓名
+        ,WERKS_NAME1 单位名称
+        ,YWHJNAME 业务环节名称
+        ,REPLY_MAIL 原因反馈提交人邮箱
+        ,OCCURRENCE_DATE 问题发生日期
+        ,CONVEY_DATE 发送日期
+        ,CASE WHEN WARING_TYPE ='效能' OR WARING_TYPE ='效能类' OR WARING_TYPE ='效能类指标' THEN '效能指标'
+        WHEN WARING_TYPE ='合规' OR WARING_TYPE ='合规类指标' THEN '合规指标'
+        else ' ' END 分类新
+        ,case when status =06 and OPERATION_STATUS=06 then '人工办结'
+        when status=06 and OPERATION_STATUS &lt;&gt; 06 then '系统办结'
+        else '' end 办结状态
+        from esc_alert_main
+        where REPLY_USER is not null and REPLY_USER !=''
+        ) a
+        left join
+        (SELECT MAIL,USER_NAME,
+        case when WERKS='通用' then '物资公司'
+        when WERKS='建设咨询公司' then '建资公司'
+        else WERKS end 单位,
+        ORG_NAME 部门名称
+        FROM `esc_alert_user_config`
+        group by user_name,WERKS,ORG_NAME,mail
+        )b
+        on a.原因反馈提交人姓名=b.USER_NAME and a.原因反馈提交人邮箱=b.MAIL
+
+        <where>
+            a.问题发生日期 BETWEEN #{request.startTime} AND #{request.endTime} AND a.发送日期 is not null
+        </where>
+        union all
+        SELECT
+        '已发生' 名称,
+        A.当前操作人员,
+        a.指标名称,
+        CASE WHEN A.业务环节名称='计划阶段' THEN '计划环节'
+        WHEN A.业务环节名称='招标' THEN '招标阶段'
+        WHEN A.业务环节名称='合同阶段' THEN '合同阶段'
+        WHEN A.业务环节名称='供应阶段' THEN '供应阶段'
+        WHEN A.业务环节名称='质监' THEN '质监阶段'
+        WHEN A.业务环节名称='仓储阶段' THEN '仓储阶段'
+        end 阶段分类
+        ,b.单位
+        ,case when b.部门名称='供应链运营中心' then '供应部'
+        else b.部门名称 end 部门名称
+        ,a.发送日期
+        ,case when a.问题发生日期 is not null then 1
+        else 0 end 已发生
+        ,a.分类新
+        from
+        (select
+        ALERT_OBJ 指标名称,
+        substring_index(OPERATION_USER,',',1) 当前操作人员
+        ,YWHJNAME 业务环节名称
+        ,OCCURRENCE_DATE 问题发生日期
+        ,CASE WHEN WARING_TYPE ='效能' OR WARING_TYPE ='效能类' OR WARING_TYPE ='效能类指标' THEN '效能指标'
+        WHEN WARING_TYPE ='合规' OR WARING_TYPE ='合规类指标' THEN '合规指标'
+        else ' ' END 分类新
+        ,CONVEY_DATE 发送日期
+        ,case when status =06 and OPERATION_STATUS=06 then '人工办结'
+        when status=06 and OPERATION_STATUS &lt;&gt; 06 then '系统办结'
+        else '' end 办结状态
+        from esc_alert_main
+        where REPLY_USER is null or REPLY_USER ='' )a
+        left join
+        (SELECT MAIL,USER_NAME,USER_ID,
+        case when WERKS='通用' then '物资公司'
+        when WERKS='建设咨询公司' then '建资公司'
+        else WERKS end 单位,
+        ORG_NAME 部门名称
+        FROM `esc_alert_user_config`
+        where user_id not in ('yangxiaochuang','yuzihan','gaozemin')
+        group by user_name,WERKS,ORG_NAME,mail
+        )b
+        on a.当前操作人员=b.user_id
+        <where>
+            a.问题发生日期 BETWEEN #{request.startTime} AND #{request.endTime} AND a.发送日期 is not null
+        </where>
+        ) early001
+
+    </select>
+
+<!--    从分发对象看，物资公司各业务部门460条-->
+    <select id="selectSecondaryBasic004" resultType="java.lang.Integer">
+        SELECT count(1) FROM (
+        SELECT
+        A.原因反馈提交人姓名,
+        a.指标名称,
+        c.zfwsx_werks 排序,
+        CASE WHEN A.业务环节名称='计划阶段' THEN '计划环节'
+        WHEN A.业务环节名称='招标' THEN '招标阶段'
+        WHEN A.业务环节名称='合同阶段' THEN '合同阶段'
+        WHEN A.业务环节名称='供应阶段' THEN '供应阶段'
+        WHEN A.业务环节名称='质监' THEN '质监阶段'
+        WHEN A.业务环节名称='仓储阶段' THEN '仓储阶段'
+        end 阶段分类
+        ,b.单位
+        ,case when b.部门名称='供应链运营中心' then '供应部'
+        else b.部门名称 end 部门名称
+        ,a.发送日期
+        ,case when a.发送日期 is not null and a.办结状态='系统办结' then 1
+        when a.办结状态='人工办结' then 1
+        else 0 end 已办结
+        ,a.分类新
+        ,case when a.发送日期 is not null then 1
+        else 0 end 已分发
+        from
+        (select
+        ALERT_OBJ 指标名称,
+        REPLY_USER 原因反馈提交人姓名
+        ,WERKS_NAME1 单位名称
+        ,YWHJNAME 业务环节名称
+        ,REPLY_MAIL 原因反馈提交人邮箱
+        ,OCCURRENCE_DATE 问题发生日期
+        ,CONVEY_DATE 发送日期
+        ,CASE WHEN WARING_TYPE ='效能' OR WARING_TYPE ='效能类' OR WARING_TYPE ='效能类指标' THEN '效能指标'
+        WHEN WARING_TYPE ='合规' OR WARING_TYPE ='合规类指标' THEN '合规指标'
+        else ' ' END 分类新
+        ,case when status =06 and OPERATION_STATUS=06 then '人工办结'
+        when status=06 and OPERATION_STATUS &lt;&gt; 06 then '系统办结'
+        else '' end 办结状态
+        from esc_alert_main
+        where REPLY_USER is not null and REPLY_USER !=''
+        ) a
+        left join
+        (SELECT MAIL,USER_NAME,
+        case when WERKS='通用' then '物资公司'
+        when WERKS='建设咨询公司' then '建咨公司'
+        else WERKS end 单位,
+        ORG_NAME 部门名称
+        FROM `esc_alert_user_config`
+        group by user_name,WERKS,ORG_NAME,mail
+        )b
+        on a.原因反馈提交人姓名=b.USER_NAME and a.原因反馈提交人邮箱=b.MAIL
+        left join esc_rds_werks_fwsx c
+        on b.单位=c.shortname
+        <where>
+            a.问题发生日期 BETWEEN #{request.startTime} AND #{request.endTime}
+        </where>
+        AND b.`单位`='物资公司'
+
+        and case when a.发送日期 is not null then 1
+        else 0 end &lt;&gt; 0
+        union all
+        SELECT
+        A.当前操作人员,
+        a.指标名称,
+        c.zfwsx_werks 排序,
+        CASE WHEN A.业务环节名称='计划阶段' THEN '计划环节'
+        WHEN A.业务环节名称='招标' THEN '招标阶段'
+        WHEN A.业务环节名称='合同阶段' THEN '合同阶段'
+        WHEN A.业务环节名称='供应阶段' THEN '供应阶段'
+        WHEN A.业务环节名称='质监' THEN '质监阶段'
+        WHEN A.业务环节名称='仓储阶段' THEN '仓储阶段'
+        end 阶段分类
+        ,b.单位
+        ,case when b.部门名称='供应链运营中心' then '供应部'
+        else b.部门名称 end 部门名称
+        ,a.发送日期
+        ,case when a.发送日期 is not null and a.办结状态='系统办结' then 1
+        when a.办结状态='人工办结' then 1
+        else 0 end 已办结
+        ,a.分类新
+        ,case when a.发送日期 is not null then 1
+        else 0 end 已分发
+        from
+        (select
+        ALERT_OBJ 指标名称,
+        substring_index(OPERATION_USER,',',1) 当前操作人员
+        ,YWHJNAME 业务环节名称
+        ,OCCURRENCE_DATE 问题发生日期
+        ,CASE WHEN WARING_TYPE ='效能' OR WARING_TYPE ='效能类' OR WARING_TYPE ='效能类指标' THEN '效能指标'
+        WHEN WARING_TYPE ='合规' OR WARING_TYPE ='合规类指标' THEN '合规指标'
+        else ' ' END 分类新
+        ,CONVEY_DATE 发送日期
+        ,case when status =06 and OPERATION_STATUS=06 then '人工办结'
+        when status=06 and OPERATION_STATUS &lt;&gt; 06 then '系统办结'
+        else '' end 办结状态
+        from esc_alert_main
+        where REPLY_USER is null or REPLY_USER ='' )a
+        left join
+        (SELECT MAIL,USER_NAME,USER_ID,
+        case when WERKS='通用' then '物资公司'
+        when WERKS='建设咨询公司' then '建咨公司'
+        else WERKS end 单位,
+        ORG_NAME 部门名称
+        FROM `esc_alert_user_config`
+        where user_id not in ('yangxiaochuang','yuzihan','gaozemin')
+        group by user_name,WERKS,ORG_NAME,mail
+        )b
+        on a.当前操作人员=b.user_id
+        left join esc_rds_werks_fwsx c
+        on b.单位=c.shortname
+        <where>
+            a.问题发生日期 BETWEEN #{request.startTime} AND #{request.endTime}
+        </where>
+        AND b.`单位`='物资公司'
+
+        and case when a.发送日期 is not null then 1
+        else 0 end &lt;&gt; 0) early
+    </select>
+<!--各三级运营中心503条-->
+    <select id="selectSecondaryBasic005" resultType="java.lang.Integer">
+        SELECT count(1) FROM (
+        SELECT
+        A.原因反馈提交人姓名,
+        a.指标名称,
+        c.zfwsx_werks 排序,
+        CASE WHEN A.业务环节名称='计划阶段' THEN '计划环节'
+        WHEN A.业务环节名称='招标' THEN '招标阶段'
+        WHEN A.业务环节名称='合同阶段' THEN '合同阶段'
+        WHEN A.业务环节名称='供应阶段' THEN '供应阶段'
+        WHEN A.业务环节名称='质监' THEN '质监阶段'
+        WHEN A.业务环节名称='仓储阶段' THEN '仓储阶段'
+        end 阶段分类
+        ,b.单位
+        ,case when b.部门名称='供应链运营中心' then '供应部'
+        else b.部门名称 end 部门名称
+        ,a.发送日期
+        ,case when a.发送日期 is not null and a.办结状态='系统办结' then 1
+        when a.办结状态='人工办结' then 1
+        else 0 end 已办结
+        ,a.分类新
+        ,case when a.发送日期 is not null then 1
+        else 0 end 已分发
+        from
+        (select
+        ALERT_OBJ 指标名称,
+        REPLY_USER 原因反馈提交人姓名
+        ,WERKS_NAME1 单位名称
+        ,YWHJNAME 业务环节名称
+        ,REPLY_MAIL 原因反馈提交人邮箱
+        ,OCCURRENCE_DATE 问题发生日期
+        ,CONVEY_DATE 发送日期
+        ,CASE WHEN WARING_TYPE ='效能' OR WARING_TYPE ='效能类' OR WARING_TYPE ='效能类指标' THEN '效能指标'
+        WHEN WARING_TYPE ='合规' OR WARING_TYPE ='合规类指标' THEN '合规指标'
+        else ' ' END 分类新
+        ,case when status =06 and OPERATION_STATUS=06 then '人工办结'
+        when status=06 and OPERATION_STATUS &lt;&gt; 06 then '系统办结'
+        else '' end 办结状态
+        from esc_alert_main
+        where REPLY_USER is not null and REPLY_USER !=''
+        ) a
+        left join
+        (SELECT MAIL,USER_NAME,
+        case when WERKS='通用' then '物资公司'
+        when WERKS='建设咨询公司' then '建咨公司'
+        else WERKS end 单位,
+        ORG_NAME 部门名称
+        FROM `esc_alert_user_config`
+        group by user_name,WERKS,ORG_NAME,mail
+        )b
+        on a.原因反馈提交人姓名=b.USER_NAME and a.原因反馈提交人邮箱=b.MAIL
+        left join esc_rds_werks_fwsx c
+        on b.单位=c.shortname
+        <where>
+            a.问题发生日期 BETWEEN #{request.startTime} AND #{request.endTime}
+        </where>
+        AND b.`单位`!='物资公司'
+
+        and case when a.发送日期 is not null then 1
+        else 0 end &lt;&gt; 0
+        union all
+        SELECT
+        A.当前操作人员,
+        a.指标名称,
+        c.zfwsx_werks 排序,
+        CASE WHEN A.业务环节名称='计划阶段' THEN '计划环节'
+        WHEN A.业务环节名称='招标' THEN '招标阶段'
+        WHEN A.业务环节名称='合同阶段' THEN '合同阶段'
+        WHEN A.业务环节名称='供应阶段' THEN '供应阶段'
+        WHEN A.业务环节名称='质监' THEN '质监阶段'
+        WHEN A.业务环节名称='仓储阶段' THEN '仓储阶段'
+        end 阶段分类
+        ,b.单位
+        ,case when b.部门名称='供应链运营中心' then '供应部'
+        else b.部门名称 end 部门名称
+        ,a.发送日期
+        ,case when a.发送日期 is not null and a.办结状态='系统办结' then 1
+        when a.办结状态='人工办结' then 1
+        else 0 end 已办结
+        ,a.分类新
+        ,case when a.发送日期 is not null then 1
+        else 0 end 已分发
+        from
+        (select
+        ALERT_OBJ 指标名称,
+        substring_index(OPERATION_USER,',',1) 当前操作人员
+        ,YWHJNAME 业务环节名称
+        ,OCCURRENCE_DATE 问题发生日期
+        ,CASE WHEN WARING_TYPE ='效能' OR WARING_TYPE ='效能类' OR WARING_TYPE ='效能类指标' THEN '效能指标'
+        WHEN WARING_TYPE ='合规' OR WARING_TYPE ='合规类指标' THEN '合规指标'
+        else ' ' END 分类新
+        ,CONVEY_DATE 发送日期
+        ,case when status =06 and OPERATION_STATUS=06 then '人工办结'
+        when status=06 and OPERATION_STATUS &lt;&gt; 06 then '系统办结'
+        else '' end 办结状态
+        from esc_alert_main
+        where REPLY_USER is null or REPLY_USER ='' )a
+        left join
+        (SELECT MAIL,USER_NAME,USER_ID,
+        case when WERKS='通用' then '物资公司'
+        when WERKS='建设咨询公司' then '建咨公司'
+        else WERKS end 单位,
+        ORG_NAME 部门名称
+        FROM `esc_alert_user_config`
+        where user_id not in ('yangxiaochuang','yuzihan','gaozemin')
+        group by user_name,WERKS,ORG_NAME,mail
+        )b
+        on a.当前操作人员=b.user_id
+        left join esc_rds_werks_fwsx c
+        on b.单位=c.shortname
+        <where>
+            a.问题发生日期 BETWEEN #{request.startTime} AND #{request.endTime}
+<!--            <if test="request.distributeStarTime != null and request.distributeStarTime !='' and request.distributeEndTime != null and request.distributeEndTime !=''">-->
+<!--                AND 发送日期 BETWEEN #{request.distributeStarTime} AND #{request.distributeEndTime}-->
+            <!--            </if>-->
+        </where>
+        AND b.`单位`!='物资公司'
+        and case when a.发送日期 is not null then 1
+        else 0 end &lt;&gt; 0) early
+    </select>
+<!--    从风险等级看，“提示”阶段504条-->
+    <select id="selectSecondaryBasic006" resultType="java.lang.Integer">
+        SELECT count(1) FROM esc_alert_main
+        WHERE ALERT_LEV_NAME='预警' AND CONVEY_DATE is not null  AND OCCURRENCE_DATE BETWEEN #{request.startTime} AND #{request.endTime}
+    </select>
+
+    <!--   “逾期”阶段459条-->
+    <select id="selectSecondaryBasic007" resultType="java.lang.Integer">
+        SELECT count(1) FROM esc_alert_main
+        WHERE ALERT_LEV_NAME='逾期' AND CONVEY_DATE is not null  AND OCCURRENCE_DATE BETWEEN #{request.startTime} AND #{request.endTime}
+    </select>
+<!--    从办结情况看，完成预警办结911条-->
+    <select id="selectSecondaryBasic008" resultType="java.lang.Integer">
+        SELECT sum(已反馈)
+        from (
+        SELECT '预警已反馈' 名称
+        , A.原因反馈提交人姓名
+        , a.指标名称
+        , a.`问题发生日期`
+        , CASE
+        WHEN A.业务环节名称 = '计划阶段' THEN '计划环节'
+        WHEN A.业务环节名称 = '招标' THEN '招标阶段'
+        WHEN A.业务环节名称 = '合同阶段' THEN '合同阶段'
+        WHEN A.业务环节名称 = '供应阶段' THEN '供应阶段'
+        WHEN A.业务环节名称 = '质监' THEN '质监阶段'
+        WHEN A.业务环节名称 = '仓储阶段' THEN '仓储阶段'
+        end 阶段分类
+        , b.单位
+        , case
+        when b.部门名称 = '供应链运营中心' then '供应部'
+        else b.部门名称 end 部门名称
+        , a.发送日期
+        , case
+        when a.发送日期 is not null and a.办结状态 = '人工办结' then 1
+        else 0 end 已反馈
+        , a.分类新
+        , case
+        when a.发送日期 is not null then 1
+        else 0 end 已分发
+        from (select ALERT_OBJ 指标名称
+        , REPLY_USER 原因反馈提交人姓名
+        , WERKS_NAME1 单位名称
+        , YWHJNAME 业务环节名称
+        , REPLY_MAIL 原因反馈提交人邮箱
+        , OCCURRENCE_DATE 问题发生日期
+        , CONVEY_DATE 发送日期
+        , CASE
+        WHEN WARING_TYPE = '效能' OR WARING_TYPE = '效能类' OR WARING_TYPE = '效能类指标' THEN '效能指标'
+        WHEN WARING_TYPE = '合规' OR WARING_TYPE = '合规类指标' THEN '合规指标'
+        else ' ' END 分类新
+        , case
+        when status = 06 and OPERATION_STATUS = 06 then '人工办结'
+        when status = 06 and OPERATION_STATUS &lt;&gt; 06 then '系统办结'
+        else '' end 办结状态
+        from esc_alert_main
+        where REPLY_USER is not null
+        and REPLY_USER !=''
+        ) a
+        left join
+        (SELECT MAIL,
+        USER_NAME,
+        case
+        when WERKS = '通用' then '物资公司'
+        when WERKS = '建设咨询公司' then '建资公司'
+        else WERKS end 单位,
+        ORG_NAME 部门名称
+        FROM `esc_alert_user_config`
+        group by user_name, WERKS, ORG_NAME, mail
+        ) b
+        on a.原因反馈提交人姓名 = b.USER_NAME and a.原因反馈提交人邮箱 = b.MAIL
+        <where>
+            a.问题发生日期 BETWEEN #{request.startTime} AND #{request.endTime}
+        </where>
+
+        and case
+        when a.发送日期 is not null then 1
+        else 0 end &lt;&gt; 0
+        union all
+        SELECT '预警已反馈' 名称
+        , A.当前操作人员
+        , a.指标名称
+        , a.`问题发生日期`
+        , CASE
+        WHEN A.业务环节名称 = '计划阶段' THEN '计划环节'
+        WHEN A.业务环节名称 = '招标' THEN '招标阶段'
+        WHEN A.业务环节名称 = '合同阶段' THEN '合同阶段'
+        WHEN A.业务环节名称 = '供应阶段' THEN '供应阶段'
+        WHEN A.业务环节名称 = '质监' THEN '质监阶段'
+        WHEN A.业务环节名称 = '仓储阶段' THEN '仓储阶段'
+        end 阶段分类
+        , b.单位
+        , case
+        when b.部门名称 = '供应链运营中心' then '供应部'
+        else b.部门名称 end 部门名称
+        , a.发送日期
+        , case
+        when a.发送日期 is not null and a.办结状态 = '人工办结' then 1
+        else 0 end 已反馈
+        , a.分类新
+        , case
+        when a.发送日期 is not null then 1
+        else 0 end 已分发
+        from (select ALERT_OBJ 指标名称
+        , substring_index(OPERATION_USER, ',', 1) 当前操作人员
+        , YWHJNAME 业务环节名称
+        , OCCURRENCE_DATE 问题发生日期
+        , CASE
+        WHEN WARING_TYPE = '效能' OR WARING_TYPE = '效能类' OR WARING_TYPE = '效能类指标' THEN '效能指标'
+        WHEN WARING_TYPE = '合规' OR WARING_TYPE = '合规类指标' THEN '合规指标'
+        else ' ' END 分类新
+        , CONVEY_DATE 发送日期
+        , case
+        when status = 06 and OPERATION_STATUS = 06 then '人工办结'
+        when status = 06 and OPERATION_STATUS &lt;&gt; 06 then '系统办结'
+        else '' end 办结状态
+        from esc_alert_main
+        where REPLY_USER is null
+        or REPLY_USER = '') a
+        left join
+        (SELECT MAIL,
+        USER_NAME,
+        USER_ID,
+        case
+        when WERKS = '通用' then '物资公司'
+        when WERKS = '建设咨询公司' then '建资公司'
+        else WERKS end 单位,
+        ORG_NAME 部门名称
+        FROM `esc_alert_user_config`
+        where user_id not in ('yangxiaochuang', 'yuzihan', 'gaozemin')
+        group by user_name, WERKS, ORG_NAME, mail
+        ) b
+        on a.当前操作人员 = b.user_id
+        <where>
+            a.问题发生日期 BETWEEN #{request.startTime} AND #{request.endTime}
+        </where>
+        and case
+        when a.发送日期 is not null then 1
+        else 0 end &lt;&gt; 0
+        ) early002
+    </select>
+
+<!--    其中完成业务闭环办结531条-->
+    <select id="selectSecondaryBasic009" resultType="java.lang.Integer">
+        SELECT sum(业务已办结) FROM (
+        SELECT
+        '业务已办结' 名称,
+        A.原因反馈提交人姓名,
+        a.指标名称,
+        a.`问题发生日期`,
+        CASE WHEN A.业务环节名称='计划阶段' THEN '计划环节'
+        WHEN A.业务环节名称='招标' THEN '招标阶段'
+        WHEN A.业务环节名称='合同阶段' THEN '合同阶段'
+        WHEN A.业务环节名称='供应阶段' THEN '供应阶段'
+        WHEN A.业务环节名称='质监' THEN '质监阶段'
+        WHEN A.业务环节名称='仓储阶段' THEN '仓储阶段'
+        end 阶段分类
+        ,b.单位
+        ,case when b.部门名称='供应链运营中心' then '供应部'
+        else b.部门名称 end 部门名称
+        ,a.发送日期
+        ,case when a.发送日期 is not null and a.办结状态='系统办结' then 1
+        else 0 end 业务已办结
+        ,a.分类新
+        ,case when a.发送日期 is not null then 1
+        else 0 end 已分发
+        from
+        (select
+        ALERT_OBJ 指标名称,
+        REPLY_USER 原因反馈提交人姓名
+        ,WERKS_NAME1 单位名称
+        ,YWHJNAME 业务环节名称
+        ,REPLY_MAIL 原因反馈提交人邮箱
+        ,OCCURRENCE_DATE 问题发生日期
+        ,CONVEY_DATE 发送日期
+        ,CASE WHEN WARING_TYPE ='效能' OR WARING_TYPE ='效能类' OR WARING_TYPE ='效能类指标' THEN '效能指标'
+        WHEN WARING_TYPE ='合规' OR WARING_TYPE ='合规类指标' THEN '合规指标'
+        else ' ' END 分类新
+        ,case when status =06 and OPERATION_STATUS=06 then '人工办结'
+        when status=06 and OPERATION_STATUS &lt;&gt; 06 then '系统办结'
+        else '' end 办结状态
+        from esc_alert_main
+        where REPLY_USER is not null and REPLY_USER !=''
+        ) a
+        left join
+        (SELECT MAIL,USER_NAME,
+        case when WERKS='通用' then '物资公司'
+        when WERKS='建设咨询公司' then '建资公司'
+        else WERKS end 单位,
+        ORG_NAME 部门名称
+        FROM `esc_alert_user_config`
+        group by user_name,WERKS,ORG_NAME,mail
+        )b
+        on a.原因反馈提交人姓名=b.USER_NAME and a.原因反馈提交人邮箱=b.MAIL
+        <where>
+            a.问题发生日期 BETWEEN #{request.startTime} AND #{request.endTime}
+        </where>
+        and case when a.发送日期 is not null then 1
+        else 0 end &lt;&gt; 0
+        union all
+        SELECT
+        '业务已办结' 名称,
+        A.当前操作人员,
+        a.指标名称,
+        a.`问题发生日期`,
+        CASE WHEN A.业务环节名称='计划阶段' THEN '计划环节'
+        WHEN A.业务环节名称='招标' THEN '招标阶段'
+        WHEN A.业务环节名称='合同阶段' THEN '合同阶段'
+        WHEN A.业务环节名称='供应阶段' THEN '供应阶段'
+        WHEN A.业务环节名称='质监' THEN '质监阶段'
+        WHEN A.业务环节名称='仓储阶段' THEN '仓储阶段'
+        end 阶段分类
+        ,b.单位
+        ,case when b.部门名称='供应链运营中心' then '供应部'
+        else b.部门名称 end 部门名称
+        ,a.发送日期
+        ,case when a.发送日期 is not null and a.办结状态='系统办结' then 1
+        else 0 end 业务已办结
+        ,a.分类新
+        ,case when a.发送日期 is not null then 1
+        else 0 end 已分发
+        from
+        (select
+        ALERT_OBJ 指标名称,
+        substring_index(OPERATION_USER,',',1) 当前操作人员
+        ,YWHJNAME 业务环节名称
+        ,OCCURRENCE_DATE 问题发生日期
+        ,CASE WHEN WARING_TYPE ='效能' OR WARING_TYPE ='效能类' OR WARING_TYPE ='效能类指标' THEN '效能指标'
+        WHEN WARING_TYPE ='合规' OR WARING_TYPE ='合规类指标' THEN '合规指标'
+        else ' ' END 分类新
+        ,CONVEY_DATE 发送日期
+        ,case when status =06 and OPERATION_STATUS=06 then '人工办结'
+        when status=06 and OPERATION_STATUS &lt;&gt; 06 then '系统办结'
+        else '' end 办结状态
+        from esc_alert_main
+        where REPLY_USER is null or REPLY_USER ='' )a
+        left join
+        (SELECT MAIL,USER_NAME,USER_ID,
+        case when WERKS='通用' then '物资公司'
+        when WERKS='建设咨询公司' then '建资公司'
+        else WERKS end 单位,
+        ORG_NAME 部门名称
+        FROM `esc_alert_user_config`
+        where user_id not in ('yangxiaochuang','yuzihan','gaozemin')
+        group by user_name,WERKS,ORG_NAME,mail
+        )b
+        on a.当前操作人员=b.user_id
+        <where>
+            a.问题发生日期 BETWEEN #{request.startTime} AND #{request.endTime}
+        </where>
+        and case when a.发送日期 is not null then 1
+        else 0 end &lt;&gt; 0
+        ) early002
+    </select>
+
+
+    <select id="selectSecondaryAnalyse001" resultType="java.util.LinkedHashMap">
+        select
+        AA.指标名称
+        ,sum(aa.已分发) 条目数
+        ,y.条目数     总数
+        ,round(sum(aa.已分发)/y.条目数*100,2)  占比
+        FROM (SELECT
+        '总计'  标题
+        ,a.指标名称
+        ,a.发送日期
+        ,case when a.发送日期 is not null then 1
+        else 0 end  已分发
+        from
+        (select
+        ALERT_OBJ       指标名称,
+        REPLY_USER      原因反馈提交人姓名
+        ,WERKS_NAME1  单位名称
+        ,YWHJNAME     业务环节名称
+        ,REPLY_MAIL    原因反馈提交人邮箱
+        ,OCCURRENCE_DATE     问题发生日期
+        ,CONVEY_DATE  发送日期
+        ,CASE WHEN WARING_TYPE ='效能' OR WARING_TYPE ='效能类' OR WARING_TYPE ='效能类指标' THEN '效能指标'
+        WHEN WARING_TYPE ='合规' OR WARING_TYPE ='合规类指标' THEN '合规指标'
+        else ' ' END  分类新
+        ,case when status =06 and OPERATION_STATUS=06 then '人工办结'
+        when status=06 and OPERATION_STATUS&lt;&gt;06 then '系统办结'
+        else '' end 办结状态
+        from esc_alert_main
+        where  REPLY_USER is not null and  REPLY_USER !=''
+        ) a
+        left join
+        (SELECT MAIL,USER_NAME,
+        case when WERKS='通用' then '物资公司'
+        when WERKS='建设咨询公司' then '建资公司'
+        else WERKS end 单位,
+        ORG_NAME 部门名称
+        FROM `esc_alert_user_config`
+        group by user_name,WERKS,ORG_NAME,mail
+        )b
+        on a.原因反馈提交人姓名=b.USER_NAME and a.原因反馈提交人邮箱=b.MAIL
+        where a.问题发生日期 between #{request.startTime} AND #{request.endTime}
+
+        and case when a.发送日期 is not null then 1
+        else 0 end &lt;&gt;0
+        union all
+        SELECT
+        '总计'  标题
+        ,a.指标名称
+        ,a.发送日期
+        ,case when a.发送日期 is not null then 1
+        else 0 end  已分发
+        from
+        (select
+        ALERT_OBJ       指标名称,
+        substring_index(OPERATION_USER,',',1)       当前操作人员
+        ,YWHJNAME     业务环节名称
+        ,OCCURRENCE_DATE     问题发生日期
+        ,CASE WHEN WARING_TYPE ='效能' OR WARING_TYPE ='效能类' OR WARING_TYPE ='效能类指标' THEN '效能指标'
+        WHEN WARING_TYPE ='合规' OR WARING_TYPE ='合规类指标' THEN '合规指标'
+        else ' ' END  分类新
+        ,CONVEY_DATE  发送日期
+        ,case when status =06 and OPERATION_STATUS=06 then '人工办结'
+        when status=06 and OPERATION_STATUS&lt;&gt;06 then '系统办结'
+        else '' end 办结状态
+        from esc_alert_main
+        where  (REPLY_USER is  null or REPLY_USER ='')
+        )a
+        left join
+        (SELECT MAIL,USER_NAME,USER_ID,
+        case when WERKS='通用' then '物资公司'
+        when WERKS='建设咨询公司' then '建资公司'
+        else WERKS end 单位,
+        ORG_NAME 部门名称
+        FROM `esc_alert_user_config`
+        where user_id not in ('yangxiaochuang','yuzihan','gaozemin')
+        group by user_name,WERKS,ORG_NAME,mail
+        )b
+        on a.当前操作人员=b.user_id
+        where a.问题发生日期 between #{request.startTime} AND #{request.endTime}
+        and case when a.发送日期 is not null then 1
+        else 0 end &lt;&gt;0)AA
+
+        LEFT JOIN
+        (select
+        '总计'   标记
+        ,sum(aa.已分发) 条目数
+        FROM (SELECT
+        a.指标名称
+        ,a.发送日期
+        ,case when a.发送日期 is not null then 1
+        else 0 end  已分发
+        from
+        (select
+        ALERT_OBJ       指标名称,
+        REPLY_USER      原因反馈提交人姓名
+        ,WERKS_NAME1  单位名称
+        ,YWHJNAME     业务环节名称
+        ,REPLY_MAIL    原因反馈提交人邮箱
+        ,OCCURRENCE_DATE     问题发生日期
+        ,CONVEY_DATE  发送日期
+        ,CASE WHEN WARING_TYPE ='效能' OR WARING_TYPE ='效能类' OR WARING_TYPE ='效能类指标' THEN '效能指标'
+        WHEN WARING_TYPE ='合规' OR WARING_TYPE ='合规类指标' THEN '合规指标'
+        else ' ' END  分类新
+        ,case when status =06 and OPERATION_STATUS=06 then '人工办结'
+        when status=06 and OPERATION_STATUS&lt;&gt;06 then '系统办结'
+        else '' end 办结状态
+        from esc_alert_main
+        where  REPLY_USER is not null and  REPLY_USER !=''
+        ) a
+        left join
+        (SELECT MAIL,USER_NAME,
+        case when WERKS='通用' then '物资公司'
+        when WERKS='建设咨询公司' then '建资公司'
+        else WERKS end 单位,
+        ORG_NAME 部门名称
+        FROM `esc_alert_user_config`
+        group by user_name,WERKS,ORG_NAME,mail
+        )b
+        on a.原因反馈提交人姓名=b.USER_NAME and a.原因反馈提交人邮箱=b.MAIL
+        where a.问题发生日期 between #{request.startTime} AND #{request.endTime}
+
+        and case when a.发送日期 is not null then 1
+        else 0 end &lt;&gt;0
+        union all
+        SELECT
+        a.指标名称
+        ,a.发送日期
+        ,case when a.发送日期 is not null then 1
+        else 0 end  已分发
+        from
+        (select
+        ALERT_OBJ       指标名称,
+        substring_index(OPERATION_USER,',',1)       当前操作人员
+        ,YWHJNAME     业务环节名称
+        ,OCCURRENCE_DATE     问题发生日期
+        ,CASE WHEN WARING_TYPE ='效能' OR WARING_TYPE ='效能类' OR WARING_TYPE ='效能类指标' THEN '效能指标'
+        WHEN WARING_TYPE ='合规' OR WARING_TYPE ='合规类指标' THEN '合规指标'
+        else ' ' END  分类新
+        ,CONVEY_DATE  发送日期
+        ,case when status =06 and OPERATION_STATUS=06 then '人工办结'
+        when status=06 and OPERATION_STATUS&lt;&gt;06 then '系统办结'
+        else '' end 办结状态
+        from esc_alert_main
+        where  (REPLY_USER is  null or REPLY_USER ='')
+        )a
+        left join
+        (SELECT MAIL,USER_NAME,USER_ID,
+        case when WERKS='通用' then '物资公司'
+        when WERKS='建设咨询公司' then '建资公司'
+        else WERKS end 单位,
+        ORG_NAME 部门名称
+        FROM `esc_alert_user_config`
+        where user_id not in ('yangxiaochuang','yuzihan','gaozemin')
+        group by user_name,WERKS,ORG_NAME,mail
+        )b
+        on a.当前操作人员=b.user_id
+        where a.问题发生日期 between #{request.startTime} AND #{request.endTime}
+        and case when a.发送日期 is not null then 1
+        else 0 end &lt;&gt;0)AA)Y
+        ON AA.标题=Y.标记
+        GROUP BY AA.`指标名称`
+        ORDER BY sum(aa.已分发) DESC
+        limit 3
+    </select>
+
+
+</mapper>

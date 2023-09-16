@@ -1,0 +1,940 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.proj.web.mapper.MonitorIndexDataMapper">
+
+<!--    //计划管理-协议库存合同执行完成率-->
+    <select id="selectPlan001" resultType="java.util.LinkedHashMap">
+        SELECT  1 as type,(c.a/c.b) as rate  FROM ( SELECT (select count(1) from zesc_zncg_xykcztzxqk
+        <where>
+            PPWCL>=0.8
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND YXJZRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>) a,
+        (select count(1) from zesc_zncg_xykcztzxqk
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND YXJZRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>) b
+        ) c
+        UNION
+        SELECT  2 as type,(c.a/c.b) as rate  FROM ( SELECT (select count(1) from zesc_zncg_xykcztzxqk
+        <where>
+            PPWCL>=0.8
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND YXJZRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>) a,
+        (select count(1) from zesc_zncg_xykcztzxqk
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND YXJZRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>) b
+        ) c
+    </select>
+
+
+    <!--计划管理-物资采购计划报送准确率——（物资采购计划送达准确率——0510） -->
+    <select id="selectPlan002" resultType="java.util.LinkedHashMap">
+
+        SELECT 1 as type, ifnull(fenzi/fenmu,-2) rate from (SELECT
+        count( 1 ) fenzi
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHLX = "物资"
+        AND JZRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}) a ,(SELECT
+        count(distinct BANFN ,BNFPO ,PCBH )  fenmu
+        FROM
+        zesc_ybsj_zhb1
+        WHERE
+        ZJHLX = "物资"
+        AND JZRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime})b
+
+        UNION
+
+        SELECT 2 as type, ifnull(fenzi/fenmu,-2) rate from (SELECT
+        count( 1 ) fenzi
+        FROM
+        ads_mat_esc_jh_010_xqjhtbmx
+        WHERE
+        ZJHLX = "物资"
+        AND JZRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}) a ,(SELECT
+        count(distinct BANFN ,BNFPO ,PCBH )  fenmu
+        FROM
+        zesc_ybsj_zhb1
+        WHERE
+        ZJHLX = "物资"
+        AND JZRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime})b
+    </select>
+
+
+    <!--计划管理-物资采购及时率 0510-->
+    <select id="selectPlan003" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type, ifnull(fenzi/ FENMU,0) rate
+        FROM (SELECT
+        sum( case when  DATEDIFF( ifnull(cgqktj.zbhxrjggj,cgqktj.zbsj), mx.jzrq ) &lt;= 40 then 1
+        when DATEDIFF( ifnull(cgqktj.zbhxrjggj,cgqktj.zbsj), mx.jzrq ) &lt;= 50 then 0.9
+        when DATEDIFF( ifnull(cgqktj.zbhxrjggj,cgqktj.zbsj), mx.jzrq ) &lt;= 59 then 0.8
+        when DATEDIFF( ifnull(cgqktj.zbhxrjggj,cgqktj.zbsj), mx.jzrq ) &gt; 59 then 0
+        end ) fenzi
+        FROM  ads_mat_esc_zncg_cgqktj cgqktj
+        LEFT JOIN ads_mat_esc_jh_010_xqjhtbmx mx   ON cgqktj.PCBM = mx.PCBh
+        AND cgqktj.WSCGSQH = mx.BANFN
+        AND cgqktj.WSCGSQHH = mx.BNFPO
+        WHERE
+        cgqktj.PCBM like '02%'
+        and
+        cgqktj.cglb = '物资'
+        and  cgqktj.ZSFZB_NEW = '中标'
+        AND cgqktj.zbsj BETWEEN #{request.accStartTime} AND #{request.accEndTime}) A
+        ,(SELECT
+        count(1) + (SELECT COUNT(1)  FROM ads_mat_esc_jh_010_xqjhtbmx WHERE THYY ='上报成功流标退回')  FENMU
+        FROM  ads_mat_esc_zncg_cgqktj cgqktj
+        LEFT JOIN ads_mat_esc_jh_010_xqjhtbmx mx   ON cgqktj.PCBM = mx.PCBh
+        AND cgqktj.WSCGSQH = mx.BANFN
+        AND cgqktj.WSCGSQHH = mx.BNFPO
+        WHERE
+        cgqktj.PCBM like '02%'
+        and
+        cgqktj.cglb = '物资'
+        and  cgqktj.ZSFZB_NEW = '中标'
+        AND cgqktj.zbsj BETWEEN #{request.accStartTime} AND #{request.accEndTime}) B
+        union
+        SELECT  2 as type, ifnull(fenzi/ FENMU,0) rate
+        FROM (SELECT
+        sum( case when  DATEDIFF( ifnull(cgqktj.zbhxrjggj,cgqktj.zbsj), mx.jzrq ) &lt;= 40 then 1
+        when DATEDIFF( ifnull(cgqktj.zbhxrjggj,cgqktj.zbsj), mx.jzrq ) &lt;= 50 then 0.9
+        when DATEDIFF( ifnull(cgqktj.zbhxrjggj,cgqktj.zbsj), mx.jzrq ) &lt;= 59 then 0.8
+        when DATEDIFF( ifnull(cgqktj.zbhxrjggj,cgqktj.zbsj), mx.jzrq ) &gt; 59 then 0
+        end ) fenzi
+        FROM  ads_mat_esc_zncg_cgqktj cgqktj
+        LEFT JOIN ads_mat_esc_jh_010_xqjhtbmx mx   ON cgqktj.PCBM = mx.PCBh
+        AND cgqktj.WSCGSQH = mx.BANFN
+        AND cgqktj.WSCGSQHH = mx.BNFPO
+        WHERE
+        cgqktj.PCBM like '02%'
+        and
+        cgqktj.cglb = '物资'
+        and  cgqktj.ZSFZB_NEW = '中标'
+        AND cgqktj.zbsj BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}) A
+        ,(SELECT
+        count(1) + (SELECT COUNT(1)  FROM ads_mat_esc_jh_010_xqjhtbmx WHERE THYY ='上报成功流标退回')  FENMU
+        FROM  ads_mat_esc_zncg_cgqktj cgqktj
+        LEFT JOIN ads_mat_esc_jh_010_xqjhtbmx mx   ON cgqktj.PCBM = mx.PCBh
+        AND cgqktj.WSCGSQH = mx.BANFN
+        AND cgqktj.WSCGSQHH = mx.BNFPO
+        WHERE
+        cgqktj.PCBM like '02%'
+        and
+        cgqktj.cglb = '物资'
+        and  cgqktj.ZSFZB_NEW = '中标'
+        AND cgqktj.zbsj BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}) B
+
+    </select>
+
+
+    <!--招标采购-采购流标率-物资-->
+    <select id="selectTender001" resultType="java.util.LinkedHashMap">
+        SELECT  1 as type, ifnull(a/b,0) as rate  FROM (SELECT
+        (SELECT count(1) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%'
+            AND CGLB = '物资'
+            AND ZSFZB = '流标'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND PCND=left(#{request.accStartTime},4) AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>)a ,
+        (SELECT count(1) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%'
+            AND CGLB = '物资'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND PCND=left(#{request.accStartTime},4) AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>)b) n
+        UNION
+        SELECT  2 as type, ifnull(a/b,0) as rate FROM (SELECT
+        (SELECT count(1) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%'
+            AND CGLB = '物资'
+            AND ZSFZB = '流标'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND PCND=left(#{request.accLastStartTime},4) AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>) a,
+        (SELECT count(1) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%'
+            AND CGLB = '物资'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND PCND=left(#{request.accLastStartTime},4) AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>)b) n
+    </select>
+    <!--招标采购-采购流标率-服务-->
+    <select id="selectTender002" resultType="java.util.LinkedHashMap">
+        SELECT  1 as type, ifnull(a/b,0) as rate  FROM (SELECT
+        (SELECT count(1) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%'
+            AND CGLB = '服务'
+            AND ZSFZB = '流标'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND PCND=left(#{request.accStartTime},4) AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>)a ,
+        (SELECT count(1) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%'
+            AND CGLB = '服务'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND PCND=left(#{request.accStartTime},4) AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>)b) n
+        UNION
+        SELECT  2 as type, ifnull(a/b,0) as rate FROM (SELECT
+        (SELECT count(1) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%'
+            AND CGLB = '服务'
+            AND ZSFZB = '流标'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND PCND=left(#{request.accLastStartTime},4) AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>) a,
+        (SELECT count(1) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%'
+            AND CGLB = '服务'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND PCND=left(#{request.accLastStartTime},4) AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>)b) n
+    </select>
+
+<!--    一次性采购成功率-暂无-->
+    <select id="selectTender003" resultType="java.util.LinkedHashMap"></select>
+
+<!--    招标采购-采购资金节约率-物资-->
+    <select id="selectTender004" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type, ifnull((b-a)/b,0) as rate FROM (SELECT(
+        SELECT ifnull(sum(HSZJ),0) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%' AND CGLB ='物资'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND PCND=left(#{request.accStartTime},4) AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>)a ,
+        (SELECT ifnull(sum(GSZJ),0) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%' AND CGLB ='物资'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND PCND=left(#{request.accStartTime},4) AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>)b) n
+        UNION
+        SELECT 2 as type, ifnull((b-a)/b,0) as rate FROM (SELECT(
+        SELECT ifnull(sum(HSZJ),0) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%' AND CGLB ='物资'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND PCND=left(#{request.accLastStartTime},4) AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>) a,
+        (SELECT ifnull(sum(GSZJ),0) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%' AND CGLB ='物资'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND PCND=left(#{request.accLastStartTime},4) AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>)b) n
+    </select>
+    <!--招标采购-采购资金节约率-服务-->
+    <select id="selectTender005" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type, ifnull((b-a)/b,0) as rate FROM (SELECT(
+        SELECT ifnull(sum(HSZJ),0) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%' AND CGLB ='服务'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND PCND=left(#{request.accStartTime},4) AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>)a ,
+        (SELECT ifnull(sum(GSZJ),0) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%' AND CGLB ='服务'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND PCND=left(#{request.accStartTime},4) AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>)b) n
+        UNION
+        SELECT 2 as type, ifnull((b-a)/b,0) as rate FROM (SELECT(
+        SELECT ifnull(sum(HSZJ),0) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%' AND CGLB ='服务'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND PCND=left(#{request.accLastStartTime},4) AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>) a,
+        (SELECT ifnull(sum(GSZJ),0) FROM ads_mat_esc_zncg_cgqktj
+        <where>
+            PCBM LIKE '02%' AND CGLB ='服务'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND PCND=left(#{request.accLastStartTime},4) AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>)b) n
+    </select>
+    <!--招标采购-公开采购率-物资-->
+    <select id="selectTender006" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,ifnull(a/b,-2) as rate FROM (SELECT(
+        SELECT
+        ifnull( count(ZBGGLX),0 ) AS rate
+        FROM
+        ads_mat_esc_zncg_cgqktj
+        <where>
+            pcbm LIKE '02%'
+            AND cglb = '物资'
+            AND ZBGGLX = '招标公告'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND PCND=left(#{request.accStartTime},4) AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        ) a ,(
+        SELECT
+        ifnull( count(ZBGGLX), 0 ) AS rate
+        FROM
+        ads_mat_esc_zncg_cgqktj
+        <where>
+            pcbm LIKE '02%'
+            AND cglb = '物资'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND PCND=left(#{request.accStartTime},4) AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        )b ) ads_mat_esc_zncg_cgqktj
+        UNION
+        SELECT 2 as type,ifnull(a/b,-2) as rate FROM (SELECT(SELECT
+        ifnull( count(ZBGGLX), 0 ) AS rate
+        FROM
+        ads_mat_esc_zncg_cgqktj
+        <where>
+            pcbm LIKE '02%'
+            AND cglb = '物资'
+            AND ZBGGLX = '招标公告'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND PCND=left(#{request.accLastStartTime},4) AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+        ) a ,(
+        SELECT
+        ifnull( count(ZBGGLX), 0) AS rate
+        FROM
+        ads_mat_esc_zncg_cgqktj
+        <where>
+            pcbm LIKE '02%'
+            AND cglb = '物资'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND PCND=left(#{request.accLastStartTime},4) AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+        )b ) ads_mat_esc_zncg_cgqktj
+    </select>
+    <!--招标采购-公开采购率-服务-->
+    <select id="selectTender007" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,ifnull(a/b,-2) as rate FROM (SELECT(SELECT
+        ifnull( count(ZBGGLX), 0 ) AS rate
+        FROM
+        ads_mat_esc_zncg_cgqktj
+        <where>
+            pcbm LIKE '02%'
+            AND cglb = '服务'
+            AND ZBGGLX = '招标公告'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND PCND=left(#{request.accStartTime},4) AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        ) a ,(
+        SELECT
+        ifnull( count(ZBGGLX), 0 ) AS rate
+        FROM
+        ads_mat_esc_zncg_cgqktj
+        <where>
+            pcbm LIKE '02%'
+            AND cglb = '服务'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND PCND=left(#{request.accStartTime},4) AND ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        )b ) ads_mat_esc_zncg_cgqktj
+        UNION
+        SELECT 2 as type,ifnull(a/b,-2) as rate FROM (SELECT(SELECT
+        ifnull( count(ZBGGLX), 0 ) AS rate
+        FROM
+        ads_mat_esc_zncg_cgqktj
+        <where>
+            pcbm LIKE '02%'
+            AND cglb = '服务'
+            AND ZBGGLX = '招标公告'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND PCND=left(#{request.accLastStartTime},4) AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+        ) a ,(
+        SELECT
+        ifnull( count(ZBGGLX), 0 ) AS rate
+        FROM
+        ads_mat_esc_zncg_cgqktj
+        <where>
+            pcbm LIKE '02%'
+            AND cglb = '服务'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND PCND=left(#{request.accLastStartTime},4) AND ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+        )b ) ads_mat_esc_zncg_cgqktj
+    </select>
+
+<!--    招标采购-服务类框架协议执行完成率-暂无-->
+    <select id="selectTender008" resultType="java.util.LinkedHashMap">
+
+    </select>
+
+
+<!--    合同签订-合同签订及时率-->
+    <select id="selectSigned001" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,ifnull(a/b,-2) as rate FROM (SELECT (
+        SELECT sum(ZBJE) FROM ((SELECT ZBJE, ZBSJ,ifnull(HTSXSJ,DATE_ADD(#{request.startTime},interval 1 month)) HTSXSJ FROM `esc_rds_bd_036_htqdjsl`)) htqdjsl
+        where ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+        AND DATEDIFF(HTSXSJ,ZBSJ) &lt; 30
+        )a,(
+        SELECT sum(ZBJE) FROM ((SELECT ZBJE, ZBSJ,ifnull(HTSXSJ,DATE_ADD(#{request.startTime},interval 1 month)) HTSXSJ FROM `esc_rds_bd_036_htqdjsl`)) htqdjsl
+        where ZBSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+        )b) c
+        union
+        SELECT 2 as type,ifnull(a/b,-2) as rate FROM (SELECT (
+        SELECT sum(ZBJE) FROM ((SELECT ZBJE, ZBSJ,ifnull(HTSXSJ,DATE_SUB(DATE_ADD(#{request.startTime},interval 1 month),interval 1 year)) HTSXSJ FROM `esc_rds_bd_036_htqdjsl`)) htqdjsl
+        where ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+        AND DATEDIFF(HTSXSJ,ZBSJ) &lt; 30
+        )a,(
+        SELECT sum(ZBJE) FROM ((SELECT ZBJE, ZBSJ,ifnull(HTSXSJ,DATE_SUB(DATE_ADD(#{request.startTime},interval 1 month),interval 1 year)) HTSXSJ FROM `esc_rds_bd_036_htqdjsl`)) htqdjsl
+        where ZBSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+        )b) c
+    </select>
+
+<!--    合同履约-供应计划完成率-->
+    <select id="selectExercise001" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,ifnull(a/b,-2) as rate FROM (SELECT (
+        SELECT sum(zjhjhje) FROM `esc_rds_brs_bd_gy_002_gyjhwclfx`
+        where  date_add(zqdjhq,INTERVAL 1 month) BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+        and abs(zshsjc)&lt;=30
+        )a,(
+        SELECT sum(zjhjhje) FROM `esc_rds_brs_bd_gy_002_gyjhwclfx`
+        where  date_add(zqdjhq,INTERVAL 1 month) BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+        )b) c
+        union
+        SELECT 2 as type,ifnull(a/b,-2) as rate FROM (SELECT (
+        SELECT sum(zjhjhje) FROM `esc_rds_brs_bd_gy_002_gyjhwclfx`
+        where  zqdjhq BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+        and abs(zshsjc)&lt;=30
+        )a,(
+        SELECT sum(zjhjhje) FROM `esc_rds_brs_bd_gy_002_gyjhwclfx`
+        where zqdjhq BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+        )b) c
+    </select>
+<!--    合同履约-到货准确率-->
+    <select id="selectExercise002" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,ifnull(a/b,-2) as rate FROM (SELECT (
+        SELECT sum(ZSJJHJE) FROM `esc_rds_brs_bd_gy_002_gyjhwclfx`
+        where  ZSHSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+        and abs(ZSHSJC)&lt;=30
+        )a,(
+        SELECT sum(ZSJJHJE) FROM `esc_rds_brs_bd_gy_002_gyjhwclfx`
+        where  ZSHSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+        )b) c
+        union
+        SELECT 2 as type,ifnull(a/b,-2) as rate FROM (SELECT (
+        SELECT sum(ZSJJHJE) FROM `esc_rds_brs_bd_gy_002_gyjhwclfx`
+        where  ZSHSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+        and abs(ZSHSJC)&lt;=30
+        )a,(
+        SELECT sum(ZSJJHJE) FROM `esc_rds_brs_bd_gy_002_gyjhwclfx`
+        where ZSHSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+        )b) c
+    </select>
+<!--    合同履约-供应计划调整率-->
+    <select id="selectExercise003" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type, ifnull(a/b,-2) as rate FROM (
+        SELECT
+        (
+        SELECT count(1) FROM esc_rds_bd_gy_007_gyjhjhqbgtjfx
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                ZBGRQ BETWEEN #{request.accStartTime} AND #{request.accEndTime} AND ZQDJHQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        )a,
+        (
+        SELECT count(1) FROM esc_rds_bd_gy_007_gyjhjhqbgtjfx
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                ZQDJHQ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        )b
+        ) gyjhjhqbgtjfx
+        union
+        SELECT 2 as type, ifnull(a/b,-2) as rate FROM (
+        SELECT
+        (
+        SELECT count(1) FROM esc_rds_bd_gy_007_gyjhjhqbgtjfx
+        <where>
+            <if test="request.accLastEndTime != null and request.accLastEndTime !='' and request.accLastStartTime != null and request.accLastStartTime !=''">
+                ZBGRQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime} AND ZQDJHQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+        )a,
+        (
+        SELECT count(1) FROM esc_rds_brs_bd_gy_002_gyjhwclfx
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                ZQDJHQ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+        )b
+        ) gyjhjhqbgtjfx
+    </select>
+<!--    合同履约-确定交货期超过合同交货期一年的供应计划占比-暂无 -->
+    <select id="selectExercise004" resultType="java.util.LinkedHashMap">
+
+    </select>
+<!--    合同履约-到货交接单平均办理时长-->
+    <select id="selectExercise006" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,ifnull(
+        sum( zysdqssc ) / count( 1 ) ,-2) as rate
+        FROM
+        esc_rds_bd_gy_013_jjdysdqsscmxb_ysd
+        WHERE
+        zqdjhq BETWEEN date_add(#{request.startTime},INTERVAL -1 month) AND date_add(#{request.startTime},INTERVAL -1 day)
+        union
+        SELECT 2 as type,ifnull(
+        sum( zysdqssc ) / count( 1 ) ,-2) as rate
+        FROM
+        esc_rds_bd_gy_013_jjdysdqsscmxb_ysd
+        WHERE
+        zqdjhq BETWEEN date_add(#{request.lastStartTime},INTERVAL -1 month) AND date_add(#{request.lastStartTime},INTERVAL -1 day)
+    </select>
+
+    <!--    到货交接单办理超期率-->
+    <select id="selectExercise007" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type, ifnull(
+        sum( ZQSQK = '超期' ) / count( 1 ) ,-2) as rate
+        FROM
+        esc_rds_bd_gy_013_jjdysdqsscmxb_ysd
+        WHERE
+        zqdjhq BETWEEN date_add(#{request.startTime},INTERVAL -1 month) AND date_add(#{request.startTime},INTERVAL -1 day)
+        union
+        SELECT 2 as type, ifnull(
+        sum( ZQSQK = '超期' ) / count( 1 ) ,-2) as rate
+        FROM
+        esc_rds_bd_gy_013_jjdysdqsscmxb_ysd
+        WHERE
+        zqdjhq BETWEEN date_add(#{request.lastStartTime},INTERVAL -1 month) AND date_add(#{request.lastStartTime},INTERVAL -1 day)
+    </select>
+
+<!--    仓储管理-库存周转率-->
+    <select id="selectStorage001" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type, zzl as rate FROM (
+        SELECT
+        DATE_FORMAT( STR_TO_date( concat( lfgja, '-', lfmon ), '%Y-%m' ), '%Y-%m' ) m,
+        sum( outbound_dmbtr ) / sum( ( opening_inventory_dmbtr + ending_inventory_dmbtr ) / 2 ) zzl
+
+        FROM
+        esc_rds_cc_008_kczzl
+        GROUP BY
+        DATE_FORMAT( STR_TO_date( concat( lfgja, '-', lfmon ), '%Y-%m' ), '%Y-%m' )
+        ) a WHERE m = #{request.time}
+        UNION
+        SELECT 2 as type, zzl as rate FROM (
+        SELECT
+        DATE_FORMAT( STR_TO_date( concat( lfgja, '-', lfmon ), '%Y-%m' ), '%Y-%m' ) m,
+        sum( outbound_dmbtr ) / sum( ( opening_inventory_dmbtr + ending_inventory_dmbtr ) / 2 ) zzl
+
+        FROM
+        esc_rds_cc_008_kczzl
+        GROUP BY
+        DATE_FORMAT( STR_TO_date( concat( lfgja, '-', lfmon ), '%Y-%m' ), '%Y-%m' )
+        ) a WHERE m = #{request.lastTime}
+    </select>
+
+<!--    库存积压-->
+    <select id="selectStorage002" resultType="java.math.BigDecimal">
+        select ifnull(sum(dmbtr),-2) from esc_bd_cc_001_wzrkhcqwlc_stkyj where alert_lev_name = '逾期'
+    </select>
+<!--    库存积压占总库存金额比例-->
+    <select id="selectStorage003" resultType="java.math.BigDecimal">
+        select ifnull(sum(dmbtr)/(select sum(dmbtr) from esc_bd_cc_001_wzrkhcqwlc_stkyj)*100,-2) from esc_bd_cc_001_wzrkhcqwlc_stkyj where alert_lev_name = '逾期'
+    </select>
+<!--    当前借用物资金额-->
+    <select id="selectStorage004" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,ifnull(SUM(DMBTR),0) as rate FROM `esc_rds_brs_bd_cc_019_ndztkcjetj`
+        where werks like "BP%" AND lgort = 9300 AND CONCAT(lfgja,'-',lfmon,'-01') BETWEEN #{request.startTime} AND #{request.endTime}
+        union
+        SELECT 2 as type,ifnull(SUM(DMBTR),0) as rate FROM `esc_rds_brs_bd_cc_019_ndztkcjetj`
+        where werks like "BP%" AND lgort = 9300 AND year(#{request.startTime}) -1 =lfgja  and lfmon =month(#{request.startTime})
+    </select>
+<!--    专业仓活跃度-->
+    <select id="selectStorage005" resultType="java.util.LinkedHashMap">
+        SELECT  1 as type,ifnull(fenzi /FENMU,-2) as rate
+        from ( SELECT count( distinct lgort) fenzi  from esc_rds_brs_bd_zyc_003_zyccrkcx
+        where  cjrq BETWEEN #{request.startTime} AND #{request.endTime} ) A
+        ,
+        (select count(lgort) FENMU  from esc_rds_brs_bd_zyc_001_zycxxcx) B
+        UNION
+        SELECT 2 as type,ifnull(fenzi /FENMU,-2) as rate
+        from ( SELECT count( distinct lgort) fenzi  from esc_rds_brs_bd_zyc_003_zyccrkcx
+        where  cjrq BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime} ) A
+        ,
+        (select count(lgort) FENMU  from esc_rds_brs_bd_zyc_001_zycxxcx) B
+    </select>
+<!--    平衡利库-平衡利库执行完成率-->
+    <select id="selectBalance001" resultType="java.util.LinkedHashMap">
+
+
+        SELECT
+        ifnull(fenzi / fenmu ,-2) rate , 1 type
+        FROM
+        ( SELECT
+        fenzi1 + fenzi2 fenzi
+        FROM ( SELECT
+        ifnull( sum( PCKCDJ * ZLKSL ),0 ) fenzi1
+        FROM
+        ads_mat_esc_jh_phlkqktj
+        WHERE MBLNR != ''  AND ZDBWCRQ != ''  AND ZLKLX = '跨单位利库'  AND ZSQDCJRQ BETWEEN #{request.accStartTime}  AND DATE_ADD(#{request.startTime},INTERVAL -1 day)   AND ZDBWCRQ BETWEEN #{request.accStartTime}  AND #{request.accEndTime}
+        ) a,
+        ( SELECT ifnull(sum( price ) ,0)fenzi2
+        FROM ads_mat_esc_jh_wzdbqktj
+        WHERE Cargo_status = 'ES000032'  AND deploy_type = '跨单位调配' AND datte1 BETWEEN #{request.accStartTime}  AND DATE_ADD(#{request.startTime},INTERVAL -1 day)  AND datte2 BETWEEN #{request.accStartTime} AND #{request.accEndTime}  ) b
+        ) fenzi,
+        ( SELECT fenmu1 + fenmu2 fenmu
+        FROM ( SELECT ifnull(sum( PCKCDJ * ZLKSL ),0) fenmu1 FROM ads_mat_esc_jh_phlkqktj WHERE ZLKLX = '跨单位利库' AND ZSQDCJRQ BETWEEN #{request.accStartTime} AND DATE_ADD(#{request.startTime},INTERVAL -1 day) ) a,
+        ( SELECT ifnull( sum( price ), 0 ) fenmu2 FROM ads_mat_esc_jh_wzdbqktj WHERE deploy_type = '跨单位调配' AND datte1 BETWEEN #{request.accStartTime} AND DATE_ADD(#{request.startTime},INTERVAL -1 day) ) b
+        ) fenmu
+        union
+        SELECT
+        ifnull(fenzi / fenmu ,-2) rate , 2 type
+        FROM
+        ( SELECT
+        fenzi1 + fenzi2 fenzi
+        FROM ( SELECT
+        ifnull( sum( PCKCDJ * ZLKSL ),0 ) fenzi1
+        FROM
+        ads_mat_esc_jh_phlkqktj
+        WHERE MBLNR != ''  AND ZDBWCRQ != ''  AND ZLKLX = '跨单位利库'  AND ZSQDCJRQ BETWEEN #{request.accLastStartTime}  AND DATE_ADD(#{request.lastStartTime},INTERVAL -1 day)   AND ZDBWCRQ BETWEEN #{request.accLastStartTime}  AND #{request.accLastEndTime}
+        ) a,
+        ( SELECT ifnull(sum( price ) ,0)fenzi2
+        FROM ads_mat_esc_jh_wzdbqktj
+        WHERE Cargo_status = 'ES000032'  AND deploy_type = '跨单位调配' AND datte1 BETWEEN #{request.accLastStartTime}  AND DATE_ADD(#{request.lastStartTime},INTERVAL -1 day)  AND datte2 BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}  ) b
+        ) fenzi,
+        ( SELECT fenmu1 + fenmu2 fenmu
+        FROM ( SELECT ifnull(sum( PCKCDJ * ZLKSL ),0) fenmu1 FROM ads_mat_esc_jh_phlkqktj WHERE ZLKLX = '跨单位利库' AND ZSQDCJRQ BETWEEN #{request.accLastStartTime} AND DATE_ADD(#{request.lastStartTime},INTERVAL -1 day) ) a,
+        ( SELECT ifnull( sum( price ), 0 ) fenmu2 FROM ads_mat_esc_jh_wzdbqktj WHERE deploy_type = '跨单位调配' AND datte1 BETWEEN #{request.accLastStartTime} AND DATE_ADD(#{request.lastStartTime},INTERVAL -1 day) ) b
+        ) fenmu
+
+
+
+
+
+
+
+<!--        SELECT-->
+<!--        1 as type, ifnull(fenzi / fenmu,-2)  rate-->
+<!--        FROM-->
+<!--        ( SELECT-->
+<!--        fenzi1 + fenzi2 fenzi-->
+<!--        FROM ( SELECT-->
+<!--        ifnull( sum( PCKCDJ * ZLKSL ),0 ) fenzi1-->
+<!--        FROM-->
+<!--        ads_mat_esc_jh_phlkqktj-->
+<!--        WHERE MBLNR != ''  AND ZDBWCRQ != ''  AND ZLKLX = '跨单位利库'-->
+<!--        AND ZSQDCJRQ BETWEEN #{request.accStartTime}  AND date_add(#{request.accEndTime},INTERVAL -1 month)  AND ZDBWCRQ BETWEEN #{request.accStartTime}  AND   #{request.accEndTime}-->
+
+<!--        ) a,-->
+<!--        ( SELECT ifnull(sum( price ),0) fenzi2-->
+<!--        FROM ads_mat_esc_jh_wzdbqktj-->
+<!--        WHERE Cargo_status = 'ES000032'  AND deploy_type = '跨单位调配' AND datte1 BETWEEN #{request.accStartTime}  AND date_add(#{request.accEndTime},INTERVAL -1 month)  AND datte2 BETWEEN #{request.accStartTime}  AND   #{request.accEndTime}   ) b-->
+<!--        ) fenzi,-->
+<!--        ( SELECT fenmu1 + fenmu2 fenmu-->
+<!--        FROM ( SELECT sum( PCKCDJ * ZLKSL ) fenmu1 FROM ads_mat_esc_jh_phlkqktj WHERE ZLKLX = '跨单位利库' AND ZSQDCJRQ BETWEEN #{request.accStartTime}  AND date_add(#{request.accEndTime},INTERVAL -1 month) ) a,-->
+<!--        ( SELECT ifnull( sum( price ),0 ) fenmu2 FROM ads_mat_esc_jh_wzdbqktj WHERE deploy_type = '跨单位调配' AND datte1 BETWEEN #{request.accStartTime}  AND date_add(#{request.accEndTime},INTERVAL -1 month) ) b-->
+<!--        ) fenmu-->
+<!-- UNION-->
+<!--        SELECT-->
+<!--        2 as type, ifnull(fenzi / fenmu,-2)  rate-->
+<!--        FROM-->
+<!--        ( SELECT-->
+<!--        fenzi1 + fenzi2 fenzi-->
+<!--        FROM ( SELECT-->
+<!--        ifnull( sum( PCKCDJ * ZLKSL ),0 ) fenzi1-->
+<!--        FROM-->
+<!--        ads_mat_esc_jh_phlkqktj-->
+<!--        WHERE MBLNR != ''  AND ZDBWCRQ != ''  AND ZLKLX = '跨单位利库'-->
+<!--        AND ZSQDCJRQ BETWEEN #{request.accLastStartTime}  AND date_add(#{request.accLastEndTime},INTERVAL -1 month)  AND ZDBWCRQ BETWEEN #{request.accLastStartTime}  AND   #{request.accLastEndTime}-->
+
+<!--        ) a,-->
+<!--        ( SELECT ifnull(sum( price ),0) fenzi2-->
+<!--        FROM ads_mat_esc_jh_wzdbqktj-->
+<!--        WHERE Cargo_status = 'ES000032'  AND deploy_type = '跨单位调配' AND datte1 BETWEEN #{request.accLastStartTime}  AND date_add(#{request.accLastEndTime},INTERVAL -1 month)  AND datte2 BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime} ) b-->
+<!--        ) fenzi,-->
+<!--        ( SELECT fenmu1 + fenmu2 fenmu-->
+<!--        FROM ( SELECT sum( PCKCDJ * ZLKSL ) fenmu1 FROM ads_mat_esc_jh_phlkqktj WHERE ZLKLX = '跨单位利库' AND ZSQDCJRQ BETWEEN #{request.accLastStartTime} AND date_add(#{request.accLastEndTime},INTERVAL -1 month) ) a,-->
+<!--        ( SELECT ifnull( sum( price ),0 ) fenmu2 FROM ads_mat_esc_jh_wzdbqktj WHERE deploy_type = '跨单位调配' AND datte1 BETWEEN #{request.accLastStartTime} AND date_add(#{request.accLastEndTime},INTERVAL -1 month) ) b-->
+<!--        ) fenmu-->
+ 
+    </select>
+
+<!--    废旧物资-报废处置溢价率-->
+    <select id="selectWaste001" resultType="java.util.LinkedHashMap">
+        select 1 as type,coalesce((sum(hammer_price) - sum(base_price)) / sum(base_price), -2) as rate from esc_rds_brs_bd_fj_001_fjwzczqktj_002
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                reply_date BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+                AND reply_date &lt;= #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        select 2 as type,coalesce((sum(hammer_price) - sum(base_price)) / sum(base_price), -2) as rate from esc_rds_brs_bd_fj_001_fjwzczqktj_002
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                reply_date BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+                AND reply_date &lt;= #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+<!--    废旧物资-报废处置流标率-->
+    <select id="selectWaste002" resultType="java.util.LinkedHashMap">
+        select 1 as type ,coalesce((count(distinct bidpkg, bat_code) / (select count(distinct bidpkg, bat_code)
+        from esc_rds_brs_bd_fj_001_fjwzczqktj_001
+        where reply_date BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+        AND reply_date &lt;= #{request.accEndTime}
+        and bid_status != '竞价未开始')),-2) as rate
+        from esc_rds_brs_bd_fj_001_fjwzczqktj_001
+        <where>
+            and bid_status = '已流标'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND reply_date BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+                AND reply_date &lt;= #{request.accEndTime}
+            </if>
+        </where>
+       UNION
+        select 2 as type ,coalesce((count(distinct bidpkg, bat_code) / (select count(distinct bidpkg, bat_code)
+        from esc_rds_brs_bd_fj_001_fjwzczqktj_001
+        where
+        reply_date BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+        AND reply_date &lt;= #{request.accLastEndTime}
+        and bid_status != '竞价未开始')),-2) as rate
+        from esc_rds_brs_bd_fj_001_fjwzczqktj_001
+        <where>
+            and bid_status = '已流标'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND reply_date BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+                AND reply_date &lt;= #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+<!--质量监督-抽检合格率-->
+    <select id="selectSupervision001" resultType="java.util.LinkedHashMap">
+
+        select 1 as type,(ifnull(sum(zyjsl), -2) - ifnull(sum(zbhgsl), -2)) / ifnull(sum(zyjsl),-2) as rate from esc_rds_brs_bd_zljd_cj_020_cjhglfx
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        select 2 as type,(ifnull(sum(zyjsl), -2) - ifnull(sum(zbhgsl), -2)) / ifnull(sum(zyjsl), -2) as rate from esc_rds_brs_bd_zljd_cj_020_cjhglfx
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+<!--质量监督-非电网零星物资人工评价率 -->
+    <select id="selectSupervision002" resultType="java.util.LinkedHashMap">
+        select 1 as type,sum(ypjddsl)/(sum(ypjddsl)+sum(dpj)) as rate from ads_mat_esc_rgpjl
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                date_format(drsj, '%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        select 2 as type,sum(ypjddsl)/(sum(ypjddsl)+sum(dpj)) as rate from ads_mat_esc_rgpjl
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                date_format(drsj, '%Y-%m-%d') BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+<!--质量监督-平均抽检总时长-->
+    <select id="selectSupervision003" resultType="java.util.LinkedHashMap">
+        select 1 as type ,sum((to_days(zjcwcsj) - to_days(zrwxdsj))) / count(1) rate
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        select 2 as type ,sum((to_days(zjcwcsj) - to_days(zrwxdsj))) / count(1) rate
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+<!--质量监督-平均取样时长-->
+    <select id="selectSupervision004" resultType="java.util.LinkedHashMap">
+        select 1 as type ,ifnull(sum(DATEDIFF(zqyrq, zrwxdsj)) / count(1), -2) rate
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        select 2 as type ,ifnull(sum(DATEDIFF(zqyrq, zrwxdsj)) / count(1), -2) rate
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+
+<!--质量监督-平均检测时长-->
+    <select id="selectSupervision005" resultType="java.util.LinkedHashMap">
+        select 1 as type ,ifnull(sum(DATEDIFF(zqyrq, zrwxdsj)) / count(1), -2) rate
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        <where>
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        select 2 as type ,ifnull(sum(DATEDIFF(zqyrq, zrwxdsj)) / count(1), -2) rate
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        <where>
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+<!--A类任务平均抽检总时长-->
+    <select id="selectSupervision006" resultType="java.util.LinkedHashMap">
+        select 1 as type ,ifnull(sum((to_days(zjcwcsj) - to_days(zrwxdsj))) / count(1), -2) rate
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        <where>
+            zcjgg = 'A类'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+               AND date_format(date_format(zsjwcsj, '%Y-%m-%d'), '%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        select 2 as type ,ifnull(sum((to_days(zjcwcsj) - to_days(zrwxdsj))) / count(1), -2) rate
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        <where>
+            zcjgg = 'A类'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+               AND date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+<!--B类任务平均抽检总时长-->
+    <select id="selectSupervision007" resultType="java.util.LinkedHashMap">
+        select 1 as type ,ifnull(sum((to_days(zjcwcsj) - to_days(zrwxdsj))) / count(1), -2) rate
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        <where>
+            zcjgg = 'B类'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        select 2 as type ,ifnull(sum((to_days(zjcwcsj) - to_days(zrwxdsj))) / count(1), -2) rate
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        <where>
+            zcjgg = 'B类'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+<!--C类任务平均抽检总时长-->
+    <select id="selectSupervision008" resultType="java.util.LinkedHashMap">
+        select 1 as type ,ifnull(sum((to_days(zjcwcsj) - to_days(zrwxdsj))) / count(1), -2) rate
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        <where>
+            zcjgg = 'C类'
+            <if test="request.accStartTime != null and request.accStartTime !='' and request.accEndTime != null and request.accEndTime !=''">
+                AND date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+            </if>
+        </where>
+        UNION
+        select 2 as type ,ifnull(sum((to_days(zjcwcsj) - to_days(zrwxdsj))) / count(1), -2) rate
+        from esc_rds_brs_bd_zljd_cj_022_cjzqjkfx
+        <where>
+            zcjgg = 'C类'
+            <if test="request.accLastStartTime != null and request.accLastStartTime !='' and request.accLastEndTime != null and request.accLastEndTime !=''">
+                AND date_format(zsjwcsj, '%Y-%m-%d') BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+            </if>
+        </where>
+    </select>
+<!--    合同履约-ELP监控里程准确率-->
+    <select id="selectExercise008" resultType="java.util.LinkedHashMap">
+        SELECT 1 as type,ifnull(a/b,-2) rate FROM (SELECT
+        (
+        SELECT
+        COUNT(1)
+        FROM ADS_MAT_ESC_BD_ELPYSJK_NEW
+        WHERE
+        0.8 &lt; JHYSLC/SJYSLC
+        AND JHYSLC/SJYSLC &lt; 1.2
+        AND ( YSZT = '已收货'OR'已到货')
+        AND  SJDHSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+        )a,
+        (SELECT
+        COUNT(1)
+        FROM ADS_MAT_ESC_BD_ELPYSJK_NEW
+        WHERE( YSZT = '已收货'OR'已到货')
+        AND SJDHSJ BETWEEN #{request.accStartTime} AND #{request.accEndTime}
+        )b ) NEW
+        UNION
+        select 2 as type ,ifnull(a/b,-2) rate FROM (SELECT
+        (
+        SELECT
+        COUNT(1)
+        FROM ADS_MAT_ESC_BD_ELPYSJK_NEW
+        WHERE
+        0.8 &lt; JHYSLC/SJYSLC
+        AND JHYSLC/SJYSLC &lt; 1.2
+        AND ( YSZT = '已收货'OR'已到货')
+        AND  SJDHSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+        )a,
+        (SELECT
+        COUNT(1)
+        FROM ADS_MAT_ESC_BD_ELPYSJK_NEW
+        WHERE( YSZT = '已收货'OR'已到货')
+        AND SJDHSJ BETWEEN #{request.accLastStartTime} AND #{request.accLastEndTime}
+        )b ) NEW
+    </select>
+
+
+</mapper>
